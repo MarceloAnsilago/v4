@@ -33,7 +33,7 @@
             </div>
         </aside>
 
-        <main class="main-panel">
+        <main class="main-panel with-preview-rail">
             <header class="topbar">
                 <div>
                     <p class="page-overline">Arquivo base</p>
@@ -66,7 +66,7 @@
                 </div>
             </section>
 
-            <section class="form-layout compact-layout">
+            <section class="form-layout compact-layout single-main-column">
                 <article class="panel">
                     <div class="panel-header">
                         <div>
@@ -106,24 +106,6 @@
                         <div class="button-row">
                             <button type="submit" class="primary-button">Atualizar preview</button>
                         </div>
-                    </form>
-                </article>
-
-                <article class="panel">
-                    <div class="panel-header">
-                        <div>
-                            <h3>Preview do arquivo .set</h3>
-                            <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
-                        </div>
-                    </div>
-
-                    <div class="preview-block">{{ set_content }}</div>
-
-                    <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
-                        {% for field in fields %}
-                        <input type="hidden" name="{{ field.name }}" value="{{ values[field.name] }}">
-                        {% endfor %}
-                        <button type="submit" class="primary-button">Baixar .set</button>
                     </form>
                 </article>
             </section>
@@ -172,6 +154,26 @@
                 </article>
             </section>
         </main>
+
+        <aside class="preview-rail">
+            <article class="panel preview-rail-panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Preview do arquivo .set</h3>
+                        <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
+                    </div>
+                </div>
+
+                <div class="preview-block">{{ set_content }}</div>
+
+                <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                    {% for field in fields %}
+                    <input type="hidden" name="{{ field.name }}" value="{{ values[field.name] }}">
+                    {% endfor %}
+                    <button type="submit" class="primary-button">Baixar .set</button>
+                </form>
+            </article>
+        </aside>
     </div>
 </body>
 </html>
