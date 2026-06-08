@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+flask
+pydantic
+pydantic-settings
+pandas
+openpyxl
+jinja2
+python-multipart
+orjson
+httpx
+pytest

@@ -1,0 +1,3 @@
+cd D:\driver\Documentos\GeraSet
+.venv\Scripts\Activate.ps1
+python app.py

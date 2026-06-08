@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraSet - Grupo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="group-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">GS</div>
+                    <div>
+                        <p class="brand-overline">Workspace</p>
+                        <h1>GeraSet</h1>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="nav-item" href="{{ url_for('index') }}">Home</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_1') }}">Grupo 1</a>
+                    <a class="nav-item" href="#">Parametros</a>
+                    <a class="nav-item" href="#">Exportacoes</a>
+                    <a class="nav-item" href="#">Historico</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="muted">Pagina baseada no grupo `PARAMETRIZACAO INICIAL` do `1.mq5`.</p>
+                <a class="secondary-button button-link" href="{{ url_for('index') }}">Voltar ao dashboard</a>
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="page-overline">Arquivo base</p>
+                    <h2>Grupo 1 - Parametrizacao Inicial</h2>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="workspace-chip">
+                        <span class="chip-dot"></span>
+                        `Experts/Construtor/1.mq5`
+                    </div>
+                    <span class="topbar-note">
+                        {% if started %}
+                        Preview atualizado
+                        {% else %}
+                        Valores padrao do EA
+                        {% endif %}
+                    </span>
+                </div>
+            </header>
+
+            <section class="panel group-summary">
+                <div class="summary-main">
+                    <strong>Primeiro bloco de parametros do EA</strong>
+                    <p>Edite os campos, gere o preview e exporte o `.set` sem navegar por outras telas.</p>
+                </div>
+                <div class="summary-meta">
+                    <span>4 parametros</span>
+                    <span>{% if started %}Alterado manualmente{% else %}Valores iniciais{% endif %}</span>
+                </div>
+            </section>
+
+            <section class="form-layout compact-layout">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Parametros</h3>
+                            <p class="panel-subtitle">Configuracao principal do grupo.</p>
+                        </div>
+                    </div>
+
+                    <form method="post" class="quick-form">
+                        {% for field in fields %}
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                                <span class="field-help">{{ field.name }} - {{ field.help }}</span>
+                            </div>
+                            <div class="form-row-control">
+                                {% if field.kind == "select" %}
+                                <select id="{{ field.name }}" name="{{ field.name }}">
+                                    {% for option_value, option_label in field.options %}
+                                    <option value="{{ option_value }}" {% if values[field.name] == option_value %}selected{% endif %}>
+                                        {{ option_label }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                {% else %}
+                                <input
+                                    id="{{ field.name }}"
+                                    type="{{ field.input_type }}"
+                                    name="{{ field.name }}"
+                                    value="{{ values[field.name] }}"
+                                >
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="button-row">
+                            <button type="submit" class="primary-button">Atualizar preview</button>
+                        </div>
+                    </form>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Preview do arquivo .set</h3>
+                            <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
+                        </div>
+                    </div>
+
+                    <div class="preview-block">{{ set_content }}</div>
+
+                    <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                        {% for field in fields %}
+                        <input type="hidden" name="{{ field.name }}" value="{{ values[field.name] }}">
+                        {% endfor %}
+                        <button type="submit" class="primary-button">Baixar .set</button>
+                    </form>
+                </article>
+            </section>
+
+            <section class="table-grid single-column">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Mapeamento do primeiro grupo</h3>
+                            <p class="panel-subtitle">Relacao entre nome interno, comentario e valor atual.</p>
+                        </div>
+                        <span class="panel-note">Extraido do EA</span>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Parametro</th>
+                                <th>Comentario no MQ5</th>
+                                <th>Valor atual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>m_magic</td>
+                                <td>Magic Number (ID)</td>
+                                <td>{{ values["m_magic"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>m_processo</td>
+                                <td>Modo de processamento</td>
+                                <td>{{ values["m_processo"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>m_mercado</td>
+                                <td>Tipo de mercado</td>
+                                <td>{{ values["m_mercado"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>m_validade</td>
+                                <td>Modo operacional</td>
+                                <td>{{ values["m_validade"] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
