@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Publicar no GitHub",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                "$branch = git rev-parse --abbrev-ref HEAD; git add .; git diff --cached --quiet; if ($LASTEXITCODE -eq 0) { Write-Host 'Sem alteracoes para enviar.'; exit 0 }; $message = '${input:commitMessage}'; if ([string]::IsNullOrWhiteSpace($message)) { $message = 'update' }; git commit -m $message; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git push origin $branch"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "commitMessage",
+            "type": "promptString",
+            "description": "Mensagem do commit",
+            "default": "update"
+        }
+    ]
+}
