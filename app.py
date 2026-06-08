@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, redirect, render_template, request, url_for
 
 
 GROUP_1_FIELDS = [
@@ -71,7 +71,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("grupo_1"))
 
 
 @app.route("/grupo-1", methods=["GET", "POST"])
