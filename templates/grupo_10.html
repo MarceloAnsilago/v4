@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeraSet - Grupo 9</title>
+    <title>GeraSet - Grupo 10</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="group-page">
@@ -28,14 +28,14 @@
                     <a class="nav-item" href="{{ url_for('grupo_6', robot=robot_name, m_tp=group_6_values['m_tp'], m_tp_be=group_6_values['m_tp_be'], m_tp_be_dis=group_6_values['m_tp_be_dis'], m_tp_ts=group_6_values['m_tp_ts'], m_tp_ts_step=group_6_values['m_tp_ts_step']) }}">Take Profit</a>
                     <a class="nav-item" href="{{ url_for('grupo_7', robot=robot_name, m_temporal_ref=group_7_values['m_temporal_ref'], m_temporal_pos_time=group_7_values['m_temporal_pos_time'], m_temporal_pos_max=group_7_values['m_temporal_pos_max'], m_temporal_pos_min=group_7_values['m_temporal_pos_min'], m_temporal_neg_time=group_7_values['m_temporal_neg_time'], m_temporal_neg_max=group_7_values['m_temporal_neg_max'], m_temporal_neg_min=group_7_values['m_temporal_neg_min']) }}">Saida temporal</a>
                     <a class="nav-item" href="{{ url_for('grupo_8', robot=robot_name, m_espera_ref=group_8_values['m_espera_ref'], m_espera_in=group_8_values['m_espera_in'], m_espera_out=group_8_values['m_espera_out']) }}">Filtro de tempo</a>
-                    <a class="nav-item active" href="{{ url_for('grupo_9', robot=robot_name, m_zerar=values['m_zerar'], m_hr_inicio=values['m_hr_inicio'], m_min_inicio=values['m_min_inicio'], m_hr_final=values['m_hr_final'], m_min_final=values['m_min_final'], m_hr_zerar=values['m_hr_zerar'], m_min_zerar=values['m_min_zerar']) }}">Horarios</a>
-                    <a class="nav-item" href="{{ url_for('grupo_10', robot=robot_name, m_zerar=values['m_zerar'], m_hr_inicio=values['m_hr_inicio'], m_min_inicio=values['m_min_inicio'], m_hr_final=values['m_hr_final'], m_min_final=values['m_min_final'], m_hr_zerar=values['m_hr_zerar'], m_min_zerar=values['m_min_zerar'], m_pausa_ref=group_10_values['m_pausa_ref'], m_pausa_1_hr=group_10_values['m_pausa_1_hr'], m_pausa_1_min=group_10_values['m_pausa_1_min'], m_pausa_1_dia=group_10_values['m_pausa_1_dia'], m_pausa_1_tempo=group_10_values['m_pausa_1_tempo'], m_pausa_2_hr=group_10_values['m_pausa_2_hr'], m_pausa_2_min=group_10_values['m_pausa_2_min'], m_pausa_2_dia=group_10_values['m_pausa_2_dia'], m_pausa_2_tempo=group_10_values['m_pausa_2_tempo']) }}">Pausas operacionais</a>
+                    <a class="nav-item" href="{{ url_for('grupo_9', robot=robot_name, m_zerar=group_9_values['m_zerar'], m_hr_inicio=group_9_values['m_hr_inicio'], m_min_inicio=group_9_values['m_min_inicio'], m_hr_final=group_9_values['m_hr_final'], m_min_final=group_9_values['m_min_final'], m_hr_zerar=group_9_values['m_hr_zerar'], m_min_zerar=group_9_values['m_min_zerar']) }}">Horarios</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_10', robot=robot_name, m_pausa_ref=values['m_pausa_ref'], m_pausa_1_hr=values['m_pausa_1_hr'], m_pausa_1_min=values['m_pausa_1_min'], m_pausa_1_dia=values['m_pausa_1_dia'], m_pausa_1_tempo=values['m_pausa_1_tempo'], m_pausa_2_hr=values['m_pausa_2_hr'], m_pausa_2_min=values['m_pausa_2_min'], m_pausa_2_dia=values['m_pausa_2_dia'], m_pausa_2_tempo=values['m_pausa_2_tempo']) }}">Pausas operacionais</a>
                     <a class="nav-item" href="#">Historico</a>
                 </nav>
             </div>
 
             <div class="sidebar-footer">
-                <p class="muted">Pagina baseada no grupo `HORARIOS` do `1.mq5`.</p>
+                <p class="muted">Pagina baseada no grupo `PAUSAS OPERACIONAIS` do `1.mq5`.</p>
             </div>
         </aside>
 
@@ -43,7 +43,7 @@
             <header class="topbar">
                 <div>
                     <p class="page-overline">Arquivo base</p>
-                    <h2>Grupo 9 - Horarios</h2>
+                    <h2>Grupo 10 - Pausas operacionais</h2>
                     <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
                 </div>
 
@@ -60,12 +60,12 @@
 
             <section class="panel group-summary">
                 <div class="summary-main">
-                    <strong>Horarios</strong>
-                    <p>Gerencie seu horario operacional e a zeragem por horario.</p>
+                    <strong>Pausas operacionais</strong>
+                    <p>Selecione os dados para identificacao dos criterios das pausas durante a procura de sinal de entrada.</p>
                 </div>
                 <div class="summary-meta">
-                    <span>7 parametros</span>
-                    <span>Horario operacional</span>
+                    <span>9 parametros</span>
+                    <span>Pausas por horario</span>
                 </div>
             </section>
 
@@ -73,12 +73,12 @@
                 <article class="panel">
                     <div class="panel-header">
                         <div>
-                            <h3>Horarios</h3>
-                            <p class="panel-subtitle">Campos baseados no bloco operacional de horarios do EA.</p>
+                            <h3>Pausas operacionais</h3>
+                            <p class="panel-subtitle">Campos baseados no bloco de pausas do EA, com duas janelas independentes.</p>
                         </div>
                     </div>
 
-                    <form method="post" action="{{ url_for('grupo_10') }}" class="quick-form" id="grupo9-form">
+                    <form method="post" action="{{ url_for('grupo_10') }}" class="quick-form" id="grupo10-form">
                         {% for field_name, field_value in group_1_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_2_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_3_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
@@ -87,84 +87,105 @@
                         {% for field_name, field_value in group_6_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_7_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_8_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                        {% for field_name, field_value in group_10_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
+                        {% for field_name, field_value in group_9_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         <input type="hidden" name="robot" value="{{ robot_name }}">
 
                         <div class="form-note-row">
-                            <p>Gerencie seu horario operacional.</p>
+                            <p>As pausas sao aplicadas somente na procura de sinal de entrada.</p>
                         </div>
 
                         <div class="form-row compact-choice-row">
                             <div class="form-row-label">
-                                <label for="m_zerar">Deseja zerar por horario</label>
+                                <label for="m_pausa_ref">Referencia de tempo</label>
                             </div>
                             <div class="form-row-control">
-                                <select id="m_zerar" name="m_zerar">
+                                <select id="m_pausa_ref" name="m_pausa_ref">
                                     {% for option_value, option_label in fields[0].options %}
-                                    <option value="{{ option_value }}" {% if values["m_zerar"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                    <option value="{{ option_value }}" {% if values["m_pausa_ref"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-note-row">
-                            <p>Para operar independente de horario, basta deixar o horario inicial igual ao horario final.</p>
+                            <p>Configure ate duas pausas independentes, com horario, periodo e duracao.</p>
                         </div>
 
-                        <div class="orders-card" style="max-width: 720px; margin: 0 20px 20px;">
-                            <div class="order-line">
-                                <label for="m_hr_inicio">Horario inicial das operacoes</label>
-                                <div class="inline-control">
-                                    <select id="m_hr_inicio" name="m_hr_inicio">
-                                        {% for option_value, option_label in fields[1].options %}
-                                        <option value="{{ option_value }}" {% if values["m_hr_inicio"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <span>:</span>
-                                    <select id="m_min_inicio" name="m_min_inicio">
-                                        {% for option_value, option_label in fields[2].options %}
-                                        <option value="{{ option_value }}" {% if values["m_min_inicio"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                        {% endfor %}
-                                    </select>
+                        <div class="orders-grid">
+                            <section class="orders-card">
+                                <h4>Primeira pausa</h4>
+                                <div class="order-line">
+                                    <label for="m_pausa_1_hr">Pausa</label>
+                                    <div class="inline-control">
+                                        <select id="m_pausa_1_hr" name="m_pausa_1_hr">
+                                            {% for option_value, option_label in fields[1].options %}
+                                            <option value="{{ option_value }}" {% if values["m_pausa_1_hr"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span>:</span>
+                                        <select id="m_pausa_1_min" name="m_pausa_1_min">
+                                            {% for option_value, option_label in fields[2].options %}
+                                            <option value="{{ option_value }}" {% if values["m_pausa_1_min"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="order-line">
-                                <label for="m_hr_final">Horario final das operacoes</label>
-                                <div class="inline-control">
-                                    <select id="m_hr_final" name="m_hr_final">
+                                <div class="order-line">
+                                    <label for="m_pausa_1_dia">Periodo</label>
+                                    <select id="m_pausa_1_dia" name="m_pausa_1_dia">
                                         {% for option_value, option_label in fields[3].options %}
-                                        <option value="{{ option_value }}" {% if values["m_hr_final"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <span>:</span>
-                                    <select id="m_min_final" name="m_min_final">
-                                        {% for option_value, option_label in fields[4].options %}
-                                        <option value="{{ option_value }}" {% if values["m_min_final"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                        <option value="{{ option_value }}" {% if values["m_pausa_1_dia"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                            </div>
-                            <div class="order-line">
-                                <label for="m_hr_zerar">Horario de zerar as operacoes</label>
-                                <div class="inline-control">
-                                    <select id="m_hr_zerar" name="m_hr_zerar">
-                                        {% for option_value, option_label in fields[5].options %}
-                                        <option value="{{ option_value }}" {% if values["m_hr_zerar"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <span>:</span>
-                                    <select id="m_min_zerar" name="m_min_zerar">
-                                        {% for option_value, option_label in fields[6].options %}
-                                        <option value="{{ option_value }}" {% if values["m_min_zerar"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                <div class="order-line">
+                                    <label for="m_pausa_1_tempo">Duracao</label>
+                                    <div class="inline-control">
+                                        <input id="m_pausa_1_tempo" name="m_pausa_1_tempo" type="number" value="{{ values['m_pausa_1_tempo'] }}">
+                                        <span data-time-unit>(Segundos)</span>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="orders-card">
+                                <h4>Segunda pausa</h4>
+                                <div class="order-line">
+                                    <label for="m_pausa_2_hr">Pausa</label>
+                                    <div class="inline-control">
+                                        <select id="m_pausa_2_hr" name="m_pausa_2_hr">
+                                            {% for option_value, option_label in fields[5].options %}
+                                            <option value="{{ option_value }}" {% if values["m_pausa_2_hr"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span>:</span>
+                                        <select id="m_pausa_2_min" name="m_pausa_2_min">
+                                            {% for option_value, option_label in fields[6].options %}
+                                            <option value="{{ option_value }}" {% if values["m_pausa_2_min"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="order-line">
+                                    <label for="m_pausa_2_dia">Periodo</label>
+                                    <select id="m_pausa_2_dia" name="m_pausa_2_dia">
+                                        {% for option_value, option_label in fields[7].options %}
+                                        <option value="{{ option_value }}" {% if values["m_pausa_2_dia"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                            </div>
+                                <div class="order-line">
+                                    <label for="m_pausa_2_tempo">Duracao</label>
+                                    <div class="inline-control">
+                                        <input id="m_pausa_2_tempo" name="m_pausa_2_tempo" type="number" value="{{ values['m_pausa_2_tempo'] }}">
+                                        <span data-time-unit>(Segundos)</span>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
 
                         <div class="button-row">
                             <button type="submit" class="primary-button">Salvar</button>
-                            <a class="secondary-button" href="{{ url_for('grupo_8', robot=robot_name, m_espera_ref=group_8_values['m_espera_ref'], m_espera_in=group_8_values['m_espera_in'], m_espera_out=group_8_values['m_espera_out']) }}">Voltar</a>
+                            <a class="secondary-button" href="{{ url_for('grupo_9', robot=robot_name, m_zerar=group_9_values['m_zerar'], m_hr_inicio=group_9_values['m_hr_inicio'], m_min_inicio=group_9_values['m_min_inicio'], m_hr_final=group_9_values['m_hr_final'], m_min_final=group_9_values['m_min_final'], m_hr_zerar=group_9_values['m_hr_zerar'], m_min_zerar=group_9_values['m_min_zerar']) }}">Voltar</a>
                         </div>
                     </form>
                 </article>
@@ -192,12 +213,29 @@
                     {% for field_name, field_value in group_6_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in group_7_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in group_8_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_10_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
+                    {% for field_name, field_value in group_9_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     <button type="submit" class="primary-button">Baixar .set</button>
                 </form>
             </article>
         </aside>
     </div>
+
+    <script>
+        (function () {
+            const select = document.getElementById('m_pausa_ref');
+            const labels = Array.from(document.querySelectorAll('[data-time-unit]'));
+            if (!select) return;
+
+            function refresh() {
+                const map = { es_s: '(Segundos)', es_m: '(Minutos)', es_h: '(Horas)', es_v: '(Velas)' };
+                const label = map[select.value] || '(Segundos)';
+                labels.forEach(function (node) { node.textContent = label; });
+            }
+
+            select.addEventListener('change', refresh);
+            refresh();
+        })();
+    </script>
 </body>
 </html>
