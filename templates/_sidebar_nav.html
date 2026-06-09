@@ -1,0 +1,128 @@
+<nav class="sidebar-nav">
+    <a class="nav-item {% if active_page == 'index' %}active{% endif %}" href="{{ url_for('index', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5 12 3l9 7.5"></path>
+                <path d="M5.5 9.5V21h13V9.5"></path>
+                <path d="M9.5 21v-6h5v6"></path>
+            </svg>
+        </span>
+        <span>Inicio</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_1' %}active{% endif %}" href="{{ url_for('grupo_1', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 4h12"></path>
+                <path d="M9 4v16"></path>
+                <path d="M14 9c0-1.7 1.3-3 3-3s3 1.3 3 3-1 2.4-2 3l-3 3h5"></path>
+            </svg>
+        </span>
+        <span>Param. inicial</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_2' %}active{% endif %}" href="{{ url_for('grupo_2', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                <path d="M8 9h8"></path>
+                <path d="M8 13h5"></path>
+            </svg>
+        </span>
+        <span>Config. adicional</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_3' %}active{% endif %}" href="{{ url_for('grupo_3', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 7h10"></path>
+                <path d="M7 12h10"></path>
+                <path d="M7 17h10"></path>
+                <path d="m14 5 3 2-3 2"></path>
+                <path d="m10 10-3 2 3 2"></path>
+                <path d="m14 15 3 2-3 2"></path>
+            </svg>
+        </span>
+        <span>Tipo de ordens</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_4' %}active{% endif %}" href="{{ url_for('grupo_4', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18"></path>
+                <path d="M5 8h6"></path>
+                <path d="M5 16h6"></path>
+                <path d="M13 6h6l-2.5 2.5"></path>
+                <path d="M13 18h6l-2.5-2.5"></path>
+            </svg>
+        </span>
+        <span>Alvos personalizados</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_5' %}active{% endif %}" href="{{ url_for('grupo_5', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v16"></path>
+                <path d="m8.5 8 3.5-4 3.5 4"></path>
+                <path d="M6 15h12"></path>
+            </svg>
+        </span>
+        <span>Stoploss</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_6' %}active{% endif %}" href="{{ url_for('grupo_6', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v16"></path>
+                <path d="m8.5 16 3.5 4 3.5-4"></path>
+                <path d="M6 9h12"></path>
+            </svg>
+        </span>
+        <span>Take Profit</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_7' %}active{% endif %}" href="{{ url_for('grupo_7', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M12 7v5l3 2"></path>
+            </svg>
+        </span>
+        <span>Saida temporal</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_8' %}active{% endif %}" href="{{ url_for('grupo_8', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M7 12h10"></path>
+                <path d="M10 18h4"></path>
+            </svg>
+        </span>
+        <span>Filtro de tempo</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_9' %}active{% endif %}" href="{{ url_for('grupo_9', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+                <path d="M8 3v4"></path>
+                <path d="M16 3v4"></path>
+                <path d="M4 10h16"></path>
+            </svg>
+        </span>
+        <span>Horarios</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_10' %}active{% endif %}" href="{{ url_for('grupo_10', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 5v14"></path>
+                <path d="M18 5v14"></path>
+                <path d="M6 9h12"></path>
+                <path d="M6 15h12"></path>
+                <path d="M12 9v6"></path>
+            </svg>
+        </span>
+        <span>Pausas operacionais</span>
+    </a>
+    <a class="nav-item {% if active_page == 'historico' %}active{% endif %}" href="#">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 5v14h14"></path>
+                <path d="M8 14l3-3 2 2 4-5"></path>
+            </svg>
+        </span>
+        <span>Historico</span>
+    </a>
+</nav>

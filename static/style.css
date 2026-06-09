@@ -41,6 +41,10 @@ a {
     padding: 24px 20px;
     background: var(--sidebar);
     border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .brand {
@@ -82,15 +86,43 @@ a {
 }
 
 .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 10px 14px;
     border-radius: 10px;
     color: var(--muted);
     font-weight: 600;
 }
 
+.nav-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    border: 1px solid rgba(147, 197, 253, 0.28);
+    background: rgba(37, 99, 235, 0.12);
+    color: #bfdbfe;
+    transition: inherit;
+}
+
+.nav-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
 .nav-item.active,
 .nav-item:hover {
     background: #eaf0f7;
+    color: var(--blue);
+}
+
+.nav-item.active .nav-icon,
+.nav-item:hover .nav-icon {
+    background: rgba(37, 99, 235, 0.18);
+    border-color: rgba(37, 99, 235, 0.3);
     color: var(--blue);
 }
 
