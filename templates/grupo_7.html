@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraSet - Grupo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="group-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">GS</div>
+                    <div>
+                        <p class="brand-overline">Workspace</p>
+                        <h1>GeraSet</h1>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="nav-item" href="{{ url_for('index', robot=robot_name) }}">Inicio</a>
+                    <a class="nav-item" href="{{ url_for('grupo_1', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread']) }}">Param. inicial</a>
+                    <a class="nav-item" href="{{ url_for('grupo_2', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread']) }}">Config. adicional</a>
+                    <a class="nav-item" href="{{ url_for('grupo_3', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell']) }}">Tipo de ordens</a>
+                    <a class="nav-item" href="{{ url_for('grupo_4', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell']) }}">Alvos personalizados</a>
+                    <a class="nav-item" href="{{ url_for('grupo_5', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=group_5_values['m_sl'], m_sl_be=group_5_values['m_sl_be'], m_sl_be_dis=group_5_values['m_sl_be_dis'], m_sl_ts=group_5_values['m_sl_ts'], m_sl_ts_step=group_5_values['m_sl_ts_step']) }}">Stoploss</a>
+                    <a class="nav-item" href="{{ url_for('grupo_6', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=group_5_values['m_sl'], m_sl_be=group_5_values['m_sl_be'], m_sl_be_dis=group_5_values['m_sl_be_dis'], m_sl_ts=group_5_values['m_sl_ts'], m_sl_ts_step=group_5_values['m_sl_ts_step'], m_tp=group_6_values['m_tp'], m_tp_be=group_6_values['m_tp_be'], m_tp_be_dis=group_6_values['m_tp_be_dis'], m_tp_ts=group_6_values['m_tp_ts'], m_tp_ts_step=group_6_values['m_tp_ts_step']) }}">Take Profit</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_7', robot=robot_name, m_temporal_ref=values['m_temporal_ref'], m_temporal_pos_time=values['m_temporal_pos_time'], m_temporal_pos_max=values['m_temporal_pos_max'], m_temporal_pos_min=values['m_temporal_pos_min'], m_temporal_neg_time=values['m_temporal_neg_time'], m_temporal_neg_max=values['m_temporal_neg_max'], m_temporal_neg_min=values['m_temporal_neg_min']) }}">Saida temporal</a>
+                    <a class="nav-item" href="#">Historico</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="muted">Pagina baseada no grupo `SAIDA TEMPORAL` do `1.mq5`.</p>
+            </div>
+        </aside>
+
+        <main class="main-panel with-preview-rail">
+            <header class="topbar">
+                <div>
+                    <p class="page-overline">Arquivo base</p>
+                    <h2>Grupo 7 - Saida temporal</h2>
+                    <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="workspace-chip">
+                        <span class="chip-dot"></span>
+                        `Experts/Construtor/1.mq5`
+                    </div>
+                    <span class="topbar-note">
+                        {% if started %}
+                        Preview atualizado
+                        {% else %}
+                        Valores padrao do EA
+                        {% endif %}
+                    </span>
+                </div>
+            </header>
+
+            <section class="panel group-summary">
+                <div class="summary-main">
+                    <strong>Saida temporal</strong>
+                    <p>Saida pelo tempo sem depender do stoploss e/ou takeprofit, com regras separadas para operacoes positivas e negativas.</p>
+                </div>
+                <div class="summary-meta">
+                    <span>7 parametros</span>
+                    <span>Tempo e saldo</span>
+                </div>
+            </section>
+
+            <section class="form-layout compact-layout single-main-column">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Saida temporal</h3>
+                            <p class="panel-subtitle">Referencia de tempo baseada no enum `e_tempo` do `1.mq5`.</p>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{{ url_for('grupo_7') }}" class="quick-form" id="grupo7-form">
+                        {% for field_name, field_value in group_1_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_2_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_3_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_4_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_5_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_6_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        <input type="hidden" name="robot" value="{{ robot_name }}">
+
+                        <div class="form-note-row">
+                            <p>Saida pelo tempo sem depender do stoploss e/ou takeprofit.</p>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_temporal_ref">Referencia de tempo</label>
+                            </div>
+                            <div class="form-row-control">
+                                <select id="m_temporal_ref" name="m_temporal_ref">
+                                    {% for option_value, option_label in fields[0].options %}
+                                    <option value="{{ option_value }}" {% if values["m_temporal_ref"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-note-row">
+                            <p>Pode configurar um tempo de saida tanto para operacoes positivas quanto para negativas.</p>
+                        </div>
+
+                        <div class="orders-grid">
+                            <section class="orders-card">
+                                <h4>Operacoes positivas</h4>
+                                <div class="order-line">
+                                    <label for="m_temporal_pos_time">Tempo de saida</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_pos_time" name="m_temporal_pos_time" type="number" value="{{ values['m_temporal_pos_time'] }}">
+                                        <span data-time-unit>(Segundos)</span>
+                                    </div>
+                                </div>
+                                <div class="order-line">
+                                    <label for="m_temporal_pos_max">Saldo maximo</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_pos_max" name="m_temporal_pos_max" type="number" value="{{ values['m_temporal_pos_max'] }}">
+                                        <span>(Financeiro)</span>
+                                    </div>
+                                </div>
+                                <div class="order-line">
+                                    <label for="m_temporal_pos_min">Saldo minimo</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_pos_min" name="m_temporal_pos_min" type="number" value="{{ values['m_temporal_pos_min'] }}">
+                                        <span>(Financeiro)</span>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="orders-card">
+                                <h4>Operacoes negativas</h4>
+                                <div class="order-line">
+                                    <label for="m_temporal_neg_time">Tempo de saida</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_neg_time" name="m_temporal_neg_time" type="number" value="{{ values['m_temporal_neg_time'] }}">
+                                        <span data-time-unit>(Segundos)</span>
+                                    </div>
+                                </div>
+                                <div class="order-line">
+                                    <label for="m_temporal_neg_max">Saldo maximo</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_neg_max" name="m_temporal_neg_max" type="number" value="{{ values['m_temporal_neg_max'] }}">
+                                        <span>(Financeiro)</span>
+                                    </div>
+                                </div>
+                                <div class="order-line">
+                                    <label for="m_temporal_neg_min">Saldo minimo</label>
+                                    <div class="inline-control">
+                                        <input id="m_temporal_neg_min" name="m_temporal_neg_min" type="number" value="{{ values['m_temporal_neg_min'] }}">
+                                        <span>(Financeiro)</span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="button-row">
+                            <button type="submit" class="primary-button">Salvar</button>
+                            <a class="secondary-button" href="{{ url_for('grupo_6', robot=robot_name, m_tp=group_6_values['m_tp'], m_tp_be=group_6_values['m_tp_be'], m_tp_be_dis=group_6_values['m_tp_be_dis'], m_tp_ts=group_6_values['m_tp_ts'], m_tp_ts_step=group_6_values['m_tp_ts_step']) }}">Voltar</a>
+                        </div>
+                    </form>
+                </article>
+            </section>
+        </main>
+
+        <aside class="preview-rail">
+            <article class="panel preview-rail-panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Preview do arquivo .set</h3>
+                        <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
+                    </div>
+                </div>
+
+                <div class="preview-block">{{ set_content }}</div>
+
+                <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                    <input type="hidden" name="robot" value="{{ robot_name }}">
+                    {% for field_name, field_value in group_1_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_2_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_3_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_4_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_5_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_6_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    <button type="submit" class="primary-button">Baixar .set</button>
+                </form>
+            </article>
+        </aside>
+    </div>
+
+    <script>
+        (function () {
+            const select = document.getElementById('m_temporal_ref');
+            const labels = Array.from(document.querySelectorAll('[data-time-unit]'));
+            if (!select) return;
+
+            function refresh() {
+                const map = {
+                    es_s: '(Segundos)',
+                    es_m: '(Minutos)',
+                    es_h: '(Horas)',
+                    es_v: '(Velas)'
+                };
+                const label = map[select.value] || '(Segundos)';
+                labels.forEach(function (node) {
+                    node.textContent = label;
+                });
+            }
+
+            select.addEventListener('change', refresh);
+            refresh();
+        })();
+    </script>
+</body>
+</html>
