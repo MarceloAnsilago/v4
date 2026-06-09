@@ -245,6 +245,10 @@ def build_group_3_values(form_data=None):
     return values
 
 
+def sanitize_calc_mode(raw_value):
+    return raw_value if raw_value in ("pts", "pct") else "pts"
+
+
 def build_set_content(group_1_values, group_2_values, group_3_values, setup_name: str):
     return "\n".join(
         [
@@ -368,6 +372,7 @@ def grupo_3():
     group_1_values = build_group_1_values(source_data)
     group_2_values = build_group_2_values(source_data)
     group_3_values = build_group_3_values(source_data)
+    calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
     set_content = build_set_content(group_1_values, group_2_values, group_3_values, robot_name)
     started = request.method == "POST"
     return render_template(
@@ -376,6 +381,7 @@ def grupo_3():
         group_2_values=group_2_values,
         fields=GROUP_3_FIELDS,
         values=group_3_values,
+        calc_mode=calc_mode,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
