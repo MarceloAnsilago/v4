@@ -62,10 +62,11 @@ def build_group_1_values(form_data=None):
     return values
 
 
-def build_group_1_set_content(values):
+def build_group_1_set_content(values, setup_name: str):
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
+            f"m_set={setup_name}",
             f"m_magic={values['m_magic']}",
             f"m_processo={values['m_processo']}",
             f"m_mercado={values['m_mercado']}",
@@ -81,7 +82,7 @@ app = Flask(__name__)
 def index():
     robot_name = sanitize_robot_name(request.args.get("robot"))
     values = build_group_1_values()
-    set_content = build_group_1_set_content(values)
+    set_content = build_group_1_set_content(values, robot_name)
     return render_template("index.html", robot_name=robot_name, values=values, set_content=set_content)
 
 
@@ -95,7 +96,7 @@ def iniciar():
 def grupo_1():
     robot_name = sanitize_robot_name(request.values.get("robot"))
     values = build_group_1_values(request.form if request.method == "POST" else None)
-    set_content = build_group_1_set_content(values)
+    set_content = build_group_1_set_content(values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_1.html",
@@ -110,8 +111,8 @@ def grupo_1():
 @app.route("/grupo-1/download", methods=["POST"])
 def grupo_1_download():
     values = build_group_1_values(request.form)
-    set_content = build_group_1_set_content(values)
     robot_name = sanitize_robot_name(request.form.get("robot"))
+    set_content = build_group_1_set_content(values, robot_name)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
