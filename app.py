@@ -138,6 +138,9 @@ TIME_OPTIONS = [
     ("es_v", "Velas"),
 ]
 
+HOUR_OPTIONS = [(str(hour), f"{hour:02d}") for hour in range(24)]
+MINUTE_OPTIONS = [(str(minute), f"{minute:02d}") for minute in range(60)]
+
 GROUP_3_FIELDS = [
     {
         "name": "m_pendente_in",
@@ -422,6 +425,58 @@ GROUP_8_FIELDS = [
     },
 ]
 
+GROUP_9_FIELDS = [
+    {
+        "name": "m_zerar",
+        "label": "Deseja zerar por horario",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_hr_inicio",
+        "label": "Horario inicial das operacoes",
+        "kind": "select",
+        "default": "9",
+        "options": HOUR_OPTIONS,
+    },
+    {
+        "name": "m_min_inicio",
+        "label": "Minuto inicial das operacoes",
+        "kind": "select",
+        "default": "33",
+        "options": MINUTE_OPTIONS,
+    },
+    {
+        "name": "m_hr_final",
+        "label": "Horario final das operacoes",
+        "kind": "select",
+        "default": "16",
+        "options": HOUR_OPTIONS,
+    },
+    {
+        "name": "m_min_final",
+        "label": "Minuto final das operacoes",
+        "kind": "select",
+        "default": "30",
+        "options": MINUTE_OPTIONS,
+    },
+    {
+        "name": "m_hr_zerar",
+        "label": "Horario de zerar as operacoes",
+        "kind": "select",
+        "default": "17",
+        "options": HOUR_OPTIONS,
+    },
+    {
+        "name": "m_min_zerar",
+        "label": "Minuto de zerar as operacoes",
+        "kind": "select",
+        "default": "0",
+        "options": MINUTE_OPTIONS,
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -503,13 +558,23 @@ def build_group_8_values(form_data=None):
     return values
 
 
+def build_group_9_values(form_data=None):
+    values = {}
+    for field in GROUP_9_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
 def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
 
 
-def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None):
+def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None):
     if group_8_values is None:
         group_8_values = build_group_8_values()
+    if group_9_values is None:
+        group_9_values = build_group_9_values()
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -573,6 +638,15 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_espera_ref={group_8_values['m_espera_ref']}",
             f"m_espera_in={group_8_values['m_espera_in']}",
             f"m_espera_out={group_8_values['m_espera_out']}",
+            "",
+            "; Grupo 9 - Horarios",
+            f"m_hr_inicio={group_9_values['m_hr_inicio']}",
+            f"m_min_inicio={group_9_values['m_min_inicio']}",
+            f"m_hr_final={group_9_values['m_hr_final']}",
+            f"m_min_final={group_9_values['m_min_final']}",
+            f"m_zerar={group_9_values['m_zerar']}",
+            f"m_hr_zerar={group_9_values['m_hr_zerar']}",
+            f"m_min_zerar={group_9_values['m_min_zerar']}",
         ]
     )
 
@@ -884,7 +958,8 @@ def grupo_8():
     group_6_values = build_group_6_values(source_data)
     group_7_values = build_group_7_values(source_data)
     group_8_values = build_group_8_values(source_data)
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values)
+    group_9_values = build_group_9_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values)
     started = request.method == "POST"
     return render_template(
         "grupo_8.html",
@@ -897,6 +972,40 @@ def grupo_8():
         group_7_values=group_7_values,
         fields=GROUP_8_FIELDS,
         values=group_8_values,
+        group_9_values=group_9_values,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-9", methods=["GET", "POST"])
+def grupo_9():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
+    group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
+    group_6_values = build_group_6_values(source_data)
+    group_7_values = build_group_7_values(source_data)
+    group_8_values = build_group_8_values(source_data)
+    group_9_values = build_group_9_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_9.html",
+        group_1_values=group_1_values,
+        group_2_values=group_2_values,
+        group_3_values=group_3_values,
+        group_4_values=group_4_values,
+        group_5_values=group_5_values,
+        group_6_values=group_6_values,
+        group_7_values=group_7_values,
+        group_8_values=group_8_values,
+        fields=GROUP_9_FIELDS,
+        values=group_9_values,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
@@ -913,8 +1022,9 @@ def grupo_1_download():
     group_6_values = build_group_6_values(request.form)
     group_7_values = build_group_7_values(request.form)
     group_8_values = build_group_8_values(request.form)
+    group_9_values = build_group_9_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
