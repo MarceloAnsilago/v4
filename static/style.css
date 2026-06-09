@@ -576,17 +576,37 @@ a {
 }
 
 .group-page {
-    background: #f3f4f6;
-}
-
-.group-page {
     --group-border: #adc4e4;
     --group-border-strong: #7fa1d1;
+    --group-bg-top: #eef4ff;
+    --group-bg-mid: #f8fbff;
+    --group-bg-bottom: #edf3fb;
+    position: relative;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(82, 130, 218, 0.16) 0, rgba(82, 130, 218, 0) 28%),
+        radial-gradient(circle at 85% 12%, rgba(128, 173, 255, 0.18) 0, rgba(128, 173, 255, 0) 24%),
+        linear-gradient(180deg, var(--group-bg-top) 0%, var(--group-bg-mid) 44%, var(--group-bg-bottom) 100%);
+}
+
+.group-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.45;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(173, 196, 228, 0.18) 1px, transparent 1px);
+    background-size: 120px 120px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 82%);
 }
 
 .group-page .app-shell {
     grid-template-columns: 220px minmax(0, 1fr) 360px;
     align-items: start;
+    position: relative;
+    z-index: 1;
 }
 
 .group-page .sidebar {
@@ -635,6 +655,21 @@ a {
     min-width: 0;
 }
 
+.group-page .main-panel,
+.group-page .preview-rail {
+    position: relative;
+}
+
+.group-page .main-panel::before,
+.group-page .preview-rail::before {
+    content: "";
+    position: absolute;
+    inset: 8px 0 auto;
+    height: 220px;
+    pointer-events: none;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 72%);
+}
+
 .group-page .topbar {
     padding: 0 0 14px;
     align-items: flex-end;
@@ -652,7 +687,7 @@ a {
 
 .group-page .workspace-chip {
     padding: 7px 12px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.84);
 }
 
 .group-page .topbar-note,
@@ -696,7 +731,7 @@ a {
     padding: 6px 10px;
     border: 1px solid var(--border);
     border-radius: 999px;
-    background: #fafafa;
+    background: rgba(255, 255, 255, 0.78);
     color: var(--muted);
     font-size: 0.82rem;
     white-space: nowrap;
@@ -717,6 +752,9 @@ a {
 .group-page .panel {
     border-radius: 10px;
     border-color: var(--group-border);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 18px 40px rgba(33, 66, 122, 0.08);
+    backdrop-filter: blur(8px);
 }
 
 .group-page .panel-header {
@@ -792,7 +830,7 @@ a {
 .group-page .quick-form select {
     min-height: 44px;
     border-radius: 8px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.96);
     border-color: var(--group-border);
 }
 
@@ -821,7 +859,7 @@ a {
     border: 0;
     border-bottom: 1px solid var(--group-border);
     border-radius: 0;
-    background: #fcfcfd;
+    background: linear-gradient(180deg, rgba(248, 251, 255, 0.96) 0%, rgba(242, 247, 255, 0.96) 100%);
     overflow: auto;
 }
 
