@@ -938,3 +938,45 @@ a {
     color: var(--muted);
     white-space: nowrap;
 }
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 0 20px 20px;
+}
+
+.orders-card {
+    border: 1px solid var(--group-border);
+    border-radius: 10px;
+    background: #f4f8ff;
+    padding: 12px;
+}
+
+.orders-card h4 {
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: 1.15rem;
+}
+
+.order-line {
+    display: grid;
+    grid-template-columns: 1fr minmax(160px, 220px);
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.order-line:last-child {
+    margin-bottom: 0;
+}
+
+.toggle-block.is-hidden {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+}

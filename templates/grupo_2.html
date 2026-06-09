@@ -22,6 +22,7 @@
                     <a class="nav-item" href="{{ url_for('index', robot=robot_name) }}">Inicio</a>
                     <a class="nav-item" href="{{ url_for('grupo_1', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=values['m_timeframe'], m_volume=values['m_volume'], m_spread=values['m_spread']) }}">Param. inicial</a>
                     <a class="nav-item active" href="{{ url_for('grupo_2', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=values['m_timeframe'], m_volume=values['m_volume'], m_spread=values['m_spread']) }}">Config. adicional</a>
+                    <a class="nav-item" href="{{ url_for('grupo_3', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=values['m_timeframe'], m_volume=values['m_volume'], m_spread=values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell']) }}">Tipo de ordens</a>
                     <a class="nav-item" href="#">Historico</a>
                 </nav>
             </div>
@@ -74,8 +75,11 @@
                         </div>
                     </div>
 
-                    <form method="post" class="quick-form">
+                    <form method="post" action="{{ url_for('grupo_3') }}" class="quick-form">
                         {% for field_name, field_value in group_1_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_3_values.items() %}
                         <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                         {% endfor %}
                         <input type="hidden" name="robot" value="{{ robot_name }}">

@@ -111,6 +111,99 @@ GROUP_2_FIELDS = [
     },
 ]
 
+PRICE_OPTIONS = [
+    ("es_mercado", "Preco atual"),
+    ("es_max", "Maxima atual"),
+    ("es_min", "Minima atual"),
+    ("es_open", "Abertura atual"),
+    ("es_last_max", "Maxima anterior"),
+    ("es_last_min", "Minima anterior"),
+    ("es_close", "Fechamento anterior"),
+    ("es_3_max", "Maxima dos 3 ultimos"),
+    ("es_3_min", "Minima dos 3 ultimos"),
+    ("es_day_max", "Maxima do dia"),
+    ("es_day_min", "Minima do dia"),
+    ("es_day_open", "Abertura do dia"),
+    ("es_day_last_max", "Maxima dia anterior"),
+    ("es_day_last_min", "Minima dia anterior"),
+    ("es_day_last_close", "Fechamento dia anterior"),
+    ("es_bid", "Melhor comprador"),
+    ("es_ask", "Melhor vendedor"),
+]
+
+GROUP_3_FIELDS = [
+    {
+        "name": "m_pendente_in",
+        "label": "Ordem de entrada",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "A mercado"), ("es_sim", "Pendente")],
+    },
+    {
+        "name": "m_cancel_in",
+        "label": "Expiracao da ordem",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_dis_in",
+        "label": "Distancia das ordens",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_price_buy",
+        "label": "Entrada na compra",
+        "kind": "select",
+        "default": "es_mercado",
+        "options": PRICE_OPTIONS,
+    },
+    {
+        "name": "m_price_sell",
+        "label": "Entrada na venda",
+        "kind": "select",
+        "default": "es_mercado",
+        "options": PRICE_OPTIONS,
+    },
+    {
+        "name": "m_pendente_out",
+        "label": "Ordem de saida",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "A mercado"), ("es_sim", "Pendente")],
+    },
+    {
+        "name": "m_cancel_out",
+        "label": "Expiracao da ordem",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_dis_out",
+        "label": "Distancia da saida",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_price_out_buy",
+        "label": "Saida da compra",
+        "kind": "select",
+        "default": "es_mercado",
+        "options": PRICE_OPTIONS,
+    },
+    {
+        "name": "m_price_out_sell",
+        "label": "Saida da venda",
+        "kind": "select",
+        "default": "es_mercado",
+        "options": PRICE_OPTIONS,
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -144,7 +237,15 @@ def build_group_2_values(form_data=None):
     return values
 
 
-def build_set_content(group_1_values, group_2_values, setup_name: str):
+def build_group_3_values(form_data=None):
+    values = {}
+    for field in GROUP_3_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
+def build_set_content(group_1_values, group_2_values, group_3_values, setup_name: str):
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -158,6 +259,18 @@ def build_set_content(group_1_values, group_2_values, setup_name: str):
             f"m_timeframe={group_2_values['m_timeframe']}",
             f"m_volume={group_2_values['m_volume']}",
             f"m_spread={group_2_values['m_spread']}",
+            "",
+            "; Grupo 3 - Tipo de Ordens",
+            f"m_pendente_in={group_3_values['m_pendente_in']}",
+            f"m_cancel_in={group_3_values['m_cancel_in']}",
+            f"m_dis_in={group_3_values['m_dis_in']}",
+            f"m_price_buy={group_3_values['m_price_buy']}",
+            f"m_price_sell={group_3_values['m_price_sell']}",
+            f"m_pendente_out={group_3_values['m_pendente_out']}",
+            f"m_cancel_out={group_3_values['m_cancel_out']}",
+            f"m_dis_out={group_3_values['m_dis_out']}",
+            f"m_price_out_buy={group_3_values['m_price_out_buy']}",
+            f"m_price_out_sell={group_3_values['m_price_out_sell']}",
         ]
     )
 
@@ -170,8 +283,9 @@ def index():
     robot_name = sanitize_robot_name(request.args.get("robot"))
     group_1_values = build_group_1_values(request.args)
     group_2_values = build_group_2_values(request.args)
-    set_content = build_set_content(group_1_values, group_2_values, robot_name)
-    return render_template("index.html", robot_name=robot_name, values=group_1_values, group_2_values=group_2_values, set_content=set_content)
+    group_3_values = build_group_3_values(request.args)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, robot_name)
+    return render_template("index.html", robot_name=robot_name, values=group_1_values, group_2_values=group_2_values, group_3_values=group_3_values, set_content=set_content)
 
 
 @app.route("/iniciar", methods=["POST"])
@@ -179,6 +293,7 @@ def iniciar():
     robot_name = sanitize_robot_name(request.form.get("robot_name"))
     group_1_values = build_group_1_values(request.form)
     group_2_values = build_group_2_values(request.form)
+    group_3_values = build_group_3_values(request.form)
     return redirect(
         url_for(
             "grupo_1",
@@ -187,6 +302,16 @@ def iniciar():
             m_timeframe=group_2_values["m_timeframe"],
             m_volume=group_2_values["m_volume"],
             m_spread=group_2_values["m_spread"],
+            m_pendente_in=group_3_values["m_pendente_in"],
+            m_cancel_in=group_3_values["m_cancel_in"],
+            m_dis_in=group_3_values["m_dis_in"],
+            m_price_buy=group_3_values["m_price_buy"],
+            m_price_sell=group_3_values["m_price_sell"],
+            m_pendente_out=group_3_values["m_pendente_out"],
+            m_cancel_out=group_3_values["m_cancel_out"],
+            m_dis_out=group_3_values["m_dis_out"],
+            m_price_out_buy=group_3_values["m_price_out_buy"],
+            m_price_out_sell=group_3_values["m_price_out_sell"],
         )
     )
 
@@ -197,13 +322,15 @@ def grupo_1():
     source_data = request.form if request.method == "POST" else request.args
     values = build_group_1_values(source_data)
     group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
     flow_values = build_group_1_flow_values(source_data)
-    set_content = build_set_content(values, group_2_values, robot_name)
+    set_content = build_set_content(values, group_2_values, group_3_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_1.html",
         fields=GROUP_1_FIELDS,
         group_2_values=group_2_values,
+        group_3_values=group_3_values,
         flow_fields=GROUP_1_FLOW_FIELDS,
         flow_values=flow_values,
         values=values,
@@ -219,13 +346,36 @@ def grupo_2():
     source_data = request.form if request.method == "POST" else request.args
     group_1_values = build_group_1_values(source_data)
     group_2_values = build_group_2_values(source_data)
-    set_content = build_set_content(group_1_values, group_2_values, robot_name)
+    group_3_values = build_group_3_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_2.html",
         group_1_values=group_1_values,
         fields=GROUP_2_FIELDS,
         values=group_2_values,
+        group_3_values=group_3_values,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-3", methods=["GET", "POST"])
+def grupo_3():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, robot_name)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_3.html",
+        group_1_values=group_1_values,
+        group_2_values=group_2_values,
+        fields=GROUP_3_FIELDS,
+        values=group_3_values,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
@@ -236,8 +386,9 @@ def grupo_2():
 def grupo_1_download():
     group_1_values = build_group_1_values(request.form)
     group_2_values = build_group_2_values(request.form)
+    group_3_values = build_group_3_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, robot_name)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, robot_name)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
