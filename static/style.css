@@ -586,7 +586,17 @@ a {
 
 .group-page .sidebar {
     padding: 20px 16px;
-    background: #fbfbfc;
+    background: #0f1b2d;
+    border-right: 1px solid #1d2d45;
+}
+
+.group-page .brand-overline,
+.group-page .sidebar .muted {
+    color: #90a6c4;
+}
+
+.group-page .sidebar h1 {
+    color: #f4f7fb;
 }
 
 .group-page .brand {
@@ -597,7 +607,22 @@ a {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: #4f7fd9;
+    background: linear-gradient(135deg, #4f7fd9 0%, #3460b8 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.group-page .sidebar-nav {
+    gap: 10px;
+}
+
+.group-page .nav-item {
+    color: #d2ddef;
+}
+
+.group-page .nav-item.active,
+.group-page .nav-item:hover {
+    background: #1b2f4a;
+    color: #ffffff;
 }
 
 .group-page .main-panel {
