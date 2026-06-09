@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraSet - Inicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="group-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">GS</div>
+                    <div>
+                        <p class="brand-overline">Workspace</p>
+                        <h1>GeraSet</h1>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="nav-item active" href="{{ url_for('index') }}">Inicio</a>
+                    <a class="nav-item" href="{{ url_for('grupo_1', robot=robot_name) }}">Parametros</a>
+                    <a class="nav-item" href="#">Exportacoes</a>
+                    <a class="nav-item" href="#">Historico</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="muted">Entrada inicial para nomear o arquivo `.mq5` antes da parametrizacao.</p>
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="page-overline">Arquivo base</p>
+                    <h2>Inicio do projeto</h2>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="workspace-chip">
+                        <span class="chip-dot"></span>
+                        `Experts/Construtor/1.mq5`
+                    </div>
+                    <span class="topbar-note">Preparacao do arquivo principal</span>
+                </div>
+            </header>
+
+            <section class="panel group-summary">
+                <div class="summary-main">
+                    <strong>Vamos iniciar o processo de criacao do seu expert advisor</strong>
+                    <p>Defina o nome do robo para seguir para a parametrizacao inicial mantendo o mesmo fluxo da tela de grupos.</p>
+                </div>
+                <div class="summary-meta">
+                    <span>Etapa 1</span>
+                    <span>Nome do arquivo .mq5</span>
+                </div>
+            </section>
+
+            <section class="form-layout compact-layout single-main-column">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Identificacao do robo</h3>
+                            <p class="panel-subtitle">O `.set` sera definido depois no campo `m_set` do grupo `CONFIRMACAO DE SINAIS`.</p>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{{ url_for('iniciar') }}" class="quick-form">
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="robot_name">Nome do robo</label>
+                                <span class="field-help">Esse nome sera usado no arquivo `.mq5` e acompanhará as proximas etapas.</span>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="file-name-input">
+                                    <input id="robot_name" name="robot_name" type="text" value="{{ robot_name }}" autocomplete="off">
+                                    <span>.mq5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-row">
+                            <button type="submit" class="primary-button">Avancar</button>
+                        </div>
+                    </form>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

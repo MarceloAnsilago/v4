@@ -46,6 +46,14 @@ GROUP_1_FIELDS = [
 ]
 
 
+def sanitize_robot_name(raw_value: str | None) -> str:
+    if not raw_value:
+        return "MeuRobo"
+
+    cleaned = "".join(ch for ch in raw_value.strip() if ch.isalnum() or ch in ("_", "-"))
+    return cleaned or "MeuRobo"
+
+
 def build_group_1_values(form_data=None):
     values = {}
     for field in GROUP_1_FIELDS:
@@ -71,11 +79,19 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return redirect(url_for("grupo_1"))
+    robot_name = sanitize_robot_name(request.args.get("robot"))
+    return render_template("index.html", robot_name=robot_name)
+
+
+@app.route("/iniciar", methods=["POST"])
+def iniciar():
+    robot_name = sanitize_robot_name(request.form.get("robot_name"))
+    return redirect(url_for("grupo_1", robot=robot_name))
 
 
 @app.route("/grupo-1", methods=["GET", "POST"])
 def grupo_1():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
     values = build_group_1_values(request.form if request.method == "POST" else None)
     set_content = build_group_1_set_content(values)
     started = request.method == "POST"
@@ -85,6 +101,7 @@ def grupo_1():
         values=values,
         set_content=set_content,
         started=started,
+        robot_name=robot_name,
     )
 
 
@@ -92,10 +109,11 @@ def grupo_1():
 def grupo_1_download():
     values = build_group_1_values(request.form)
     set_content = build_group_1_set_content(values)
+    robot_name = sanitize_robot_name(request.form.get("robot"))
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
-        headers={"Content-Disposition": 'attachment; filename="grupo_1_inicial.set"'},
+        headers={"Content-Disposition": f'attachment; filename="{robot_name}_grupo_1_inicial.set"'},
     )
 
 

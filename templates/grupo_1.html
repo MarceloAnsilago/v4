@@ -19,8 +19,8 @@
                 </div>
 
                 <nav class="sidebar-nav">
-                    <a class="nav-item active" href="{{ url_for('grupo_1') }}">Inicio</a>
-                    <a class="nav-item" href="#">Parametros</a>
+                    <a class="nav-item" href="{{ url_for('index', robot=robot_name) }}">Inicio</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_1', robot=robot_name) }}">Parametros</a>
                     <a class="nav-item" href="#">Exportacoes</a>
                     <a class="nav-item" href="#">Historico</a>
                 </nav>
@@ -36,6 +36,7 @@
                 <div>
                     <p class="page-overline">Arquivo base</p>
                     <h2>Grupo 1 - Parametrizacao Inicial</h2>
+                    <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
                 </div>
 
                 <div class="topbar-actions">
@@ -165,6 +166,7 @@
                 <div class="preview-block">{{ set_content }}</div>
 
                 <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                    <input type="hidden" name="robot" value="{{ robot_name }}">
                     {% for field in fields %}
                     <input type="hidden" name="{{ field.name }}" value="{{ values[field.name] }}">
                     {% endfor %}

@@ -646,6 +646,10 @@ a {
     letter-spacing: -0.02em;
 }
 
+.topbar-subtitle strong {
+    color: #2f6fdd;
+}
+
 .group-page .workspace-chip {
     padding: 7px 12px;
     background: #fff;
@@ -880,4 +884,21 @@ a {
         grid-column: auto;
         padding: 0 20px 20px;
     }
+}
+
+.file-name-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    color: #446289;
+    font-weight: 600;
+}
+
+.file-name-input input {
+    flex: 1 1 auto;
+}
+
+.file-name-input span {
+    white-space: nowrap;
 }
