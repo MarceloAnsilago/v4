@@ -57,7 +57,7 @@
             <section class="panel group-summary">
                 <div class="summary-main">
                     <strong>Primeiro bloco de parametros do EA</strong>
-                    <p>Edite os campos, gere o preview e exporte o `.set` sem navegar por outras telas.</p>
+                    <p>Essa etapa mistura definicoes reais do `1.mq5` com decisoes de fluxo da interface para preparar as proximas abas.</p>
                 </div>
                 <div class="summary-meta">
                     <span>4 parametros</span>
@@ -70,11 +70,36 @@
                     <div class="panel-header">
                         <div>
                             <h3>Parametros</h3>
-                            <p class="panel-subtitle">Configuracao principal do grupo.</p>
+                            <p class="panel-subtitle">Configuracao inicial baseada no grupo `PARAMETRIZACAO INICIAL` do EA.</p>
                         </div>
                     </div>
 
                     <form method="post" class="quick-form">
+                        <div class="form-note-row">
+                            <p>Se desabilitar algum dos lados podera pular as configuracoes de sinais.</p>
+                        </div>
+
+                        {% for field in flow_fields %}
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                            </div>
+                            <div class="form-row-control">
+                                <select id="{{ field.name }}" name="{{ field.name }}">
+                                    {% for option_value, option_label in field.options %}
+                                    <option value="{{ option_value }}" {% if flow_values[field.name] == option_value %}selected{% endif %}>
+                                        {{ option_label }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="form-note-row">
+                            <p>Algumas configuracoes de B3 podem nao funcionar no FOREX e vice-versa.</p>
+                        </div>
+
                         {% for field in fields %}
                         <div class="form-row">
                             <div class="form-row-label">
@@ -103,7 +128,7 @@
                         {% endfor %}
 
                         <div class="button-row">
-                            <button type="submit" class="primary-button">Atualizar preview</button>
+                            <button type="submit" class="primary-button">Salvar</button>
                         </div>
                     </form>
                 </article>
@@ -147,6 +172,11 @@
                                 <td>m_validade</td>
                                 <td>Modo operacional</td>
                                 <td>{{ values["m_validade"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>m_set</td>
+                                <td>Nome do setup</td>
+                                <td>{{ robot_name }}</td>
                             </tr>
                         </tbody>
                     </table>

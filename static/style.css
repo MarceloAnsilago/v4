@@ -744,6 +744,31 @@ a {
     border-bottom: 1px solid var(--group-border);
 }
 
+.form-note-row {
+    padding: 18px 20px 10px;
+}
+
+.form-note-row p {
+    margin: 0;
+    color: #23334d;
+    font-size: 1.02rem;
+    font-style: italic;
+}
+
+.compact-choice-row {
+    grid-template-columns: 1fr 220px;
+    align-items: center;
+    gap: 18px;
+}
+
+.compact-choice-row .form-row-label {
+    padding-top: 0;
+}
+
+.compact-choice-row .form-row-label label {
+    font-size: 1rem;
+}
+
 .form-row:last-of-type {
     border-bottom: 1px solid var(--group-border);
 }
