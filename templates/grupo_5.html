@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraSet - Grupo 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="group-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">GS</div>
+                    <div>
+                        <p class="brand-overline">Workspace</p>
+                        <h1>GeraSet</h1>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="nav-item" href="{{ url_for('index', robot=robot_name) }}">Inicio</a>
+                    <a class="nav-item" href="{{ url_for('grupo_1', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Param. inicial</a>
+                    <a class="nav-item" href="{{ url_for('grupo_2', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Config. adicional</a>
+                    <a class="nav-item" href="{{ url_for('grupo_3', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Tipo de ordens</a>
+                    <a class="nav-item" href="{{ url_for('grupo_4', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Alvos personalizados</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_5', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Stoploss</a>
+                    <a class="nav-item" href="#">Historico</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="muted">Pagina baseada nos grupos `STOPLOSS` e `MOVIMENTO STOP LOSS` do `1.mq5`.</p>
+            </div>
+        </aside>
+
+        <main class="main-panel with-preview-rail">
+            <header class="topbar">
+                <div>
+                    <p class="page-overline">Arquivo base</p>
+                    <h2>Grupo 5 - Stoploss</h2>
+                    <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="workspace-chip">
+                        <span class="chip-dot"></span>
+                        `Experts/Construtor/1.mq5`
+                    </div>
+                    <span class="topbar-note">
+                        {% if started %}
+                        Preview atualizado
+                        {% else %}
+                        Valores padrao do EA
+                        {% endif %}
+                    </span>
+                </div>
+            </header>
+
+            <section class="panel group-summary">
+                <div class="summary-main">
+                    <strong>Stoploss</strong>
+                    <p>Defina o limite inicial de perda e as regras de reposicionamento por break even e trailing stop.</p>
+                </div>
+                <div class="summary-meta">
+                    <span>5 parametros</span>
+                    <span>Protecao da operacao</span>
+                </div>
+            </section>
+
+            <section class="form-layout compact-layout single-main-column">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Stoploss</h3>
+                            <p class="panel-subtitle">No `1.mq5`, essas distancias sao gravadas em pontos no `.set`; a troca para porcentagem aqui permanece visual.</p>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{{ url_for('grupo_5') }}" class="quick-form" id="grupo5-form">
+                        {% for field_name, field_value in group_1_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_2_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_3_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_4_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        <input type="hidden" name="robot" value="{{ robot_name }}">
+
+                        <div class="form-note-row">
+                            <p>Defina o limite de perda aceitavel por operacao e o tipo de calculo das distancias.</p>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="calc_mode">Tipo de calculo</label>
+                            </div>
+                            <div class="form-row-control">
+                                <select id="calc_mode" name="calc_mode" data-calc-mode>
+                                    <option value="pts" {% if calc_mode == 'pts' %}selected{% endif %}>Em pontos</option>
+                                    <option value="pct" {% if calc_mode == 'pct' %}selected{% endif %}>Em porcentagem</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_sl">Stoploss inicial</label>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="inline-control">
+                                    <input id="m_sl" name="m_sl" type="number" value="{{ values['m_sl'] }}">
+                                    <span data-distance-unit>(Em pontos)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-note-row">
+                            <p>A medida que a operacao anda a favor, o stoploss podera ser reposicionado para acompanhar o preco corrente.</p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_sl_be">Inicio do Break Even SL</label>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="inline-control">
+                                    <input id="m_sl_be" name="m_sl_be" type="number" value="{{ values['m_sl_be'] }}">
+                                    <span data-distance-unit>(Em pontos)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_sl_be_dis">Distancia do Break Even SL</label>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="inline-control">
+                                    <input id="m_sl_be_dis" name="m_sl_be_dis" type="number" value="{{ values['m_sl_be_dis'] }}">
+                                    <span data-distance-unit>(Em pontos)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_sl_ts">Inicio do Trailling Stop</label>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="inline-control">
+                                    <input id="m_sl_ts" name="m_sl_ts" type="number" value="{{ values['m_sl_ts'] }}">
+                                    <span data-distance-unit>(Em pontos)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_sl_ts_step">Passo do Trailling Stop</label>
+                            </div>
+                            <div class="form-row-control">
+                                <div class="inline-control">
+                                    <input id="m_sl_ts_step" name="m_sl_ts_step" type="number" value="{{ values['m_sl_ts_step'] }}">
+                                    <span data-distance-unit>(Em pontos)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-row">
+                            <button type="submit" class="primary-button">Salvar</button>
+                            <a class="secondary-button" href="{{ url_for('grupo_4', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=group_3_values['m_pendente_in'], m_cancel_in=group_3_values['m_cancel_in'], m_dis_in=group_3_values['m_dis_in'], m_price_buy=group_3_values['m_price_buy'], m_price_sell=group_3_values['m_price_sell'], m_pendente_out=group_3_values['m_pendente_out'], m_cancel_out=group_3_values['m_cancel_out'], m_dis_out=group_3_values['m_dis_out'], m_price_out_buy=group_3_values['m_price_out_buy'], m_price_out_sell=group_3_values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=values['m_sl'], m_sl_be=values['m_sl_be'], m_sl_be_dis=values['m_sl_be_dis'], m_sl_ts=values['m_sl_ts'], m_sl_ts_step=values['m_sl_ts_step']) }}">Voltar</a>
+                        </div>
+                    </form>
+                </article>
+            </section>
+        </main>
+
+        <aside class="preview-rail">
+            <article class="panel preview-rail-panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Preview do arquivo .set</h3>
+                        <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
+                    </div>
+                </div>
+
+                <div class="preview-block">{{ set_content }}</div>
+
+                <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                    <input type="hidden" name="robot" value="{{ robot_name }}">
+                    {% for field_name, field_value in group_1_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_2_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_3_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_4_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    <button type="submit" class="primary-button">Baixar .set</button>
+                </form>
+            </article>
+        </aside>
+    </div>
+
+    <script>
+        (function () {
+            function bindCalcMode(select) {
+                const labels = Array.from(document.querySelectorAll('[data-distance-unit]'));
+
+                function refresh() {
+                    const label = select.value === 'pct' ? '(Em porcentagem)' : '(Em pontos)';
+                    labels.forEach(function (node) {
+                        node.textContent = label;
+                    });
+                }
+
+                select.addEventListener('change', refresh);
+                refresh();
+            }
+
+            document.querySelectorAll('[data-calc-mode]').forEach(bindCalcMode);
+        })();
+    </script>
+</body>
+</html>

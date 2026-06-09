@@ -24,6 +24,7 @@
                     <a class="nav-item" href="{{ url_for('grupo_2', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=values['m_pendente_in'], m_cancel_in=values['m_cancel_in'], m_dis_in=values['m_dis_in'], m_price_buy=values['m_price_buy'], m_price_sell=values['m_price_sell'], m_pendente_out=values['m_pendente_out'], m_cancel_out=values['m_cancel_out'], m_dis_out=values['m_dis_out'], m_price_out_buy=values['m_price_out_buy'], m_price_out_sell=values['m_price_out_sell']) }}">Config. adicional</a>
                     <a class="nav-item active" href="{{ url_for('grupo_3', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=values['m_pendente_in'], m_cancel_in=values['m_cancel_in'], m_dis_in=values['m_dis_in'], m_price_buy=values['m_price_buy'], m_price_sell=values['m_price_sell'], m_pendente_out=values['m_pendente_out'], m_cancel_out=values['m_cancel_out'], m_dis_out=values['m_dis_out'], m_price_out_buy=values['m_price_out_buy'], m_price_out_sell=values['m_price_out_sell'], calc_mode=calc_mode) }}">Tipo de ordens</a>
                     <a class="nav-item" href="{{ url_for('grupo_4', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=values['m_pendente_in'], m_cancel_in=values['m_cancel_in'], m_dis_in=values['m_dis_in'], m_price_buy=values['m_price_buy'], m_price_sell=values['m_price_sell'], m_pendente_out=values['m_pendente_out'], m_cancel_out=values['m_cancel_out'], m_dis_out=values['m_dis_out'], m_price_out_buy=values['m_price_out_buy'], m_price_out_sell=values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell']) }}">Alvos personalizados</a>
+                    <a class="nav-item" href="{{ url_for('grupo_5', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread'], m_pendente_in=values['m_pendente_in'], m_cancel_in=values['m_cancel_in'], m_dis_in=values['m_dis_in'], m_price_buy=values['m_price_buy'], m_price_sell=values['m_price_sell'], m_pendente_out=values['m_pendente_out'], m_cancel_out=values['m_cancel_out'], m_dis_out=values['m_dis_out'], m_price_out_buy=values['m_price_out_buy'], m_price_out_sell=values['m_price_out_sell'], calc_mode=calc_mode, m_alvos_sl2=group_4_values['m_alvos_sl2'], m_dis_sl2=group_4_values['m_dis_sl2'], m_price_sl2_buy=group_4_values['m_price_sl2_buy'], m_price_sl2_sell=group_4_values['m_price_sl2_sell'], m_alvos_tp2=group_4_values['m_alvos_tp2'], m_dis_tp2=group_4_values['m_dis_tp2'], m_price_tp2_buy=group_4_values['m_price_tp2_buy'], m_price_tp2_sell=group_4_values['m_price_tp2_sell'], m_sl=group_5_values['m_sl'], m_sl_be=group_5_values['m_sl_be'], m_sl_be_dis=group_5_values['m_sl_be_dis'], m_sl_ts=group_5_values['m_sl_ts'], m_sl_ts_step=group_5_values['m_sl_ts_step']) }}">Stoploss</a>
                     <a class="nav-item" href="#">Historico</a>
                 </nav>
             </div>
@@ -84,6 +85,9 @@
                         <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                         {% endfor %}
                         {% for field_name, field_value in group_4_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% for field_name, field_value in group_5_values.items() %}
                         <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                         {% endfor %}
                         <input type="hidden" name="robot" value="{{ robot_name }}">
@@ -231,6 +235,9 @@
                     <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                     {% endfor %}
                     {% for field_name, field_value in group_4_values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    {% for field_name, field_value in group_5_values.items() %}
                     <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                     {% endfor %}
                     {% for field_name, field_value in values.items() %}

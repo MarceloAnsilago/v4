@@ -263,6 +263,44 @@ GROUP_4_FIELDS = [
     },
 ]
 
+GROUP_5_FIELDS = [
+    {
+        "name": "m_sl",
+        "label": "Stoploss inicial",
+        "kind": "number",
+        "input_type": "number",
+        "default": "450",
+    },
+    {
+        "name": "m_sl_be",
+        "label": "Inicio do Break Even SL",
+        "kind": "number",
+        "input_type": "number",
+        "default": "450",
+    },
+    {
+        "name": "m_sl_be_dis",
+        "label": "Distancia do Break Even SL",
+        "kind": "number",
+        "input_type": "number",
+        "default": "5",
+    },
+    {
+        "name": "m_sl_ts",
+        "label": "Inicio do Trailling Stop",
+        "kind": "number",
+        "input_type": "number",
+        "default": "450",
+    },
+    {
+        "name": "m_sl_ts_step",
+        "label": "Passo do Trailling Stop",
+        "kind": "number",
+        "input_type": "number",
+        "default": "5",
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -312,11 +350,19 @@ def build_group_4_values(form_data=None):
     return values
 
 
+def build_group_5_values(form_data=None):
+    values = {}
+    for field in GROUP_5_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
 def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
 
 
-def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, setup_name: str):
+def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, setup_name: str):
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -352,6 +398,13 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_dis_tp2={group_4_values['m_dis_tp2']}",
             f"m_price_tp2_buy={group_4_values['m_price_tp2_buy']}",
             f"m_price_tp2_sell={group_4_values['m_price_tp2_sell']}",
+            "",
+            "; Grupo 5 - Stoploss",
+            f"m_sl={group_5_values['m_sl']}",
+            f"m_sl_be={group_5_values['m_sl_be']}",
+            f"m_sl_be_dis={group_5_values['m_sl_be_dis']}",
+            f"m_sl_ts={group_5_values['m_sl_ts']}",
+            f"m_sl_ts_step={group_5_values['m_sl_ts_step']}",
         ]
     )
 
@@ -366,8 +419,9 @@ def index():
     group_2_values = build_group_2_values(request.args)
     group_3_values = build_group_3_values(request.args)
     group_4_values = build_group_4_values(request.args)
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, robot_name)
-    return render_template("index.html", robot_name=robot_name, values=group_1_values, group_2_values=group_2_values, group_3_values=group_3_values, group_4_values=group_4_values, set_content=set_content)
+    group_5_values = build_group_5_values(request.args)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
+    return render_template("index.html", robot_name=robot_name, values=group_1_values, group_2_values=group_2_values, group_3_values=group_3_values, group_4_values=group_4_values, group_5_values=group_5_values, set_content=set_content)
 
 
 @app.route("/iniciar", methods=["POST"])
@@ -377,6 +431,7 @@ def iniciar():
     group_2_values = build_group_2_values(request.form)
     group_3_values = build_group_3_values(request.form)
     group_4_values = build_group_4_values(request.form)
+    group_5_values = build_group_5_values(request.form)
     return redirect(
         url_for(
             "grupo_1",
@@ -403,6 +458,11 @@ def iniciar():
             m_dis_tp2=group_4_values["m_dis_tp2"],
             m_price_tp2_buy=group_4_values["m_price_tp2_buy"],
             m_price_tp2_sell=group_4_values["m_price_tp2_sell"],
+            m_sl=group_5_values["m_sl"],
+            m_sl_be=group_5_values["m_sl_be"],
+            m_sl_be_dis=group_5_values["m_sl_be_dis"],
+            m_sl_ts=group_5_values["m_sl_ts"],
+            m_sl_ts_step=group_5_values["m_sl_ts_step"],
         )
     )
 
@@ -415,8 +475,9 @@ def grupo_1():
     group_2_values = build_group_2_values(source_data)
     group_3_values = build_group_3_values(source_data)
     group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
     flow_values = build_group_1_flow_values(source_data)
-    set_content = build_set_content(values, group_2_values, group_3_values, group_4_values, robot_name)
+    set_content = build_set_content(values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_1.html",
@@ -424,6 +485,7 @@ def grupo_1():
         group_2_values=group_2_values,
         group_3_values=group_3_values,
         group_4_values=group_4_values,
+        group_5_values=group_5_values,
         flow_fields=GROUP_1_FLOW_FIELDS,
         flow_values=flow_values,
         values=values,
@@ -441,7 +503,8 @@ def grupo_2():
     group_2_values = build_group_2_values(source_data)
     group_3_values = build_group_3_values(source_data)
     group_4_values = build_group_4_values(source_data)
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, robot_name)
+    group_5_values = build_group_5_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_2.html",
@@ -450,6 +513,7 @@ def grupo_2():
         values=group_2_values,
         group_3_values=group_3_values,
         group_4_values=group_4_values,
+        group_5_values=group_5_values,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
@@ -464,8 +528,9 @@ def grupo_3():
     group_2_values = build_group_2_values(source_data)
     group_3_values = build_group_3_values(source_data)
     group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
     calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, robot_name)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_3.html",
@@ -474,6 +539,7 @@ def grupo_3():
         fields=GROUP_3_FIELDS,
         values=group_3_values,
         group_4_values=group_4_values,
+        group_5_values=group_5_values,
         calc_mode=calc_mode,
         set_content=set_content,
         started=started,
@@ -489,8 +555,9 @@ def grupo_4():
     group_2_values = build_group_2_values(source_data)
     group_3_values = build_group_3_values(source_data)
     group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
     calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, robot_name)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_4.html",
@@ -499,6 +566,34 @@ def grupo_4():
         group_3_values=group_3_values,
         fields=GROUP_4_FIELDS,
         values=group_4_values,
+        group_5_values=group_5_values,
+        calc_mode=calc_mode,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-5", methods=["GET", "POST"])
+def grupo_5():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
+    group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
+    calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_5.html",
+        group_1_values=group_1_values,
+        group_2_values=group_2_values,
+        group_3_values=group_3_values,
+        group_4_values=group_4_values,
+        fields=GROUP_5_FIELDS,
+        values=group_5_values,
         calc_mode=calc_mode,
         set_content=set_content,
         started=started,
@@ -512,8 +607,9 @@ def grupo_1_download():
     group_2_values = build_group_2_values(request.form)
     group_3_values = build_group_3_values(request.form)
     group_4_values = build_group_4_values(request.form)
+    group_5_values = build_group_5_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, robot_name)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, robot_name)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
