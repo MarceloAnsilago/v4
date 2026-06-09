@@ -31,7 +31,7 @@
             </div>
         </aside>
 
-        <main class="main-panel">
+        <main class="main-panel with-preview-rail">
             <header class="topbar">
                 <div>
                     <p class="page-overline">Arquivo base</p>
@@ -88,6 +88,27 @@
                 </article>
             </section>
         </main>
+
+        <aside class="preview-rail">
+            <article class="panel preview-rail-panel">
+                <div class="panel-header">
+                    <div>
+                        <h3>Preview do arquivo .set</h3>
+                        <p class="panel-subtitle">Padrao persistente do layout, visivel em qualquer aba.</p>
+                    </div>
+                </div>
+
+                <div class="preview-block">{{ set_content }}</div>
+
+                <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
+                    <input type="hidden" name="robot" value="{{ robot_name }}">
+                    {% for field_name, field_value in values.items() %}
+                    <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                    {% endfor %}
+                    <button type="submit" class="primary-button">Baixar .set</button>
+                </form>
+            </article>
+        </aside>
     </div>
 </body>
 </html>

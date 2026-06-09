@@ -80,7 +80,9 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     robot_name = sanitize_robot_name(request.args.get("robot"))
-    return render_template("index.html", robot_name=robot_name)
+    values = build_group_1_values()
+    set_content = build_group_1_set_content(values)
+    return render_template("index.html", robot_name=robot_name, values=values, set_content=set_content)
 
 
 @app.route("/iniciar", methods=["POST"])
