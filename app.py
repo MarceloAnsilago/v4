@@ -62,6 +62,42 @@ GROUP_1_FLOW_FIELDS = [
     },
 ]
 
+GROUP_2_FIELDS = [
+    {
+        "name": "m_timeframe",
+        "label": "Tempo grafico principal",
+        "kind": "select",
+        "default": "PERIOD_CURRENT",
+        "options": [
+            ("PERIOD_CURRENT", "Corrente"),
+            ("PERIOD_M1", "M1"),
+            ("PERIOD_M5", "M5"),
+            ("PERIOD_M15", "M15"),
+            ("PERIOD_M30", "M30"),
+            ("PERIOD_H1", "H1"),
+            ("PERIOD_H4", "H4"),
+            ("PERIOD_D1", "D1"),
+        ],
+        "help": "Corresponde ao ENUM_TIMEFRAMES do EA.",
+    },
+    {
+        "name": "m_volume",
+        "label": "Volume inicial",
+        "kind": "number",
+        "input_type": "number",
+        "default": "100",
+        "help": "Volume inicial definido no grupo CONFIGURACAO ADICIONAL.",
+    },
+    {
+        "name": "m_spread",
+        "label": "Spread maximo",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+        "help": "Spread maximo permitido em pontos.",
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -87,15 +123,28 @@ def build_group_1_flow_values(form_data=None):
     return values
 
 
-def build_group_1_set_content(values, setup_name: str):
+def build_group_2_values(form_data=None):
+    values = {}
+    for field in GROUP_2_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
+def build_set_content(group_1_values, group_2_values, setup_name: str):
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
             f"m_set={setup_name}",
-            f"m_magic={values['m_magic']}",
-            f"m_processo={values['m_processo']}",
-            f"m_mercado={values['m_mercado']}",
-            f"m_validade={values['m_validade']}",
+            f"m_magic={group_1_values['m_magic']}",
+            f"m_processo={group_1_values['m_processo']}",
+            f"m_mercado={group_1_values['m_mercado']}",
+            f"m_validade={group_1_values['m_validade']}",
+            "",
+            "; Grupo 2 - Configuracao Adicional",
+            f"m_timeframe={group_2_values['m_timeframe']}",
+            f"m_volume={group_2_values['m_volume']}",
+            f"m_spread={group_2_values['m_spread']}",
         ]
     )
 
@@ -106,16 +155,27 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     robot_name = sanitize_robot_name(request.args.get("robot"))
-    values = build_group_1_values(request.args)
-    set_content = build_group_1_set_content(values, robot_name)
-    return render_template("index.html", robot_name=robot_name, values=values, set_content=set_content)
+    group_1_values = build_group_1_values(request.args)
+    group_2_values = build_group_2_values(request.args)
+    set_content = build_set_content(group_1_values, group_2_values, robot_name)
+    return render_template("index.html", robot_name=robot_name, values=group_1_values, group_2_values=group_2_values, set_content=set_content)
 
 
 @app.route("/iniciar", methods=["POST"])
 def iniciar():
     robot_name = sanitize_robot_name(request.form.get("robot_name"))
-    values = build_group_1_values(request.form)
-    return redirect(url_for("grupo_1", robot=robot_name, m_magic=values["m_magic"]))
+    group_1_values = build_group_1_values(request.form)
+    group_2_values = build_group_2_values(request.form)
+    return redirect(
+        url_for(
+            "grupo_1",
+            robot=robot_name,
+            m_magic=group_1_values["m_magic"],
+            m_timeframe=group_2_values["m_timeframe"],
+            m_volume=group_2_values["m_volume"],
+            m_spread=group_2_values["m_spread"],
+        )
+    )
 
 
 @app.route("/grupo-1", methods=["GET", "POST"])
@@ -123,12 +183,14 @@ def grupo_1():
     robot_name = sanitize_robot_name(request.values.get("robot"))
     source_data = request.form if request.method == "POST" else request.args
     values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
     flow_values = build_group_1_flow_values(source_data)
-    set_content = build_group_1_set_content(values, robot_name)
+    set_content = build_set_content(values, group_2_values, robot_name)
     started = request.method == "POST"
     return render_template(
         "grupo_1.html",
         fields=GROUP_1_FIELDS,
+        group_2_values=group_2_values,
         flow_fields=GROUP_1_FLOW_FIELDS,
         flow_values=flow_values,
         values=values,
@@ -138,11 +200,31 @@ def grupo_1():
     )
 
 
+@app.route("/grupo-2", methods=["GET", "POST"])
+def grupo_2():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    set_content = build_set_content(group_1_values, group_2_values, robot_name)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_2.html",
+        group_1_values=group_1_values,
+        fields=GROUP_2_FIELDS,
+        values=group_2_values,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
 @app.route("/grupo-1/download", methods=["POST"])
 def grupo_1_download():
-    values = build_group_1_values(request.form)
+    group_1_values = build_group_1_values(request.form)
+    group_2_values = build_group_2_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_group_1_set_content(values, robot_name)
+    set_content = build_set_content(group_1_values, group_2_values, robot_name)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",

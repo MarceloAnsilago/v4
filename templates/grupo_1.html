@@ -20,8 +20,8 @@
 
                 <nav class="sidebar-nav">
                     <a class="nav-item" href="{{ url_for('index', robot=robot_name) }}">Inicio</a>
-                    <a class="nav-item active" href="{{ url_for('grupo_1', robot=robot_name) }}">Parametros</a>
-                    <a class="nav-item" href="#">Exportacoes</a>
+                    <a class="nav-item active" href="{{ url_for('grupo_1', robot=robot_name, m_magic=values['m_magic'], m_processo=values['m_processo'], m_mercado=values['m_mercado'], m_validade=values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread']) }}">Param. inicial</a>
+                    <a class="nav-item" href="{{ url_for('grupo_2', robot=robot_name, m_magic=values['m_magic'], m_processo=values['m_processo'], m_mercado=values['m_mercado'], m_validade=values['m_validade'], m_timeframe=group_2_values['m_timeframe'], m_volume=group_2_values['m_volume'], m_spread=group_2_values['m_spread']) }}">Config. adicional</a>
                     <a class="nav-item" href="#">Historico</a>
                 </nav>
             </div>
@@ -74,7 +74,8 @@
                         </div>
                     </div>
 
-                    <form method="post" class="quick-form">
+                    <form method="post" action="{{ url_for('grupo_2') }}" class="quick-form">
+                        <input type="hidden" name="robot" value="{{ robot_name }}">
                         <div class="form-note-row">
                             <p>Se desabilitar algum dos lados podera pular as configuracoes de sinais.</p>
                         </div>
@@ -125,6 +126,10 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endfor %}
+
+                        {% for field_name, field_value in group_2_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
                         {% endfor %}
 
                         <div class="button-row">
