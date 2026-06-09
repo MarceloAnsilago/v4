@@ -579,6 +579,11 @@ a {
     background: #f3f4f6;
 }
 
+.group-page {
+    --group-border: #adc4e4;
+    --group-border-strong: #7fa1d1;
+}
+
 .group-page .app-shell {
     grid-template-columns: 220px minmax(0, 1fr) 360px;
     align-items: start;
@@ -707,11 +712,12 @@ a {
 
 .group-page .panel {
     border-radius: 10px;
+    border-color: var(--group-border);
 }
 
 .group-page .panel-header {
     padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--group-border);
 }
 
 .panel-subtitle {
@@ -731,11 +737,11 @@ a {
     gap: 18px;
     align-items: start;
     padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--group-border);
 }
 
 .form-row:last-of-type {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--group-border);
 }
 
 .form-row-label {
@@ -758,6 +764,12 @@ a {
     min-height: 44px;
     border-radius: 8px;
     background: #fff;
+    border-color: var(--group-border);
+}
+
+.group-page .quick-form input:focus,
+.group-page .quick-form select:focus {
+    border-color: var(--group-border-strong);
 }
 
 .group-page .field-help {
@@ -778,7 +790,7 @@ a {
     margin: 0;
     min-height: 260px;
     border: 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--group-border);
     border-radius: 0;
     background: #fcfcfd;
     overflow: auto;
@@ -791,10 +803,17 @@ a {
 .group-page .data-table th {
     background: #fafafa;
     color: #607084;
+    border-top: 1px solid var(--group-border);
 }
 
 .group-page .data-table td {
     background: #fff;
+    border-top: 1px solid var(--group-border);
+}
+
+.group-page .workspace-chip,
+.group-page .summary-meta span {
+    border-color: var(--group-border);
 }
 
 .preview-rail {
