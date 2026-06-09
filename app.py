@@ -106,7 +106,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     robot_name = sanitize_robot_name(request.args.get("robot"))
-    values = build_group_1_values()
+    values = build_group_1_values(request.args)
     set_content = build_group_1_set_content(values, robot_name)
     return render_template("index.html", robot_name=robot_name, values=values, set_content=set_content)
 
@@ -114,14 +114,16 @@ def index():
 @app.route("/iniciar", methods=["POST"])
 def iniciar():
     robot_name = sanitize_robot_name(request.form.get("robot_name"))
-    return redirect(url_for("grupo_1", robot=robot_name))
+    values = build_group_1_values(request.form)
+    return redirect(url_for("grupo_1", robot=robot_name, m_magic=values["m_magic"]))
 
 
 @app.route("/grupo-1", methods=["GET", "POST"])
 def grupo_1():
     robot_name = sanitize_robot_name(request.values.get("robot"))
-    values = build_group_1_values(request.form if request.method == "POST" else None)
-    flow_values = build_group_1_flow_values(request.form if request.method == "POST" else None)
+    source_data = request.form if request.method == "POST" else request.args
+    values = build_group_1_values(source_data)
+    flow_values = build_group_1_flow_values(source_data)
     set_content = build_group_1_set_content(values, robot_name)
     started = request.method == "POST"
     return render_template(
