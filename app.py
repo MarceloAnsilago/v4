@@ -778,9 +778,12 @@ def iniciar():
     group_8_values = build_group_8_values(request.form)
     return redirect(
         url_for(
-            "compact",
+            "grupo_1",
             robot=robot_name,
             m_magic=group_1_values["m_magic"],
+            m_processo=group_1_values["m_processo"],
+            m_mercado=group_1_values["m_mercado"],
+            m_validade=group_1_values["m_validade"],
             m_timeframe=group_2_values["m_timeframe"],
             m_volume=group_2_values["m_volume"],
             m_spread=group_2_values["m_spread"],
@@ -1142,67 +1145,6 @@ def grupo_10():
         set_content=set_content,
         started=started,
         robot_name=robot_name,
-    )
-
-
-@app.route("/compact", methods=["GET", "POST"])
-def compact():
-    robot_name = sanitize_robot_name(request.values.get("robot"))
-    source_data = request.form if request.method == "POST" else request.args
-    group_1_values = build_group_1_values(source_data)
-    flow_values = build_group_1_flow_values(source_data)
-    group_2_values = build_group_2_values(source_data)
-    group_3_values = build_group_3_values(source_data)
-    group_4_values = build_group_4_values(source_data)
-    group_5_values = build_group_5_values(source_data)
-    group_6_values = build_group_6_values(source_data)
-    group_7_values = build_group_7_values(source_data)
-    group_8_values = build_group_8_values(source_data)
-    group_9_values = build_group_9_values(source_data)
-    group_10_values = build_group_10_values(source_data)
-    calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
-    set_content = build_set_content(
-        group_1_values,
-        group_2_values,
-        group_3_values,
-        group_4_values,
-        group_5_values,
-        group_6_values,
-        group_7_values,
-        robot_name,
-        group_8_values,
-        group_9_values,
-        group_10_values,
-    )
-    started = request.method == "POST"
-    return render_template(
-        "compact.html",
-        robot_name=robot_name,
-        started=started,
-        calc_mode=calc_mode,
-        flow_fields=GROUP_1_FLOW_FIELDS,
-        flow_values=flow_values,
-        group_1_fields=GROUP_1_FIELDS,
-        group_1_values=group_1_values,
-        group_2_fields=GROUP_2_FIELDS,
-        group_2_values=group_2_values,
-        group_3_fields=GROUP_3_FIELDS,
-        group_3_values=group_3_values,
-        group_4_fields=GROUP_4_FIELDS,
-        group_4_values=group_4_values,
-        group_5_fields=GROUP_5_FIELDS,
-        group_5_values=group_5_values,
-        group_6_fields=GROUP_6_FIELDS,
-        group_6_values=group_6_values,
-        group_7_fields=GROUP_7_FIELDS,
-        group_7_values=group_7_values,
-        group_8_fields=GROUP_8_FIELDS,
-        group_8_values=group_8_values,
-        group_9_fields=GROUP_9_FIELDS,
-        group_9_values=group_9_values,
-        group_10_fields=GROUP_10_FIELDS,
-        group_10_values=group_10_values,
-        set_content=set_content,
     )
 
 
