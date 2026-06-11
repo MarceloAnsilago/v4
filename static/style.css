@@ -2,6 +2,10 @@
     --bg: #f3f5f4;
     --surface: #ffffff;
     --surface-soft: #f7faf9;
+    --card-tint: #338f89;
+    --card-bg: rgba(51, 143, 137, 0.16);
+    --card-bg-strong: rgba(51, 143, 137, 0.34);
+    --card-line-bg: rgba(242, 250, 249, 0.86);
     --sidebar: #101d31;
     --border: #d7e1e1;
     --text: #27313a;
@@ -800,7 +804,7 @@ a {
 .group-page .panel {
     border-radius: 18px;
     border-color: var(--group-border);
-    background: rgba(255, 255, 255, 0.96);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, var(--card-bg) 100%);
     box-shadow: 0 20px 48px rgba(41, 59, 64, 0.08);
     backdrop-filter: blur(10px);
 }
@@ -1041,9 +1045,10 @@ a {
 }
 
 .orders-card {
-    border: 1px solid var(--group-border);
+    border: 1px solid rgba(51, 143, 137, 0.30);
     border-radius: 16px;
-    background: linear-gradient(180deg, #f4f8f8 0%, #eef4f4 100%);
+    background: linear-gradient(180deg, rgba(232, 247, 245, 0.98) 0%, var(--card-bg-strong) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
     padding: 14px 14px 10px;
 }
 
@@ -1061,7 +1066,8 @@ a {
     margin-bottom: 10px;
     padding: 10px 12px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--card-line-bg);
+    border: 1px solid rgba(51, 143, 137, 0.18);
 }
 
 .order-line:last-child {
