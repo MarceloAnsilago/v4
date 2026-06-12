@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeraSet - Grupo 14</title>
+    <title>GeraSet - Grupo 15</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="group-page">
@@ -18,12 +18,12 @@
                     </div>
                 </div>
 
-                {% set active_page = 'grupo_14' %}
+                {% set active_page = 'grupo_15' %}
                 {% include '_sidebar_nav.html' %}
             </div>
 
             <div class="sidebar-footer">
-                <p class="muted">Pagina baseada no grupo `GRADIENTE LINEAR` do `1.mq5`.</p>
+                <p class="muted">Pagina baseada no grupo `FILTRO DE VELA` do `1.mq5`.</p>
             </div>
         </aside>
 
@@ -31,7 +31,7 @@
             <header class="topbar">
                 <div>
                     <p class="page-overline">Arquivo base</p>
-                    <h2>Grupo 14 - Gradiente linear</h2>
+                    <h2>Grupo 15 - Filtro de vela</h2>
                     <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
                 </div>
 
@@ -48,12 +48,12 @@
 
             <section class="panel group-summary">
                 <div class="summary-main">
-                    <strong>Gradiente linear</strong>
-                    <p>Escolha a referencia para distancias dos alvos e ordens do gradiente.</p>
+                    <strong>Filtro de vela</strong>
+                    <p>O tempo grafico da vela filtro nao precisa ser igual ao do grafico corrente.</p>
                 </div>
                 <div class="summary-meta">
-                    <span>8 parametros</span>
-                    <span>Escalonamento recorrente</span>
+                    <span>5 parametros</span>
+                    <span>Leitura da vela</span>
                 </div>
             </section>
 
@@ -64,15 +64,15 @@
                             <div>
                                 <span class="smartbot-kicker">Configuracao</span>
                                 <div>
-                                    <h3>Gradiente linear</h3>
-                                    <p class="panel-subtitle">Bloco baseado nos campos `m_grad_qtd` ate `m_grad_repo` do EA.</p>
+                                    <h3>Filtro de vela</h3>
+                                    <p class="panel-subtitle">Bloco baseado nos campos `m_candle_tf`, `m_candle_min`, `m_candle_max`, `m_corpo_min` e `m_corpo_max` do EA.</p>
                                 </div>
                             </div>
-                            <span class="section-tag">Gradiente</span>
+                            <span class="section-tag">Filtro</span>
                         </div>
                     </div>
 
-                    <form method="post" action="{{ url_for('grupo_15') }}" class="quick-form" id="grupo14-form">
+                    <form method="post" action="{{ url_for('grupo_15') }}" class="quick-form" id="grupo15-form">
                         {% for field_name, field_value in group_1_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_2_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_3_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
@@ -86,100 +86,64 @@
                         {% for field_name, field_value in group_11_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_12_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_13_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                        {% for field_name, field_value in group_15_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
+                        {% for field_name, field_value in group_14_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         <input type="hidden" name="robot" value="{{ robot_name }}">
 
                         <div class="form-note-row">
-                            <p>Escolha a referencia para distancias dos alvos e ordens do gradiente.</p>
+                            <p>O tempo grafico da vela filtro nao precisa ser igual ao do grafico corrente.</p>
                         </div>
 
                         <div class="form-row compact-choice-row">
                             <div class="form-row-label">
-                                <label for="calc_mode">Tipo de calculo da distancia</label>
+                                <label for="m_candle_tf">Tempo grafico da vela</label>
                             </div>
                             <div class="form-row-control">
-                                <select id="calc_mode" name="calc_mode" data-calc-mode>
-                                    <option value="pts" {% if calc_mode == 'pts' %}selected{% endif %}>Em pontos</option>
-                                    <option value="pct" {% if calc_mode == 'pct' %}selected{% endif %}>Em porcentagem</option>
+                                <select id="m_candle_tf" name="m_candle_tf">
+                                    {% for option_value, option_label in fields[0].options %}
+                                    <option value="{{ option_value }}" {% if values["m_candle_tf"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-note-row">
-                            <p>O gradiente sera recorrente ou limitado a quantidade de ordens definida.</p>
+                            <p>Aplicado sempre antes de iniciar uma nova posicao.</p>
                         </div>
 
                         <div class="orders-card increase-card">
                             <div class="increase-line">
-                                <label for="m_grad_qtd">Quantidade de niveis</label>
-                                <div class="increase-controls">
-                                    <div class="inline-control">
-                                        <input id="m_grad_qtd" name="m_grad_qtd" type="number" value="{{ values['m_grad_qtd'] }}">
-                                    </div>
-                                    <div class="inline-control">
-                                        <span>Distancia dos niveis</span>
-                                        <input id="m_gra_dis" name="m_gra_dis" type="number" value="{{ values['m_gra_dis'] }}">
-                                        <span data-distance-unit>(Em pontos)</span>
-                                    </div>
+                                <label for="m_candle_min">Tamanho minimo da vela</label>
+                                <div class="inline-control">
+                                    <input id="m_candle_min" name="m_candle_min" type="number" value="{{ values['m_candle_min'] }}">
+                                    <span>(Em pontos)</span>
                                 </div>
                             </div>
                             <div class="increase-line">
-                                <label for="m_grad_vol">Volume das ordens</label>
-                                <div class="increase-controls">
-                                    <div class="inline-control">
-                                        <input id="m_grad_vol" name="m_grad_vol" type="number" value="{{ values['m_grad_vol'] }}">
-                                    </div>
-                                    <div class="inline-control">
-                                        <span>Alvo parcial</span>
-                                        <input id="m_gra_tp" name="m_gra_tp" type="number" value="{{ values['m_gra_tp'] }}">
-                                        <span data-distance-unit>(Em pontos)</span>
-                                    </div>
+                                <label for="m_candle_max">Tamanho maximo da vela</label>
+                                <div class="inline-control">
+                                    <input id="m_candle_max" name="m_candle_max" type="number" value="{{ values['m_candle_max'] }}">
+                                    <span>(Em pontos)</span>
                                 </div>
                             </div>
                             <div class="increase-line">
-                                <label for="m_grad_max">Limite de entradas</label>
-                                <div class="increase-controls">
-                                    <div class="inline-control">
-                                        <input id="m_grad_max" name="m_grad_max" type="number" value="{{ values['m_grad_max'] }}">
-                                    </div>
-                                    <div class="inline-control">
-                                        <span>Reposicionar ordem</span>
-                                        <input id="m_grad_ajuste" name="m_grad_ajuste" type="number" value="{{ values['m_grad_ajuste'] }}">
-                                        <span data-distance-unit>(Em pontos)</span>
-                                    </div>
+                                <label for="m_corpo_min">Minimo do corpo da vela</label>
+                                <div class="inline-control">
+                                    <input id="m_corpo_min" name="m_corpo_min" type="number" value="{{ values['m_corpo_min'] }}">
+                                    <span>(Em pontos)</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-row compact-choice-row">
-                            <div class="form-row-label">
-                                <label for="m_pendente_grad">Ordem pendente para parcial do gradiente</label>
-                            </div>
-                            <div class="form-row-control">
-                                <select id="m_pendente_grad" name="m_pendente_grad">
-                                    {% for option_value, option_label in fields[5].options %}
-                                    <option value="{{ option_value }}" {% if values["m_pendente_grad"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row compact-choice-row">
-                            <div class="form-row-label">
-                                <label for="m_grad_repo">Reposicionar todos os niveis</label>
-                            </div>
-                            <div class="form-row-control">
-                                <select id="m_grad_repo" name="m_grad_repo">
-                                    {% for option_value, option_label in fields[7].options %}
-                                    <option value="{{ option_value }}" {% if values["m_grad_repo"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                    {% endfor %}
-                                </select>
+                            <div class="increase-line">
+                                <label for="m_corpo_max">Maximo do corpo da vela</label>
+                                <div class="inline-control">
+                                    <input id="m_corpo_max" name="m_corpo_max" type="number" value="{{ values['m_corpo_max'] }}">
+                                    <span>(Em pontos)</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="button-row">
                             <button type="submit" class="primary-button">Salvar</button>
-                            <a class="secondary-button" href="{{ url_for('grupo_13', robot=robot_name, m_pendente_parcial=group_13_values['m_pendente_parcial'], m_p1_dis=group_13_values['m_p1_dis'], m_p1_lot=group_13_values['m_p1_lot'], m_p2_dis=group_13_values['m_p2_dis'], m_p2_lot=group_13_values['m_p2_lot'], m_p3_dis=group_13_values['m_p3_dis'], m_p3_lot=group_13_values['m_p3_lot'], m_p4_dis=group_13_values['m_p4_dis'], m_p4_lot=group_13_values['m_p4_lot'], m_grad_qtd=values['m_grad_qtd'], m_grad_vol=values['m_grad_vol'], m_grad_max=values['m_grad_max'], m_gra_dis=values['m_gra_dis'], m_gra_tp=values['m_gra_tp'], m_pendente_grad=values['m_pendente_grad'], m_grad_ajuste=values['m_grad_ajuste'], m_grad_repo=values['m_grad_repo'], calc_mode=calc_mode) }}">Voltar</a>
+                            <a class="secondary-button" href="{{ url_for('grupo_14', robot=robot_name, m_grad_qtd=group_14_values['m_grad_qtd'], m_grad_vol=group_14_values['m_grad_vol'], m_grad_max=group_14_values['m_grad_max'], m_gra_dis=group_14_values['m_gra_dis'], m_gra_tp=group_14_values['m_gra_tp'], m_pendente_grad=group_14_values['m_pendente_grad'], m_grad_ajuste=group_14_values['m_grad_ajuste'], m_grad_repo=group_14_values['m_grad_repo'], m_candle_tf=values['m_candle_tf'], m_candle_min=values['m_candle_min'], m_candle_max=values['m_candle_max'], m_corpo_min=values['m_corpo_min'], m_corpo_max=values['m_corpo_max']) }}">Voltar</a>
                         </div>
                     </form>
                 </article>
@@ -212,28 +176,12 @@
                     {% for field_name, field_value in group_11_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in group_12_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in group_13_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_15_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
+                    {% for field_name, field_value in group_14_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     {% for field_name, field_value in values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                     <button type="submit" class="primary-button">Baixar .set</button>
                 </form>
             </article>
         </aside>
     </div>
-
-    <script>
-        (function () {
-            const select = document.querySelector('[data-calc-mode]');
-            const labels = Array.from(document.querySelectorAll('[data-distance-unit]'));
-            if (!select) return;
-
-            function refresh() {
-                const label = select.value === 'pct' ? '(Em porcentagem)' : '(Em pontos)';
-                labels.forEach(function (node) { node.textContent = label; });
-            }
-
-            select.addEventListener('change', refresh);
-            refresh();
-        })();
-    </script>
 </body>
 </html>

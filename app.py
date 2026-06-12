@@ -823,6 +823,44 @@ GROUP_14_FIELDS = [
     },
 ]
 
+GROUP_15_FIELDS = [
+    {
+        "name": "m_candle_tf",
+        "label": "Tempo grafico da vela",
+        "kind": "select",
+        "default": "PERIOD_CURRENT",
+        "options": GROUP_2_FIELDS[0]["options"],
+    },
+    {
+        "name": "m_candle_min",
+        "label": "Tamanho minimo da vela",
+        "kind": "number",
+        "input_type": "number",
+        "default": "200",
+    },
+    {
+        "name": "m_candle_max",
+        "label": "Tamanho maximo da vela",
+        "kind": "number",
+        "input_type": "number",
+        "default": "10",
+    },
+    {
+        "name": "m_corpo_min",
+        "label": "Minimo do corpo da vela",
+        "kind": "number",
+        "input_type": "number",
+        "default": "40",
+    },
+    {
+        "name": "m_corpo_max",
+        "label": "Maximo do corpo da vela",
+        "kind": "number",
+        "input_type": "number",
+        "default": "25",
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -952,11 +990,19 @@ def build_group_14_values(form_data=None):
     return values
 
 
+def build_group_15_values(form_data=None):
+    values = {}
+    for field in GROUP_15_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
 def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
 
 
-def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None):
+def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None):
     if group_8_values is None:
         group_8_values = build_group_8_values()
     if group_9_values is None:
@@ -971,6 +1017,8 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
         group_13_values = build_group_13_values()
     if group_14_values is None:
         group_14_values = build_group_14_values()
+    if group_15_values is None:
+        group_15_values = build_group_15_values()
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -1099,6 +1147,13 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_pendente_grad={group_14_values['m_pendente_grad']}",
             f"m_grad_ajuste={group_14_values['m_grad_ajuste']}",
             f"m_grad_repo={group_14_values['m_grad_repo']}",
+            "",
+            "; Grupo 15 - Filtro de Vela",
+            f"m_candle_tf={group_15_values['m_candle_tf']}",
+            f"m_candle_min={group_15_values['m_candle_min']}",
+            f"m_candle_max={group_15_values['m_candle_max']}",
+            f"m_corpo_min={group_15_values['m_corpo_min']}",
+            f"m_corpo_max={group_15_values['m_corpo_max']}",
         ]
     )
 
@@ -1698,6 +1753,7 @@ def grupo_14():
     group_12_values = build_group_12_values(source_data)
     group_13_values = build_group_13_values(source_data)
     group_14_values = build_group_14_values(source_data)
+    group_15_values = build_group_15_values(source_data)
     calc_mode = sanitize_calc_mode(request.values.get("calc_mode"))
     set_content = build_set_content(
         group_1_values,
@@ -1715,6 +1771,7 @@ def grupo_14():
         group_12_values,
         group_13_values,
         group_14_values,
+        group_15_values,
     )
     started = request.method == "POST"
     return render_template(
@@ -1732,9 +1789,72 @@ def grupo_14():
         group_11_values=group_11_values,
         group_12_values=group_12_values,
         group_13_values=group_13_values,
+        group_15_values=group_15_values,
         fields=GROUP_14_FIELDS,
         values=group_14_values,
         calc_mode=calc_mode,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-15", methods=["GET", "POST"])
+def grupo_15():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
+    group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
+    group_6_values = build_group_6_values(source_data)
+    group_7_values = build_group_7_values(source_data)
+    group_8_values = build_group_8_values(source_data)
+    group_9_values = build_group_9_values(source_data)
+    group_10_values = build_group_10_values(source_data)
+    group_11_values = build_group_11_values(source_data)
+    group_12_values = build_group_12_values(source_data)
+    group_13_values = build_group_13_values(source_data)
+    group_14_values = build_group_14_values(source_data)
+    group_15_values = build_group_15_values(source_data)
+    set_content = build_set_content(
+        group_1_values,
+        group_2_values,
+        group_3_values,
+        group_4_values,
+        group_5_values,
+        group_6_values,
+        group_7_values,
+        robot_name,
+        group_8_values,
+        group_9_values,
+        group_10_values,
+        group_11_values,
+        group_12_values,
+        group_13_values,
+        group_14_values,
+        group_15_values,
+    )
+    started = request.method == "POST"
+    return render_template(
+        "grupo_15.html",
+        group_1_values=group_1_values,
+        group_2_values=group_2_values,
+        group_3_values=group_3_values,
+        group_4_values=group_4_values,
+        group_5_values=group_5_values,
+        group_6_values=group_6_values,
+        group_7_values=group_7_values,
+        group_8_values=group_8_values,
+        group_9_values=group_9_values,
+        group_10_values=group_10_values,
+        group_11_values=group_11_values,
+        group_12_values=group_12_values,
+        group_13_values=group_13_values,
+        group_14_values=group_14_values,
+        fields=GROUP_15_FIELDS,
+        values=group_15_values,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
@@ -1757,8 +1877,9 @@ def grupo_1_download():
     group_12_values = build_group_12_values(request.form)
     group_13_values = build_group_13_values(request.form)
     group_14_values = build_group_14_values(request.form)
+    group_15_values = build_group_15_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values, group_15_values)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
