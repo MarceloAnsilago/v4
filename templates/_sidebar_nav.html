@@ -148,6 +148,16 @@
         </span>
         <span>Saidas parciais</span>
     </a>
+    <a class="nav-item {% if active_page == 'grupo_14' %}active{% endif %}" href="{{ url_for('grupo_14', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 17 10 12 13 15 19 9"></path>
+                <path d="M19 9v6"></path>
+                <path d="M19 9h-6"></path>
+            </svg>
+        </span>
+        <span>Gradiente linear</span>
+    </a>
     <a class="nav-item {% if active_page == 'historico' %}active{% endif %}" href="#">
         <span class="nav-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
