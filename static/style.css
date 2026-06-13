@@ -1165,6 +1165,38 @@ a {
     padding: 0 20px 18px;
 }
 
+.tab-strip {
+    display: flex;
+    gap: 12px;
+    padding: 6px 20px 18px;
+}
+
+.tab-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 132px;
+    padding: 10px 18px;
+    border: 1px solid rgba(51, 143, 137, 0.3);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.84);
+    color: #567071;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.tab-button.is-active {
+    border-color: #13968f;
+    background: linear-gradient(180deg, #18b4ad 0%, #129790 100%);
+    color: #ffffff;
+}
+
+.tab-panel.is-hidden {
+    display: none;
+}
+
 .strategy-triptych {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -94,104 +94,314 @@
                             <p>O `2.mq5` mantem o motor de sinais generico, mas nesta versao do GeraSet a etapa foi reduzida ao que o EA ja aceita no `.set` sem necessidade de alterar o MQL.</p>
                         </div>
 
-                        <div class="strategy-triptych">
-                            <section class="strategy-card">
-                                <h4>Canal de bandas</h4>
-                                <div class="strategy-line">
-                                    <label>Indicador</label>
-                                    <select>
-                                        <option selected>Keltner</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Entrada</label>
-                                    <select>
-                                        <option selected>Fechou fora</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Sentido</label>
-                                    <select>
-                                        <option selected>Contra Tendência</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Saída</label>
-                                    <select>
-                                        <option selected>Cruzar o centro</option>
-                                    </select>
-                                </div>
-                            </section>
+                        <div class="tab-strip" role="tablist" aria-label="Grupo 16 abas">
+                            <button type="button" class="tab-button is-active" data-tab-button="sinais" role="tab" aria-selected="true">Sinais</button>
+                            <button type="button" class="tab-button" data-tab-button="parametros" role="tab" aria-selected="false">Parametros</button>
+                        </div>
 
-                            <section class="strategy-card">
-                                <h4>Cruzamento de sinais</h4>
-                                <div class="strategy-line">
-                                    <label>Sinal rapido</label>
-                                    <select>
-                                        <option selected>Vidya</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Sinal lento</label>
-                                    <select>
-                                        <option selected>Média móvel</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Entrada</label>
-                                    <select>
-                                        <option selected>Cruzamento</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Sentido</label>
-                                    <select>
-                                        <option selected>Contra Tendência</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Saída</label>
-                                    <select>
-                                        <option selected>Cruzamento oposto</option>
-                                    </select>
-                                </div>
-                            </section>
+                        <div class="tab-panel" data-tab-panel="sinais">
+                            <div class="strategy-triptych">
+                                <section class="strategy-card">
+                                    <h4>Canal de bandas</h4>
+                                    <div class="strategy-line">
+                                        <label>Indicador</label>
+                                        <select>
+                                            <option selected>Keltner</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Entrada</label>
+                                        <select>
+                                            <option selected>Fechou fora</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sentido</label>
+                                        <select>
+                                            <option selected>Contra Tendencia</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Saida</label>
+                                        <select>
+                                            <option selected>Cruzar o centro</option>
+                                        </select>
+                                    </div>
+                                </section>
 
-                            <section class="strategy-card">
-                                <h4>Sobre comprado/vendido</h4>
-                                <div class="strategy-line">
-                                    <label>Indicador</label>
-                                    <select>
-                                        <option selected>MACD</option>
-                                    </select>
+                                <section class="strategy-card">
+                                    <h4>Cruzamento de sinais</h4>
+                                    <div class="strategy-line">
+                                        <label>Sinal rapido</label>
+                                        <select>
+                                            <option selected>Vidya</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sinal lento</label>
+                                        <select>
+                                            <option selected>Media movel</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Entrada</label>
+                                        <select>
+                                            <option selected>Cruzamento</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sentido</label>
+                                        <select>
+                                            <option selected>Contra Tendencia</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Saida</label>
+                                        <select>
+                                            <option selected>Cruzamento oposto</option>
+                                        </select>
+                                    </div>
+                                </section>
+
+                                <section class="strategy-card">
+                                    <h4>Sobre comprado/vendido</h4>
+                                    <div class="strategy-line">
+                                        <label>Indicador</label>
+                                        <select>
+                                            <option selected>MACD</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Entrada</label>
+                                        <select>
+                                            <option selected>Fechou fora</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sobrecompra</label>
+                                        <input type="text" value="2" readonly>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sobrevenda</label>
+                                        <input type="text" value="2" readonly>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Sentido</label>
+                                        <select>
+                                            <option selected>Contra Tendencia</option>
+                                        </select>
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label>Saida</label>
+                                        <select>
+                                            <option selected>Cruzar o centro</option>
+                                        </select>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                        <div class="tab-panel is-hidden" data-tab-panel="parametros">
+                            <div class="panel-split-head">
+                                <div>
+                                    <span class="smartbot-kicker">Configurar estrategias</span>
+                                    <h3>Parametros dos indicadores</h3>
+                                    <p class="panel-subtitle">Replica a segunda tela do construtor original com os quatro blocos que o `2.mq5` usa hoje.</p>
                                 </div>
-                                <div class="strategy-line">
-                                    <label>Entrada</label>
-                                    <select>
-                                        <option selected>Fechou fora</option>
-                                    </select>
+                                <span class="section-tag">Parametros</span>
+                            </div>
+
+                            <div class="strategy-param-grid">
+                                <section class="strategy-param-card">
+                                    <h4>Bandas de Bolinger</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_5">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_desvio_5">Desvios</label>
+                                        <div class="inline-control">
+                                            <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_shift_5">Deslocamento</label>
+                                        <div class="inline-control">
+                                            <input id="m_shift_5" name="m_shift_5" type="number" value="{{ values['m_shift_5'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_5">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_5" name="m_price_5">
+                                                {% for option_value, option_label in fields[11].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>Dema</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_6">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_6" name="m_period_6" type="number" value="{{ values['m_period_6'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_shift_6">Deslocamento</label>
+                                        <div class="inline-control">
+                                            <input id="m_shift_6" name="m_shift_6" type="number" value="{{ values['m_shift_6'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_6">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_6" name="m_price_6">
+                                                {% for option_value, option_label in fields[14].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_6"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Sinal rapido utilizado no cruzamento do `2.mq5`.</div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>Tema</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_7">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_7" name="m_period_7" type="number" value="{{ values['m_period_7'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_shift_7">Deslocamento</label>
+                                        <div class="inline-control">
+                                            <input id="m_shift_7" name="m_shift_7" type="number" value="{{ values['m_shift_7'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_7">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_7" name="m_price_7">
+                                                {% for option_value, option_label in fields[17].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_7"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Sinal lento utilizado no cruzamento do `2.mq5`.</div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>RSI</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_8">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_8" name="m_period_8" type="number" value="{{ values['m_period_8'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_8">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_8" name="m_price_8">
+                                                {% for option_value, option_label in fields[19].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_8"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Oscilador utilizado no bloco de sobre comprado e vendido.</div>
+                                </section>
+                            </div>
+
+                            <div class="panel-split-head">
+                                <div>
+                                    <span class="smartbot-kicker">Compatibilidade</span>
+                                    <h3>Presets reais do EA</h3>
+                                    <p class="panel-subtitle">Esses campos sao os que o `2.mq5` realmente grava e interpreta no `.set` para compra, venda, inversao e reaproveitamento de sinais.</p>
                                 </div>
-                                <div class="strategy-line">
-                                    <label>Sobrecompra</label>
-                                    <input type="text" value="2" readonly>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Sobrevenda</label>
-                                    <input type="text" value="2" readonly>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Sentido</label>
-                                    <select>
-                                        <option selected>Contra Tendência</option>
-                                    </select>
-                                </div>
-                                <div class="strategy-line">
-                                    <label>Saída</label>
-                                    <select>
-                                        <option selected>Cruzar o centro</option>
-                                    </select>
-                                </div>
-                            </section>
+                                <span class="section-tag">Set</span>
+                            </div>
+
+                            <div class="orders-grid">
+                                <section class="orders-card">
+                                    <h4>Entradas</h4>
+                                    <div class="order-line">
+                                        <label for="m_compra_in">Sinal entrada compra</label>
+                                        <select id="m_compra_in" name="m_compra_in">
+                                            {% for option_value, option_label in fields[0].options %}
+                                            <option value="{{ option_value }}" {% if values["m_compra_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_venda_in">Sinal entrada venda</label>
+                                        <select id="m_venda_in" name="m_venda_in">
+                                            {% for option_value, option_label in fields[1].options %}
+                                            <option value="{{ option_value }}" {% if values["m_venda_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_inverte_in">Inverter sinais de entrada</label>
+                                        <select id="m_inverte_in" name="m_inverte_in">
+                                            {% for option_value, option_label in fields[4].options %}
+                                            <option value="{{ option_value }}" {% if values["m_inverte_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_sinais_in">Entrada na vela seguinte a saida</label>
+                                        <select id="m_sinais_in" name="m_sinais_in">
+                                            {% for option_value, option_label in fields[6].options %}
+                                            <option value="{{ option_value }}" {% if values["m_sinais_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </section>
+
+                                <section class="orders-card">
+                                    <h4>Saidas</h4>
+                                    <div class="order-line">
+                                        <label for="m_compra_out">Sinal saida compra</label>
+                                        <select id="m_compra_out" name="m_compra_out">
+                                            {% for option_value, option_label in fields[2].options %}
+                                            <option value="{{ option_value }}" {% if values["m_compra_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_venda_out">Sinal saida venda</label>
+                                        <select id="m_venda_out" name="m_venda_out">
+                                            {% for option_value, option_label in fields[3].options %}
+                                            <option value="{{ option_value }}" {% if values["m_venda_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_inverte_out">Inverter sinais de saida</label>
+                                        <select id="m_inverte_out" name="m_inverte_out">
+                                            {% for option_value, option_label in fields[5].options %}
+                                            <option value="{{ option_value }}" {% if values["m_inverte_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_sinais_out">Saida na vela seguinte a entrada</label>
+                                        <select id="m_sinais_out" name="m_sinais_out">
+                                            {% for option_value, option_label in fields[7].options %}
+                                            <option value="{{ option_value }}" {% if values["m_sinais_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
 
                         <div class="button-row">
@@ -237,5 +447,27 @@
             </article>
         </aside>
     </div>
+    <script>
+        (function () {
+            const buttons = document.querySelectorAll("[data-tab-button]");
+            const panels = document.querySelectorAll("[data-tab-panel]");
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const target = button.getAttribute("data-tab-button");
+
+                    buttons.forEach((item) => {
+                        const active = item === button;
+                        item.classList.toggle("is-active", active);
+                        item.setAttribute("aria-selected", active ? "true" : "false");
+                    });
+
+                    panels.forEach((panel) => {
+                        panel.classList.toggle("is-hidden", panel.getAttribute("data-tab-panel") !== target);
+                    });
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
