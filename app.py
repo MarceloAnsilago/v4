@@ -861,6 +861,197 @@ GROUP_15_FIELDS = [
     },
 ]
 
+GROUP_16_FIELDS = [
+    {
+        "name": "m_compra_in",
+        "label": "Sinal entrada compra",
+        "kind": "select",
+        "default": "0",
+        "options": [
+            ("0", "Sinal entrada compra 1"),
+            ("1", "Sinal entrada compra 2"),
+            ("2", "Sinal entrada compra 3"),
+        ],
+    },
+    {
+        "name": "m_venda_in",
+        "label": "Sinal entrada venda",
+        "kind": "select",
+        "default": "0",
+        "options": [
+            ("0", "Sinal entrada venda 1"),
+            ("1", "Sinal entrada venda 2"),
+            ("2", "Sinal entrada venda 3"),
+        ],
+    },
+    {
+        "name": "m_compra_out",
+        "label": "Sinal saida compra",
+        "kind": "select",
+        "default": "0",
+        "options": [
+            ("0", "Sinal saida compra 1"),
+            ("1", "Sinal saida compra 2"),
+            ("2", "Sinal saida compra 3"),
+        ],
+    },
+    {
+        "name": "m_venda_out",
+        "label": "Sinal saida venda",
+        "kind": "select",
+        "default": "0",
+        "options": [
+            ("0", "Sinal saida venda 1"),
+            ("1", "Sinal saida venda 2"),
+            ("2", "Sinal saida venda 3"),
+        ],
+    },
+    {
+        "name": "m_inverte_in",
+        "label": "Inverter sinais de entrada",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_inverte_out",
+        "label": "Inverter sinais de saida",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_sinais_in",
+        "label": "Procurar entrada na vela seguinte a saida",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_sinais_out",
+        "label": "Procurar saida na vela seguinte a entrada",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_period_5",
+        "label": "Periodo Bollinger",
+        "kind": "number",
+        "input_type": "number",
+        "default": "20",
+    },
+    {
+        "name": "m_desvio_5",
+        "label": "Desvio Bollinger",
+        "kind": "number",
+        "input_type": "number",
+        "default": "2",
+    },
+    {
+        "name": "m_shift_5",
+        "label": "Deslocamento Bollinger",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_price_5",
+        "label": "Modo de preco Bollinger",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_period_6",
+        "label": "Periodo Dema",
+        "kind": "number",
+        "input_type": "number",
+        "default": "14",
+    },
+    {
+        "name": "m_shift_6",
+        "label": "Deslocamento Dema",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_price_6",
+        "label": "Modo de preco Dema",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_period_7",
+        "label": "Periodo Tema",
+        "kind": "number",
+        "input_type": "number",
+        "default": "14",
+    },
+    {
+        "name": "m_shift_7",
+        "label": "Deslocamento Tema",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_price_7",
+        "label": "Modo de preco Tema",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_period_8",
+        "label": "Periodo RSI",
+        "kind": "number",
+        "input_type": "number",
+        "default": "14",
+    },
+    {
+        "name": "m_price_8",
+        "label": "Modo de preco RSI",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+]
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -998,11 +1189,19 @@ def build_group_15_values(form_data=None):
     return values
 
 
+def build_group_16_values(form_data=None):
+    values = {}
+    for field in GROUP_16_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
 def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
 
 
-def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None):
+def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None, group_16_values=None):
     if group_8_values is None:
         group_8_values = build_group_8_values()
     if group_9_values is None:
@@ -1019,6 +1218,8 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
         group_14_values = build_group_14_values()
     if group_15_values is None:
         group_15_values = build_group_15_values()
+    if group_16_values is None:
+        group_16_values = build_group_16_values()
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -1154,6 +1355,30 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_candle_max={group_15_values['m_candle_max']}",
             f"m_corpo_min={group_15_values['m_corpo_min']}",
             f"m_corpo_max={group_15_values['m_corpo_max']}",
+            "",
+            "; Grupo 16 - Sinais Prontos",
+            f"m_compra_in={group_16_values['m_compra_in']}",
+            f"m_venda_in={group_16_values['m_venda_in']}",
+            f"m_compra_out={group_16_values['m_compra_out']}",
+            f"m_venda_out={group_16_values['m_venda_out']}",
+            f"m_inverte_in={group_16_values['m_inverte_in']}",
+            f"m_inverte_out={group_16_values['m_inverte_out']}",
+            f"m_sinais_in={group_16_values['m_sinais_in']}",
+            f"m_sinais_out={group_16_values['m_sinais_out']}",
+            "",
+            "; Grupo 16 - Estrategias Suportadas no 2.mq5",
+            f"m_period_5={group_16_values['m_period_5']}",
+            f"m_desvio_5={group_16_values['m_desvio_5']}",
+            f"m_shift_5={group_16_values['m_shift_5']}",
+            f"m_price_5={group_16_values['m_price_5']}",
+            f"m_period_6={group_16_values['m_period_6']}",
+            f"m_shift_6={group_16_values['m_shift_6']}",
+            f"m_price_6={group_16_values['m_price_6']}",
+            f"m_period_7={group_16_values['m_period_7']}",
+            f"m_shift_7={group_16_values['m_shift_7']}",
+            f"m_price_7={group_16_values['m_price_7']}",
+            f"m_period_8={group_16_values['m_period_8']}",
+            f"m_price_8={group_16_values['m_price_8']}",
         ]
     )
 
@@ -1818,6 +2043,7 @@ def grupo_15():
     group_13_values = build_group_13_values(source_data)
     group_14_values = build_group_14_values(source_data)
     group_15_values = build_group_15_values(source_data)
+    group_16_values = build_group_16_values(source_data)
     set_content = build_set_content(
         group_1_values,
         group_2_values,
@@ -1835,6 +2061,7 @@ def grupo_15():
         group_13_values,
         group_14_values,
         group_15_values,
+        group_16_values,
     )
     started = request.method == "POST"
     return render_template(
@@ -1853,8 +2080,74 @@ def grupo_15():
         group_12_values=group_12_values,
         group_13_values=group_13_values,
         group_14_values=group_14_values,
+        group_16_values=group_16_values,
         fields=GROUP_15_FIELDS,
         values=group_15_values,
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-16", methods=["GET", "POST"])
+def grupo_16():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    group_1_values = build_group_1_values(source_data)
+    group_2_values = build_group_2_values(source_data)
+    group_3_values = build_group_3_values(source_data)
+    group_4_values = build_group_4_values(source_data)
+    group_5_values = build_group_5_values(source_data)
+    group_6_values = build_group_6_values(source_data)
+    group_7_values = build_group_7_values(source_data)
+    group_8_values = build_group_8_values(source_data)
+    group_9_values = build_group_9_values(source_data)
+    group_10_values = build_group_10_values(source_data)
+    group_11_values = build_group_11_values(source_data)
+    group_12_values = build_group_12_values(source_data)
+    group_13_values = build_group_13_values(source_data)
+    group_14_values = build_group_14_values(source_data)
+    group_15_values = build_group_15_values(source_data)
+    group_16_values = build_group_16_values(source_data)
+    set_content = build_set_content(
+        group_1_values,
+        group_2_values,
+        group_3_values,
+        group_4_values,
+        group_5_values,
+        group_6_values,
+        group_7_values,
+        robot_name,
+        group_8_values,
+        group_9_values,
+        group_10_values,
+        group_11_values,
+        group_12_values,
+        group_13_values,
+        group_14_values,
+        group_15_values,
+        group_16_values,
+    )
+    started = request.method == "POST"
+    return render_template(
+        "grupo_16.html",
+        group_1_values=group_1_values,
+        group_2_values=group_2_values,
+        group_3_values=group_3_values,
+        group_4_values=group_4_values,
+        group_5_values=group_5_values,
+        group_6_values=group_6_values,
+        group_7_values=group_7_values,
+        group_8_values=group_8_values,
+        group_9_values=group_9_values,
+        group_10_values=group_10_values,
+        group_11_values=group_11_values,
+        group_12_values=group_12_values,
+        group_13_values=group_13_values,
+        group_14_values=group_14_values,
+        group_15_values=group_15_values,
+        fields=GROUP_16_FIELDS,
+        values=group_16_values,
         set_content=set_content,
         started=started,
         robot_name=robot_name,
@@ -1878,8 +2171,9 @@ def grupo_1_download():
     group_13_values = build_group_13_values(request.form)
     group_14_values = build_group_14_values(request.form)
     group_15_values = build_group_15_values(request.form)
+    group_16_values = build_group_16_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values, group_15_values)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values, group_15_values, group_16_values)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
