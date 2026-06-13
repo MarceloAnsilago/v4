@@ -188,3 +188,28 @@
         <span>Historico</span>
     </a>
 </nav>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const root = document.documentElement;
+    const mainPanel = document.querySelector(".main-panel.with-preview-rail");
+    const summaryPanel = document.querySelector(".main-panel.with-preview-rail .group-summary");
+    const previewRail = document.querySelector(".preview-rail");
+
+    if (!mainPanel || !summaryPanel || !previewRail) {
+        return;
+    }
+
+    const updatePreviewOffset = function () {
+        if (window.innerWidth <= 1100) {
+            root.style.setProperty("--preview-rail-offset", "0px");
+            return;
+        }
+
+        const offset = summaryPanel.getBoundingClientRect().top - mainPanel.getBoundingClientRect().top;
+        root.style.setProperty("--preview-rail-offset", Math.max(0, Math.round(offset)) + "px");
+    };
+
+    updatePreviewOffset();
+    window.addEventListener("resize", updatePreviewOffset);
+});
+</script>
