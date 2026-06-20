@@ -49,7 +49,7 @@
             <section class="panel group-summary">
                 <div class="summary-main">
                     <strong>Sinais prontos compativeis com o 2.mq5</strong>
-                    <p>Esta etapa traduz a experiencia do construtor original para o conjunto de estruturas que o `2.mq5` suporta hoje: canal com Bollinger, cruzamento com Dema/Tema e sobrecomprado ou sobrevendido com RSI.</p>
+                    <p>Esta etapa traduz a experiencia do construtor original para o conjunto de estruturas que o `2.mq5` suporta hoje: canal com Bollinger ou Keltner, cruzamento com Dema/Tema e sobrecomprado ou sobrevendido com RSI.</p>
                 </div>
                 <div class="summary-meta">
                     <span>20 parametros</span>
@@ -104,28 +104,39 @@
                                 <section class="strategy-card">
                                     <h4>Canal de bandas</h4>
                                     <div class="strategy-line">
-                                        <label>Indicador</label>
-                                        <select disabled>
-                                            <option selected>Bandas de Bollinger</option>
+                                        <label for="m_indicador_canal">Indicador</label>
+                                        <select id="m_indicador_canal" name="m_indicador_canal">
+                                            {% for option_value, option_label in field_lookup["m_indicador_canal"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_indicador_canal"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Entrada</label>
-                                        <select disabled>
-                                            <option selected>Fechou fora</option>
-                                        </select>
+                                        <label for="m_period_5" data-channel-label="period">{{ "Periodo" if values["m_indicador_canal"] == "bollinger" else "Periodo base" }}</label>
+                                        <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Sentido</label>
-                                        <select disabled>
-                                            <option selected>Contra Tendencia</option>
-                                        </select>
+                                        <label for="m_desvio_5" data-channel-label="multiplier">{{ "Desvios" if values["m_indicador_canal"] == "bollinger" else "Multiplicador ATR" }}</label>
+                                        <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Saida</label>
-                                        <select disabled>
-                                            <option selected>Cruzar o centro</option>
+                                        <label for="m_shift_5" data-channel-label="shift">Deslocamento</label>
+                                        <input id="m_shift_5" name="m_shift_5" type="number" value="{{ values['m_shift_5'] }}">
+                                    </div>
+                                    <div class="strategy-line">
+                                        <label for="m_price_5_card" data-channel-label="price">{{ "Modo de preco" if values["m_indicador_canal"] == "bollinger" else "Preco base" }}</label>
+                                        <select id="m_price_5_card" name="m_price_5">
+                                            {% for option_value, option_label in field_lookup["m_price_5"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_price_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
                                         </select>
+                                    </div>
+                                    <div class="strategy-param-empty" data-channel-note>
+                                        {% if values["m_indicador_canal"] == "keltner" %}
+                                        Keltner usa este mesmo bloco de parametros para manter o `.set` unificado: periodo base, multiplicador ATR, deslocamento e preco base.
+                                        {% else %}
+                                        Bollinger usa este bloco com periodo, desvios, deslocamento e modo de preco para o canal exportado no `.set`.
+                                        {% endif %}
                                     </div>
                                 </section>
 
@@ -213,35 +224,8 @@
 
                             <div class="strategy-param-grid">
                                 <section class="strategy-param-card">
-                                    <h4>Bandas de Bollinger</h4>
-                                    <div class="increase-line">
-                                        <label for="m_period_5">Periodo</label>
-                                        <div class="inline-control">
-                                            <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line">
-                                        <label for="m_desvio_5">Desvios</label>
-                                        <div class="inline-control">
-                                            <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line">
-                                        <label for="m_shift_5">Deslocamento</label>
-                                        <div class="inline-control">
-                                            <input id="m_shift_5" name="m_shift_5" type="number" value="{{ values['m_shift_5'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line">
-                                        <label for="m_price_5">Modo de preco</label>
-                                        <div class="inline-control">
-                                            <select id="m_price_5" name="m_price_5">
-                                                {% for option_value, option_label in fields[11].options %}
-                                                <option value="{{ option_value }}" {% if values["m_price_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <h4>Canal selecionado</h4>
+                                    <div class="strategy-param-empty">Os parametros do canal de bandas agora sao ajustados direto no card da aba `Sinais`. O `.set` passa a registrar tambem o tipo escolhido em `m_indicador_canal`.</div>
                                 </section>
 
                                 <section class="strategy-param-card">
@@ -262,7 +246,7 @@
                                         <label for="m_price_6">Modo de preco</label>
                                         <div class="inline-control">
                                             <select id="m_price_6" name="m_price_6">
-                                                {% for option_value, option_label in fields[14].options %}
+                                                {% for option_value, option_label in field_lookup["m_price_6"].options %}
                                                 <option value="{{ option_value }}" {% if values["m_price_6"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                                 {% endfor %}
                                             </select>
@@ -289,7 +273,7 @@
                                         <label for="m_price_7">Modo de preco</label>
                                         <div class="inline-control">
                                             <select id="m_price_7" name="m_price_7">
-                                                {% for option_value, option_label in fields[17].options %}
+                                                {% for option_value, option_label in field_lookup["m_price_7"].options %}
                                                 <option value="{{ option_value }}" {% if values["m_price_7"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                                 {% endfor %}
                                             </select>
@@ -310,7 +294,7 @@
                                         <label for="m_price_8">Modo de preco</label>
                                         <div class="inline-control">
                                             <select id="m_price_8" name="m_price_8">
-                                                {% for option_value, option_label in fields[19].options %}
+                                                {% for option_value, option_label in field_lookup["m_price_8"].options %}
                                                 <option value="{{ option_value }}" {% if values["m_price_8"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                                 {% endfor %}
                                             </select>
@@ -335,7 +319,7 @@
                                     <div class="order-line">
                                         <label for="m_compra_in">Sinal entrada compra</label>
                                         <select id="m_compra_in" name="m_compra_in">
-                                            {% for option_value, option_label in fields[0].options %}
+                                            {% for option_value, option_label in field_lookup["m_compra_in"].options %}
                                             <option value="{{ option_value }}" {% if values["m_compra_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -343,7 +327,7 @@
                                     <div class="order-line">
                                         <label for="m_venda_in">Sinal entrada venda</label>
                                         <select id="m_venda_in" name="m_venda_in">
-                                            {% for option_value, option_label in fields[1].options %}
+                                            {% for option_value, option_label in field_lookup["m_venda_in"].options %}
                                             <option value="{{ option_value }}" {% if values["m_venda_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -351,7 +335,7 @@
                                     <div class="order-line">
                                         <label for="m_inverte_in">Inverter sinais de entrada</label>
                                         <select id="m_inverte_in" name="m_inverte_in">
-                                            {% for option_value, option_label in fields[4].options %}
+                                            {% for option_value, option_label in field_lookup["m_inverte_in"].options %}
                                             <option value="{{ option_value }}" {% if values["m_inverte_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -359,7 +343,7 @@
                                     <div class="order-line">
                                         <label for="m_sinais_in">Entrada na vela seguinte a saida</label>
                                         <select id="m_sinais_in" name="m_sinais_in">
-                                            {% for option_value, option_label in fields[6].options %}
+                                            {% for option_value, option_label in field_lookup["m_sinais_in"].options %}
                                             <option value="{{ option_value }}" {% if values["m_sinais_in"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -371,7 +355,7 @@
                                     <div class="order-line">
                                         <label for="m_compra_out">Sinal saida compra</label>
                                         <select id="m_compra_out" name="m_compra_out">
-                                            {% for option_value, option_label in fields[2].options %}
+                                            {% for option_value, option_label in field_lookup["m_compra_out"].options %}
                                             <option value="{{ option_value }}" {% if values["m_compra_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -379,7 +363,7 @@
                                     <div class="order-line">
                                         <label for="m_venda_out">Sinal saida venda</label>
                                         <select id="m_venda_out" name="m_venda_out">
-                                            {% for option_value, option_label in fields[3].options %}
+                                            {% for option_value, option_label in field_lookup["m_venda_out"].options %}
                                             <option value="{{ option_value }}" {% if values["m_venda_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -387,7 +371,7 @@
                                     <div class="order-line">
                                         <label for="m_inverte_out">Inverter sinais de saida</label>
                                         <select id="m_inverte_out" name="m_inverte_out">
-                                            {% for option_value, option_label in fields[5].options %}
+                                            {% for option_value, option_label in field_lookup["m_inverte_out"].options %}
                                             <option value="{{ option_value }}" {% if values["m_inverte_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -395,7 +379,7 @@
                                     <div class="order-line">
                                         <label for="m_sinais_out">Saida na vela seguinte a entrada</label>
                                         <select id="m_sinais_out" name="m_sinais_out">
-                                            {% for option_value, option_label in fields[7].options %}
+                                            {% for option_value, option_label in field_lookup["m_sinais_out"].options %}
                                             <option value="{{ option_value }}" {% if values["m_sinais_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
@@ -421,6 +405,23 @@
         (function () {
             const buttons = document.querySelectorAll("[data-tab-button]");
             const panels = document.querySelectorAll("[data-tab-panel]");
+            const channelSelect = document.getElementById("m_indicador_canal");
+            const channelLabels = {
+                bollinger: {
+                    period: "Periodo",
+                    multiplier: "Desvios",
+                    shift: "Deslocamento",
+                    price: "Modo de preco",
+                    note: "Bollinger usa este bloco com periodo, desvios, deslocamento e modo de preco para o canal exportado no .set.",
+                },
+                keltner: {
+                    period: "Periodo base",
+                    multiplier: "Multiplicador ATR",
+                    shift: "Deslocamento",
+                    price: "Preco base",
+                    note: "Keltner usa este mesmo bloco de parametros para manter o .set unificado: periodo base, multiplicador ATR, deslocamento e preco base.",
+                },
+            };
 
             buttons.forEach((button) => {
                 button.addEventListener("click", () => {
@@ -437,6 +438,27 @@
                     });
                 });
             });
+
+            if (channelSelect) {
+                const note = document.querySelector("[data-channel-note]");
+                const labelNodes = {
+                    period: document.querySelector('[data-channel-label="period"]'),
+                    multiplier: document.querySelector('[data-channel-label="multiplier"]'),
+                    shift: document.querySelector('[data-channel-label="shift"]'),
+                    price: document.querySelector('[data-channel-label="price"]'),
+                };
+
+                function refreshChannelLabels() {
+                    const selected = channelLabels[channelSelect.value] || channelLabels.bollinger;
+                    Object.entries(labelNodes).forEach(([key, node]) => {
+                        if (node) node.textContent = selected[key];
+                    });
+                    if (note) note.textContent = selected.note;
+                }
+
+                channelSelect.addEventListener("change", refreshChannelLabels);
+                refreshChannelLabels();
+            }
         })();
     </script>
 </body>

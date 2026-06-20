@@ -865,6 +865,16 @@ GROUP_15_FIELDS = [
 
 GROUP_16_FIELDS = [
     {
+        "name": "m_indicador_canal",
+        "label": "Indicador de canal",
+        "kind": "select",
+        "default": "bollinger",
+        "options": [
+            ("bollinger", "Bandas de Bollinger"),
+            ("keltner", "Canal de Keltner"),
+        ],
+    },
+    {
         "name": "m_compra_in",
         "label": "Sinal entrada compra",
         "kind": "select",
@@ -1407,6 +1417,7 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_corpo_max={group_15_values['m_corpo_max']}",
             "",
             "; Grupo 16 - Sinais Prontos",
+            f"m_indicador_canal={group_16_values['m_indicador_canal']}",
             f"m_compra_in={group_16_values['m_compra_in']}",
             f"m_venda_in={group_16_values['m_venda_in']}",
             f"m_compra_out={group_16_values['m_compra_out']}",
@@ -2209,6 +2220,7 @@ def grupo_16():
         group_14_values=group_14_values,
         group_15_values=group_15_values,
         fields=GROUP_16_FIELDS,
+        field_lookup={field["name"]: field for field in GROUP_16_FIELDS},
         values=group_16_values,
         set_content=set_content,
         started=started,
