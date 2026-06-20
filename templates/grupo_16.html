@@ -23,7 +23,7 @@
             </div>
 
             <div class="sidebar-footer">
-                <p class="muted">Pagina remodelada para gerar `.set` compativel com o `2.mq5`, preservando a experiencia visual do construtor original sem alterar o MQL.</p>
+                <p class="muted">Pagina remodelada para gerar `.set` compativel com o `Unificado.mq5`, preservando a experiencia visual do construtor original sem alterar o MQL.</p>
             </div>
         </aside>
 
@@ -38,7 +38,7 @@
                 <div class="topbar-actions">
                     <div class="workspace-chip">
                         <span class="chip-dot"></span>
-                        `Experts/Construtor/2.mq5`
+                        `Experts/Construtor/Unificado.mq5`
                     </div>
                     <span class="topbar-note">
                         {% if started %}Preview atualizado{% else %}Valores padrao do EA{% endif %}
@@ -48,11 +48,11 @@
 
             <section class="panel group-summary">
                 <div class="summary-main">
-                    <strong>Sinais prontos compativeis com o 2.mq5</strong>
-                    <p>Esta etapa traduz a experiencia do construtor original para o conjunto de estruturas que o `2.mq5` suporta hoje: canal com Bollinger ou Keltner, cruzamento com Dema/Tema e sobrecomprado ou sobrevendido com RSI.</p>
+                    <strong>Sinais prontos compativeis com o Unificado.mq5</strong>
+                    <p>Esta etapa traduz a experiencia do construtor original para o conjunto de estruturas que o `Unificado.mq5` suporta hoje: canais, cruzamento com Vidya e media movel, e oscilador MACD.</p>
                 </div>
                 <div class="summary-meta">
-                    <span>20 parametros</span>
+                    <span>28 parametros</span>
                     <span>Preset + indicadores</span>
                 </div>
             </section>
@@ -65,7 +65,7 @@
                                 <span class="smartbot-kicker">Sinais prontos</span>
                                 <div>
                                     <h3>Estruturas suportadas</h3>
-                                    <p class="panel-subtitle">Os cards abaixo seguem a leitura do construtor original. No `2.mq5`, a logica e aplicada por presets internos e pelos parametros configurados na etapa seguinte.</p>
+                                    <p class="panel-subtitle">Os cards abaixo seguem a leitura do construtor original. No `Unificado.mq5`, a logica e aplicada por presets internos e pelos parametros configurados na etapa seguinte.</p>
                                 </div>
                             </div>
                             <span class="section-tag">Visual</span>
@@ -91,7 +91,7 @@
                         <input type="hidden" name="robot" value="{{ robot_name }}">
 
                         <div class="form-note-row">
-                            <p>O `2.mq5` mantem o motor de sinais generico, mas nesta versao do GeraSet a etapa foi reduzida ao que o EA ja aceita no `.set` sem necessidade de alterar o MQL.</p>
+                            <p>O `Unificado.mq5` mantem o motor de sinais generico, e esta etapa agora replica os inputs reais do EA para gerar um `.set` compativel.</p>
                         </div>
 
                         <div class="tab-strip" role="tablist" aria-label="Grupo 16 abas">
@@ -104,39 +104,39 @@
                                 <section class="strategy-card">
                                     <h4>Canal de bandas</h4>
                                     <div class="strategy-line">
-                                        <label for="m_indicador_canal">Indicador</label>
-                                        <select id="m_indicador_canal" name="m_indicador_canal">
-                                            {% for option_value, option_label in field_lookup["m_indicador_canal"].options %}
-                                            <option value="{{ option_value }}" {% if values["m_indicador_canal"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                        <label for="m_canal_indicador">Indicador</label>
+                                        <select id="m_canal_indicador" name="m_canal_indicador">
+                                            {% for option_value, option_label in field_lookup["m_canal_indicador"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_canal_indicador"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label for="m_period_5" data-channel-label="period">{{ "Periodo" if values["m_indicador_canal"] == "bollinger" else "Periodo base" }}</label>
-                                        <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
+                                        <label for="m_canal_entrada">Entrada</label>
+                                        <select id="m_canal_entrada" name="m_canal_entrada">
+                                            {% for option_value, option_label in field_lookup["m_canal_entrada"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_canal_entrada"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label for="m_desvio_5" data-channel-label="multiplier">{{ "Desvios" if values["m_indicador_canal"] == "bollinger" else "Multiplicador ATR" }}</label>
-                                        <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
+                                        <label for="m_canal_sentido">Sentido</label>
+                                        <select id="m_canal_sentido" name="m_canal_sentido">
+                                            {% for option_value, option_label in field_lookup["m_canal_sentido"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_canal_sentido"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label for="m_shift_5" data-channel-label="shift">Deslocamento</label>
-                                        <input id="m_shift_5" name="m_shift_5" type="number" value="{{ values['m_shift_5'] }}">
-                                    </div>
-                                    <div class="strategy-line">
-                                        <label for="m_price_5_card" data-channel-label="price">{{ "Modo de preco" if values["m_indicador_canal"] == "bollinger" else "Preco base" }}</label>
-                                        <select id="m_price_5_card" name="m_price_5">
-                                            {% for option_value, option_label in field_lookup["m_price_5"].options %}
-                                            <option value="{{ option_value }}" {% if values["m_price_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                        <label for="m_canal_saida">Saida</label>
+                                        <select id="m_canal_saida" name="m_canal_saida">
+                                            {% for option_value, option_label in field_lookup["m_canal_saida"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_canal_saida"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="strategy-param-empty" data-channel-note>
-                                        {% if values["m_indicador_canal"] == "keltner" %}
-                                        Keltner usa este mesmo bloco de parametros para manter o `.set` unificado: periodo base, multiplicador ATR, deslocamento e preco base.
-                                        {% else %}
-                                        Bollinger usa este bloco com periodo, desvios, deslocamento e modo de preco para o canal exportado no `.set`.
-                                        {% endif %}
+                                        O `Unificado.mq5` usa estes quatro campos para definir a logica do canal. Os parametros especificos de Keltner e Bollinger ficam na aba `Parametros`.
                                     </div>
                                 </section>
 
@@ -145,13 +145,13 @@
                                     <div class="strategy-line">
                                         <label>Sinal rapido</label>
                                         <select disabled>
-                                            <option selected>Dema</option>
+                                            <option selected>Vidya</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Sinal lento</label>
                                         <select disabled>
-                                            <option selected>Tema</option>
+                                            <option selected>Media movel</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
@@ -175,11 +175,11 @@
                                 </section>
 
                                 <section class="strategy-card">
-                                    <h4>Sobre comprado/vendido</h4>
+                                    <h4>Oscilador</h4>
                                     <div class="strategy-line">
                                         <label>Indicador</label>
                                         <select disabled>
-                                            <option selected>RSI</option>
+                                            <option selected>MACD</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
@@ -189,24 +189,20 @@
                                         </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Faixa superior</label>
-                                        <input type="text" value="Preset interno do EA" readonly>
+                                        <label>EMA rapida</label>
+                                        <input type="text" value="{{ values['m_fast_8'] }}" readonly>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Faixa inferior</label>
-                                        <input type="text" value="Preset interno do EA" readonly>
+                                        <label>EMA lenta</label>
+                                        <input type="text" value="{{ values['m_slow_8'] }}" readonly>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Sentido</label>
-                                        <select disabled>
-                                            <option selected>Contra Tendencia</option>
-                                        </select>
+                                        <label>Sinal</label>
+                                        <input type="text" value="{{ values['m_sinal_8'] }}" readonly>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Saida</label>
-                                        <select disabled>
-                                            <option selected>Cruzar o centro</option>
-                                        </select>
+                                        <label>Modo de preco</label>
+                                        <input type="text" value="{{ values['m_price_8'] }}" readonly>
                                     </div>
                                 </section>
                             </div>
@@ -217,23 +213,84 @@
                                 <div>
                                     <span class="smartbot-kicker">Configurar estrategias</span>
                                     <h3>Parametros dos indicadores</h3>
-                                    <p class="panel-subtitle">Replica a segunda tela do construtor original com os quatro blocos que o `2.mq5` usa hoje.</p>
+                                    <p class="panel-subtitle">Replica a segunda tela do construtor original com os blocos que o `Unificado.mq5` usa hoje.</p>
                                 </div>
                                 <span class="section-tag">Parametros</span>
                             </div>
 
                             <div class="strategy-param-grid">
                                 <section class="strategy-param-card">
-                                    <h4>Canal selecionado</h4>
-                                    <div class="strategy-param-empty">Os parametros do canal de bandas agora sao ajustados direto no card da aba `Sinais`. O `.set` passa a registrar tambem o tipo escolhido em `m_indicador_canal`.</div>
+                                    <h4>Keltner</h4>
+                                    <div class="increase-line" data-channel-card="es_canal_keltner">
+                                        <label for="m_period_5">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line" data-channel-card="es_canal_keltner">
+                                        <label for="m_desvio_5">Desvio</label>
+                                        <div class="inline-control">
+                                            <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line" data-channel-card="es_canal_keltner">
+                                        <label for="m_ma_5">Calculo</label>
+                                        <div class="inline-control">
+                                            <select id="m_ma_5" name="m_ma_5">
+                                                {% for option_value, option_label in field_lookup["m_ma_5"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_ma_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty" data-channel-card-note="es_canal_keltner">Parametros usados quando o canal selecionado for Keltner.</div>
                                 </section>
 
                                 <section class="strategy-param-card">
-                                    <h4>Dema</h4>
+                                    <h4>Bollinger</h4>
+                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
+                                        <label for="m_bands_period">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_bands_period" name="m_bands_period" type="number" value="{{ values['m_bands_period'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
+                                        <label for="m_bands_desvio">Desvio</label>
+                                        <div class="inline-control">
+                                            <input id="m_bands_desvio" name="m_bands_desvio" type="number" step="0.000001" value="{{ values['m_bands_desvio'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
+                                        <label for="m_bands_shift">Deslocamento</label>
+                                        <div class="inline-control">
+                                            <input id="m_bands_shift" name="m_bands_shift" type="number" value="{{ values['m_bands_shift'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
+                                        <label for="m_bands_price">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_bands_price" name="m_bands_price">
+                                                {% for option_value, option_label in field_lookup["m_bands_price"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_bands_price"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty" data-channel-card-note="es_canal_bollinger">Parametros usados quando o canal selecionado for Bollinger.</div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>Vidya</h4>
                                     <div class="increase-line">
-                                        <label for="m_period_6">Periodo</label>
+                                        <label for="m_period_6">Periodo CMO</label>
                                         <div class="inline-control">
                                             <input id="m_period_6" name="m_period_6" type="number" value="{{ values['m_period_6'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_ema_6">Periodo EMA</label>
+                                        <div class="inline-control">
+                                            <input id="m_ema_6" name="m_ema_6" type="number" value="{{ values['m_ema_6'] }}">
                                         </div>
                                     </div>
                                     <div class="increase-line">
@@ -252,11 +309,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="strategy-param-empty">Sinal rapido utilizado no cruzamento do `2.mq5`.</div>
+                                    <div class="strategy-param-empty">Sinal rapido utilizado no cruzamento do `Unificado.mq5`.</div>
                                 </section>
 
                                 <section class="strategy-param-card">
-                                    <h4>Tema</h4>
+                                    <h4>Media movel</h4>
                                     <div class="increase-line">
                                         <label for="m_period_7">Periodo</label>
                                         <div class="inline-control">
@@ -270,6 +327,16 @@
                                         </div>
                                     </div>
                                     <div class="increase-line">
+                                        <label for="m_ma_7">Tipo de media</label>
+                                        <div class="inline-control">
+                                            <select id="m_ma_7" name="m_ma_7">
+                                                {% for option_value, option_label in field_lookup["m_ma_7"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_ma_7"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
                                         <label for="m_price_7">Modo de preco</label>
                                         <div class="inline-control">
                                             <select id="m_price_7" name="m_price_7">
@@ -279,15 +346,27 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="strategy-param-empty">Sinal lento utilizado no cruzamento do `2.mq5`.</div>
+                                    <div class="strategy-param-empty">Sinal lento utilizado no cruzamento do `Unificado.mq5`.</div>
                                 </section>
 
                                 <section class="strategy-param-card">
-                                    <h4>RSI</h4>
+                                    <h4>MACD</h4>
                                     <div class="increase-line">
-                                        <label for="m_period_8">Periodo</label>
+                                        <label for="m_fast_8">EMA rapida</label>
                                         <div class="inline-control">
-                                            <input id="m_period_8" name="m_period_8" type="number" value="{{ values['m_period_8'] }}">
+                                            <input id="m_fast_8" name="m_fast_8" type="number" value="{{ values['m_fast_8'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_slow_8">EMA lenta</label>
+                                        <div class="inline-control">
+                                            <input id="m_slow_8" name="m_slow_8" type="number" value="{{ values['m_slow_8'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_sinal_8">Sinal</label>
+                                        <div class="inline-control">
+                                            <input id="m_sinal_8" name="m_sinal_8" type="number" value="{{ values['m_sinal_8'] }}">
                                         </div>
                                     </div>
                                     <div class="increase-line">
@@ -300,7 +379,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="strategy-param-empty">Oscilador utilizado no bloco de sobre comprado e vendido.</div>
+                                    <div class="strategy-param-empty">Oscilador utilizado no bloco de sinais do `Unificado.mq5`.</div>
                                 </section>
                             </div>
 
@@ -308,7 +387,7 @@
                                 <div>
                                     <span class="smartbot-kicker">Compatibilidade</span>
                                     <h3>Presets reais do EA</h3>
-                                    <p class="panel-subtitle">Esses campos sao os que o `2.mq5` realmente grava e interpreta no `.set` para compra, venda, inversao e reaproveitamento de sinais.</p>
+                                    <p class="panel-subtitle">Esses campos sao os que o `Unificado.mq5` realmente grava e interpreta no `.set` para compra, venda, inversao e reaproveitamento de sinais.</p>
                                 </div>
                                 <span class="section-tag">Set</span>
                             </div>
@@ -405,23 +484,7 @@
         (function () {
             const buttons = document.querySelectorAll("[data-tab-button]");
             const panels = document.querySelectorAll("[data-tab-panel]");
-            const channelSelect = document.getElementById("m_indicador_canal");
-            const channelLabels = {
-                bollinger: {
-                    period: "Periodo",
-                    multiplier: "Desvios",
-                    shift: "Deslocamento",
-                    price: "Modo de preco",
-                    note: "Bollinger usa este bloco com periodo, desvios, deslocamento e modo de preco para o canal exportado no .set.",
-                },
-                keltner: {
-                    period: "Periodo base",
-                    multiplier: "Multiplicador ATR",
-                    shift: "Deslocamento",
-                    price: "Preco base",
-                    note: "Keltner usa este mesmo bloco de parametros para manter o .set unificado: periodo base, multiplicador ATR, deslocamento e preco base.",
-                },
-            };
+            const channelSelect = document.getElementById("m_canal_indicador");
 
             buttons.forEach((button) => {
                 button.addEventListener("click", () => {
@@ -441,23 +504,28 @@
 
             if (channelSelect) {
                 const note = document.querySelector("[data-channel-note]");
-                const labelNodes = {
-                    period: document.querySelector('[data-channel-label="period"]'),
-                    multiplier: document.querySelector('[data-channel-label="multiplier"]'),
-                    shift: document.querySelector('[data-channel-label="shift"]'),
-                    price: document.querySelector('[data-channel-label="price"]'),
+                const rows = Array.from(document.querySelectorAll("[data-channel-card]"));
+                const notes = Array.from(document.querySelectorAll("[data-channel-card-note]"));
+                const messages = {
+                    es_canal_keltner: "O `Unificado.mq5` vai usar o bloco de Keltner junto com a configuracao de entrada, sentido e saida do canal.",
+                    es_canal_bollinger: "O `Unificado.mq5` vai usar o bloco de Bollinger junto com a configuracao de entrada, sentido e saida do canal.",
                 };
 
-                function refreshChannelLabels() {
-                    const selected = channelLabels[channelSelect.value] || channelLabels.bollinger;
-                    Object.entries(labelNodes).forEach(([key, node]) => {
-                        if (node) node.textContent = selected[key];
+                function refreshChannelCards() {
+                    const selected = channelSelect.value;
+                    rows.forEach((row) => {
+                        row.classList.toggle("is-hidden", row.getAttribute("data-channel-card") !== selected);
                     });
-                    if (note) note.textContent = selected.note;
+                    notes.forEach((item) => {
+                        item.classList.toggle("is-hidden", item.getAttribute("data-channel-card-note") !== selected);
+                    });
+                    if (note) {
+                        note.textContent = messages[selected] || messages.es_canal_keltner;
+                    }
                 }
 
-                channelSelect.addEventListener("change", refreshChannelLabels);
-                refreshChannelLabels();
+                channelSelect.addEventListener("change", refreshChannelCards);
+                refreshChannelCards();
             }
         })();
     </script>
