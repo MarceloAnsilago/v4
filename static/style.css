@@ -648,7 +648,7 @@ a {
 }
 
 .group-page .sidebar {
-    padding: 16px 14px;
+    padding: 14px 12px;
     background: #142239;
     border-right: 1px solid #20314e;
 }
@@ -663,27 +663,28 @@ a {
 }
 
 .group-page .brand {
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .group-page .brand-mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
     background: linear-gradient(135deg, #18aca5 0%, #0f8f89 100%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
 .group-page .sidebar-nav {
-    gap: 6px;
+    gap: 3px;
 }
 
 .group-page .nav-item {
     color: #dce7f3;
-    border-radius: 12px;
-    padding: 8px 12px;
-    gap: 10px;
-    font-size: 0.95rem;
+    border-radius: 10px;
+    padding: 6px 9px;
+    gap: 7px;
+    font-size: 0.81rem;
+    font-weight: 600;
 }
 
 .group-page .nav-item.active,
@@ -693,9 +694,18 @@ a {
 }
 
 .group-page .nav-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    border-radius: 7px;
     background: rgba(255, 255, 255, 0.04);
     border-color: rgba(147, 181, 220, 0.18);
     color: #b7d3ef;
+}
+
+.group-page .nav-icon svg {
+    width: 13px;
+    height: 13px;
 }
 
 .group-page .nav-item.active .nav-icon,
