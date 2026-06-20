@@ -105,25 +105,25 @@
                                     <h4>Canal de bandas</h4>
                                     <div class="strategy-line">
                                         <label>Indicador</label>
-                                        <select>
-                                            <option selected>Keltner</option>
+                                        <select disabled>
+                                            <option selected>Bandas de Bollinger</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Entrada</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Fechou fora</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Sentido</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Contra Tendencia</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Saida</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Cruzar o centro</option>
                                         </select>
                                     </div>
@@ -133,31 +133,31 @@
                                     <h4>Cruzamento de sinais</h4>
                                     <div class="strategy-line">
                                         <label>Sinal rapido</label>
-                                        <select>
-                                            <option selected>Vidya</option>
+                                        <select disabled>
+                                            <option selected>Dema</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Sinal lento</label>
-                                        <select>
-                                            <option selected>Media movel</option>
+                                        <select disabled>
+                                            <option selected>Tema</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Entrada</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Cruzamento</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Sentido</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Contra Tendencia</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Saida</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Cruzamento oposto</option>
                                         </select>
                                     </div>
@@ -167,33 +167,33 @@
                                     <h4>Sobre comprado/vendido</h4>
                                     <div class="strategy-line">
                                         <label>Indicador</label>
-                                        <select>
-                                            <option selected>MACD</option>
+                                        <select disabled>
+                                            <option selected>RSI</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Entrada</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Fechou fora</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Sobrecompra</label>
-                                        <input type="text" value="2" readonly>
+                                        <label>Faixa superior</label>
+                                        <input type="text" value="Preset interno do EA" readonly>
                                     </div>
                                     <div class="strategy-line">
-                                        <label>Sobrevenda</label>
-                                        <input type="text" value="2" readonly>
+                                        <label>Faixa inferior</label>
+                                        <input type="text" value="Preset interno do EA" readonly>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Sentido</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Contra Tendencia</option>
                                         </select>
                                     </div>
                                     <div class="strategy-line">
                                         <label>Saida</label>
-                                        <select>
+                                        <select disabled>
                                             <option selected>Cruzar o centro</option>
                                         </select>
                                     </div>
@@ -213,7 +213,7 @@
 
                             <div class="strategy-param-grid">
                                 <section class="strategy-param-card">
-                                    <h4>Bandas de Bolinger</h4>
+                                    <h4>Bandas de Bollinger</h4>
                                     <div class="increase-line">
                                         <label for="m_period_5">Periodo</label>
                                         <div class="inline-control">
@@ -414,37 +414,7 @@
         </main>
 
         <aside class="preview-rail">
-            <article class="panel preview-rail-panel">
-                <div class="panel-header">
-                    <div>
-                        <h3>Preview do arquivo .set</h3>
-                        <p class="panel-subtitle">Resultado gerado com os valores atuais.</p>
-                    </div>
-                </div>
-
-                <div class="preview-block">{{ set_content }}</div>
-
-                <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
-                    <input type="hidden" name="robot" value="{{ robot_name }}">
-                    {% for field_name, field_value in group_1_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_2_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_3_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_4_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_5_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_6_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_7_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_8_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_9_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_10_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_11_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_12_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_13_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_14_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in group_15_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    {% for field_name, field_value in values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
-                    <button type="submit" class="primary-button">Baixar .set</button>
-                </form>
-            </article>
+            {% include '_set_preview_panel.html' %}
         </aside>
     </div>
     <script>
@@ -471,3 +441,4 @@
     </script>
 </body>
 </html>
+

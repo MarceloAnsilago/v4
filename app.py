@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, Response, redirect, render_template, request, url_for
 
 
@@ -868,9 +870,9 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Sinal entrada compra 1"),
-            ("1", "Sinal entrada compra 2"),
-            ("2", "Sinal entrada compra 3"),
+            ("0", "Canal de bandas (Bollinger)"),
+            ("1", "Cruzamento Dema/Tema"),
+            ("2", "Sobrecomprado/Sobrevendido (RSI)"),
         ],
     },
     {
@@ -879,9 +881,9 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Sinal entrada venda 1"),
-            ("1", "Sinal entrada venda 2"),
-            ("2", "Sinal entrada venda 3"),
+            ("0", "Canal de bandas (Bollinger)"),
+            ("1", "Cruzamento Dema/Tema"),
+            ("2", "Sobrecomprado/Sobrevendido (RSI)"),
         ],
     },
     {
@@ -890,9 +892,9 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Sinal saida compra 1"),
-            ("1", "Sinal saida compra 2"),
-            ("2", "Sinal saida compra 3"),
+            ("0", "Canal de bandas (Bollinger)"),
+            ("1", "Cruzamento Dema/Tema"),
+            ("2", "Sobrecomprado/Sobrevendido (RSI)"),
         ],
     },
     {
@@ -901,9 +903,9 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Sinal saida venda 1"),
-            ("1", "Sinal saida venda 2"),
-            ("2", "Sinal saida venda 3"),
+            ("0", "Canal de bandas (Bollinger)"),
+            ("1", "Cruzamento Dema/Tema"),
+            ("2", "Sobrecomprado/Sobrevendido (RSI)"),
         ],
     },
     {
@@ -1057,7 +1059,8 @@ def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
         return "MeuRobo"
 
-    cleaned = "".join(ch for ch in raw_value.strip() if ch.isalnum() or ch in ("_", "-"))
+    normalized = re.sub(r"\s+", "_", raw_value.strip())
+    cleaned = "".join(ch for ch in normalized if ch.isalnum() or ch in ("_", "-"))
     return cleaned or "MeuRobo"
 
 
@@ -1195,6 +1198,53 @@ def build_group_16_values(form_data=None):
         default_value = field["default"]
         values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
     return values
+
+
+def build_all_group_values(form_data=None):
+    return {
+        "group_1_values": build_group_1_values(form_data),
+        "group_2_values": build_group_2_values(form_data),
+        "group_3_values": build_group_3_values(form_data),
+        "group_4_values": build_group_4_values(form_data),
+        "group_5_values": build_group_5_values(form_data),
+        "group_6_values": build_group_6_values(form_data),
+        "group_7_values": build_group_7_values(form_data),
+        "group_8_values": build_group_8_values(form_data),
+        "group_9_values": build_group_9_values(form_data),
+        "group_10_values": build_group_10_values(form_data),
+        "group_11_values": build_group_11_values(form_data),
+        "group_12_values": build_group_12_values(form_data),
+        "group_13_values": build_group_13_values(form_data),
+        "group_14_values": build_group_14_values(form_data),
+        "group_15_values": build_group_15_values(form_data),
+        "group_16_values": build_group_16_values(form_data),
+    }
+
+
+def build_set_content_from_groups(all_group_values, setup_name: str):
+    return build_set_content(
+        all_group_values["group_1_values"],
+        all_group_values["group_2_values"],
+        all_group_values["group_3_values"],
+        all_group_values["group_4_values"],
+        all_group_values["group_5_values"],
+        all_group_values["group_6_values"],
+        all_group_values["group_7_values"],
+        setup_name,
+        all_group_values["group_8_values"],
+        all_group_values["group_9_values"],
+        all_group_values["group_10_values"],
+        all_group_values["group_11_values"],
+        all_group_values["group_12_values"],
+        all_group_values["group_13_values"],
+        all_group_values["group_14_values"],
+        all_group_values["group_15_values"],
+        all_group_values["group_16_values"],
+    )
+
+
+def build_download_filename(robot_name: str) -> str:
+    return f"{robot_name}.set"
 
 
 def sanitize_calc_mode(raw_value):
@@ -1384,6 +1434,18 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
 
 
 app = Flask(__name__)
+
+
+@app.context_processor
+def inject_unified_set_context():
+    source_data = request.values
+    robot_name = sanitize_robot_name(source_data.get("robot") or source_data.get("robot_name"))
+    all_group_values = build_all_group_values(source_data)
+    return {
+        "all_group_values": all_group_values,
+        "unified_set_content": build_set_content_from_groups(all_group_values, robot_name),
+        "download_filename": build_download_filename(robot_name),
+    }
 
 
 @app.route("/")
@@ -2177,7 +2239,7 @@ def grupo_1_download():
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
-        headers={"Content-Disposition": f'attachment; filename="{robot_name}_grupo_1_inicial.set"'},
+        headers={"Content-Disposition": f'attachment; filename="{build_download_filename(robot_name)}"'},
     )
 
 
