@@ -1377,6 +1377,26 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
         group_15_values = build_group_15_values()
     if group_16_values is None:
         group_16_values = build_group_16_values()
+    channel_indicator = group_16_values["m_canal_indicador"]
+    channel_parameter_lines = []
+
+    if channel_indicator == "es_canal_bollinger":
+        channel_parameter_lines.extend(
+            [
+                f"m_bands_period={group_16_values['m_bands_period']}",
+                f"m_bands_desvio={group_16_values['m_bands_desvio']}",
+                f"m_bands_shift={group_16_values['m_bands_shift']}",
+                f"m_bands_price={group_16_values['m_bands_price']}",
+            ]
+        )
+    else:
+        channel_parameter_lines.extend(
+            [
+                f"m_period_5={group_16_values['m_period_5']}",
+                f"m_desvio_5={group_16_values['m_desvio_5']}",
+                f"m_ma_5={group_16_values['m_ma_5']}",
+            ]
+        )
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -1528,13 +1548,7 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_sinais_out={group_16_values['m_sinais_out']}",
             "",
             "; Grupo 16 - Estrategias Suportadas no Unificado.mq5",
-            f"m_period_5={group_16_values['m_period_5']}",
-            f"m_desvio_5={group_16_values['m_desvio_5']}",
-            f"m_ma_5={group_16_values['m_ma_5']}",
-            f"m_bands_period={group_16_values['m_bands_period']}",
-            f"m_bands_desvio={group_16_values['m_bands_desvio']}",
-            f"m_bands_shift={group_16_values['m_bands_shift']}",
-            f"m_bands_price={group_16_values['m_bands_price']}",
+            *channel_parameter_lines,
             f"m_period_6={group_16_values['m_period_6']}",
             f"m_ema_6={group_16_values['m_ema_6']}",
             f"m_shift_6={group_16_values['m_shift_6']}",
