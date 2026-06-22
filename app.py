@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 from flask import Flask, Response, redirect, render_template, request, url_for
 
@@ -1161,6 +1162,45 @@ GROUP_16_FIELDS = [
     },
 ]
 
+ALL_GROUP_FIELDS = (
+    GROUP_1_FIELDS
+    + GROUP_2_FIELDS
+    + GROUP_3_FIELDS
+    + GROUP_4_FIELDS
+    + GROUP_5_FIELDS
+    + GROUP_6_FIELDS
+    + GROUP_7_FIELDS
+    + GROUP_8_FIELDS
+    + GROUP_9_FIELDS
+    + GROUP_10_FIELDS
+    + GROUP_11_FIELDS
+    + GROUP_12_FIELDS
+    + GROUP_13_FIELDS
+    + GROUP_14_FIELDS
+    + GROUP_15_FIELDS
+    + GROUP_16_FIELDS
+)
+
+KNOWN_SET_FIELDS = {field["name"] for field in ALL_GROUP_FIELDS}
+SET_IMPORT_ENDPOINTS = {
+    "grupo_1",
+    "grupo_2",
+    "grupo_3",
+    "grupo_4",
+    "grupo_5",
+    "grupo_6",
+    "grupo_7",
+    "grupo_8",
+    "grupo_9",
+    "grupo_10",
+    "grupo_11",
+    "grupo_12",
+    "grupo_13",
+    "grupo_14",
+    "grupo_15",
+    "grupo_16",
+}
+
 
 def sanitize_robot_name(raw_value: str | None) -> str:
     if not raw_value:
@@ -1356,6 +1396,25 @@ def build_download_filename(robot_name: str) -> str:
 
 def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
+
+
+def parse_set_file_content(raw_content: str):
+    parsed_values = {}
+    for raw_line in raw_content.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith(";") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if key in KNOWN_SET_FIELDS:
+            parsed_values[key] = value.strip()
+
+    return parsed_values
+
+
+def sanitize_set_import_target(raw_target: str) -> str:
+    return raw_target if raw_target in SET_IMPORT_ENDPOINTS else "grupo_1"
 
 
 def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None, group_16_values=None):
@@ -1573,10 +1632,12 @@ def inject_unified_set_context():
     source_data = request.values
     robot_name = sanitize_robot_name(source_data.get("robot") or source_data.get("robot_name"))
     all_group_values = build_all_group_values(source_data)
+    set_import_target = "grupo_1" if request.endpoint == "index" else sanitize_set_import_target(request.endpoint)
     return {
         "all_group_values": all_group_values,
         "unified_set_content": build_set_content_from_groups(all_group_values, robot_name),
         "download_filename": build_download_filename(robot_name),
+        "set_import_target": set_import_target,
     }
 
 
@@ -2374,6 +2435,21 @@ def grupo_1_download():
         mimetype="text/plain; charset=utf-8",
         headers={"Content-Disposition": f'attachment; filename="{build_download_filename(robot_name)}"'},
     )
+
+
+@app.route("/import-set", methods=["POST"])
+def import_set():
+    uploaded_file = request.files.get("set_file")
+    target_endpoint = sanitize_set_import_target(request.form.get("target_endpoint"))
+
+    if uploaded_file is None or not uploaded_file.filename:
+        return redirect(url_for(target_endpoint))
+
+    raw_content = uploaded_file.stream.read().decode("utf-8-sig", errors="ignore")
+    imported_values = parse_set_file_content(raw_content)
+    robot_name = sanitize_robot_name(Path(uploaded_file.filename).stem)
+
+    return redirect(url_for(target_endpoint, robot=robot_name, **imported_values))
 
 
 if __name__ == "__main__":

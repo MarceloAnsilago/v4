@@ -564,6 +564,22 @@ a {
     padding: 0 20px 20px;
 }
 
+.set-upload-form {
+    display: grid;
+    gap: 10px;
+    padding: 0 20px 16px;
+}
+
+.set-upload-form input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: #fafbfc;
+    color: var(--muted);
+    font: inherit;
+}
+
 .single-column {
     grid-template-columns: 1fr;
 }
@@ -937,6 +953,17 @@ a {
 
 .group-page .download-form {
     padding: 12px 14px 14px;
+}
+
+.group-page .set-upload-form {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--group-border);
+    background: rgba(255, 255, 255, 0.62);
+}
+
+.group-page .set-upload-form input[type="file"] {
+    border-color: var(--group-border);
+    background: rgba(255, 255, 255, 0.88);
 }
 
 .group-page .data-table th {

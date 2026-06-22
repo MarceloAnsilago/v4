@@ -104,6 +104,13 @@
                     </div>
                 </div>
 
+                <form method="post" action="{{ url_for('import_set') }}" enctype="multipart/form-data" class="set-upload-form">
+                    <input type="hidden" name="target_endpoint" value="{{ set_import_target }}">
+                    <label for="set_file_upload_index" class="field-help">Subir `.set` existente</label>
+                    <input id="set_file_upload_index" name="set_file" type="file" accept=".set,text/plain">
+                    <button type="submit" class="secondary-button">Carregar no GeraSet</button>
+                </form>
+
                 <div class="preview-block">{{ set_content }}</div>
 
                 <form method="post" action="{{ url_for('grupo_1_download') }}" class="download-form">
