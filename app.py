@@ -864,16 +864,56 @@ GROUP_15_FIELDS = [
     },
 ]
 
+GROUP_16_CHANNEL_STRATEGIES = [
+    {
+        "id": "es_canal_keltner",
+        "label": "Canal de Keltner",
+        "card_title": "Keltner",
+        "description": "O `Unificado.mq5` vai usar o bloco de Keltner junto com a configuracao de entrada, sentido e saida do canal.",
+        "note": "Parametros usados quando o canal selecionado for Keltner.",
+        "field_names": ["m_period_5", "m_desvio_5", "m_ma_5"],
+    },
+    {
+        "id": "es_canal_bollinger",
+        "label": "Bandas de Bollinger",
+        "card_title": "Bollinger",
+        "description": "O `Unificado.mq5` vai usar o bloco de Bollinger junto com a configuracao de entrada, sentido e saida do canal.",
+        "note": "Parametros usados quando o canal selecionado for Bollinger.",
+        "field_names": ["m_bands_period", "m_bands_desvio", "m_bands_shift", "m_bands_price"],
+    },
+    {
+        "id": "es_canal_dochian",
+        "label": "Donchian",
+        "card_title": "Donchian",
+        "description": "O `Unificado.mq5` vai usar o bloco de Donchian junto com a configuracao de entrada, sentido e saida do canal.",
+        "note": "No `Unificado.mq5`, Donchian reaproveita o campo `m_period_1` como periodo do canal.",
+        "field_names": ["m_period_1"],
+    },
+    {
+        "id": "es_canal_envelopes",
+        "label": "Envelopes",
+        "card_title": "Envelopes",
+        "description": "O `Unificado.mq5` vai usar o bloco de Envelopes junto com a configuracao de entrada, sentido e saida do canal.",
+        "note": "No `Unificado.mq5`, Envelopes reaproveita `m_bands_price` como modo de preco.",
+        "field_names": ["m_env_period", "m_env_shift", "m_env_ma", "m_env_desvio", "m_bands_price"],
+    },
+    {
+        "id": "es_canal_atr",
+        "label": "Canal ATR",
+        "card_title": "Canal ATR",
+        "description": "O `Unificado.mq5` vai usar o bloco de Canal ATR junto com a configuracao de entrada, sentido e saida do canal.",
+        "note": "Parametros usados quando o canal selecionado for Canal ATR.",
+        "field_names": ["m_atr_channel_period", "m_atr_channel_desvio"],
+    },
+]
+
 GROUP_16_FIELDS = [
     {
         "name": "m_canal_indicador",
         "label": "Indicador de canal",
         "kind": "select",
         "default": "es_canal_keltner",
-        "options": [
-            ("es_canal_keltner", "Canal de Keltner"),
-            ("es_canal_bollinger", "Bandas de Bollinger"),
-        ],
+        "options": [(strategy["id"], strategy["label"]) for strategy in GROUP_16_CHANNEL_STRATEGIES],
     },
     {
         "name": "m_canal_entrada",
@@ -986,6 +1026,13 @@ GROUP_16_FIELDS = [
         "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
     },
     {
+        "name": "m_period_1",
+        "label": "Periodo Donchian",
+        "kind": "number",
+        "input_type": "number",
+        "default": "21",
+    },
+    {
         "name": "m_period_5",
         "label": "Periodo Keltner",
         "kind": "number",
@@ -997,6 +1044,7 @@ GROUP_16_FIELDS = [
         "label": "Desvio Keltner",
         "kind": "number",
         "input_type": "number",
+        "step": "0.000001",
         "default": "2",
     },
     {
@@ -1023,6 +1071,7 @@ GROUP_16_FIELDS = [
         "label": "Desvio Bollinger",
         "kind": "number",
         "input_type": "number",
+        "step": "0.000001",
         "default": "2",
     },
     {
@@ -1046,6 +1095,55 @@ GROUP_16_FIELDS = [
             ("PRICE_TYPICAL", "Preco tipico"),
             ("PRICE_WEIGHTED", "Preco ponderado"),
         ],
+    },
+    {
+        "name": "m_env_period",
+        "label": "Periodo Envelopes",
+        "kind": "number",
+        "input_type": "number",
+        "default": "14",
+    },
+    {
+        "name": "m_env_shift",
+        "label": "Deslocamento Envelopes",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_env_ma",
+        "label": "Calculo Envelopes",
+        "kind": "select",
+        "default": "MODE_SMA",
+        "options": [
+            ("MODE_SMA", "SMA"),
+            ("MODE_EMA", "EMA"),
+            ("MODE_SMMA", "SMMA"),
+            ("MODE_LWMA", "LWMA"),
+        ],
+    },
+    {
+        "name": "m_env_desvio",
+        "label": "Desvio Envelopes",
+        "kind": "number",
+        "input_type": "number",
+        "step": "0.000001",
+        "default": "0",
+    },
+    {
+        "name": "m_atr_channel_period",
+        "label": "Periodo Canal ATR",
+        "kind": "number",
+        "input_type": "number",
+        "default": "20",
+    },
+    {
+        "name": "m_atr_channel_desvio",
+        "label": "Desvio Canal ATR",
+        "kind": "number",
+        "input_type": "number",
+        "step": "0.000001",
+        "default": "0",
     },
     {
         "name": "m_period_6",
@@ -1182,6 +1280,9 @@ ALL_GROUP_FIELDS = (
 )
 
 KNOWN_SET_FIELDS = {field["name"] for field in ALL_GROUP_FIELDS}
+GROUP_16_CHANNEL_STRATEGY_BY_ID = {
+    strategy["id"]: strategy for strategy in GROUP_16_CHANNEL_STRATEGIES
+}
 SET_IMPORT_ENDPOINTS = {
     "grupo_1",
     "grupo_2",
@@ -1398,6 +1499,17 @@ def sanitize_calc_mode(raw_value):
     return raw_value if raw_value in ("pts", "pct") else "pts"
 
 
+def build_group_16_channel_parameter_lines(group_16_values):
+    selected_strategy = GROUP_16_CHANNEL_STRATEGY_BY_ID.get(
+        group_16_values["m_canal_indicador"],
+        GROUP_16_CHANNEL_STRATEGIES[0],
+    )
+    return [
+        f"{field_name}={group_16_values[field_name]}"
+        for field_name in selected_strategy["field_names"]
+    ]
+
+
 def parse_set_file_content(raw_content: str):
     parsed_values = {}
     for raw_line in raw_content.splitlines():
@@ -1436,26 +1548,7 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
         group_15_values = build_group_15_values()
     if group_16_values is None:
         group_16_values = build_group_16_values()
-    channel_indicator = group_16_values["m_canal_indicador"]
-    channel_parameter_lines = []
-
-    if channel_indicator == "es_canal_bollinger":
-        channel_parameter_lines.extend(
-            [
-                f"m_bands_period={group_16_values['m_bands_period']}",
-                f"m_bands_desvio={group_16_values['m_bands_desvio']}",
-                f"m_bands_shift={group_16_values['m_bands_shift']}",
-                f"m_bands_price={group_16_values['m_bands_price']}",
-            ]
-        )
-    else:
-        channel_parameter_lines.extend(
-            [
-                f"m_period_5={group_16_values['m_period_5']}",
-                f"m_desvio_5={group_16_values['m_desvio_5']}",
-                f"m_ma_5={group_16_values['m_ma_5']}",
-            ]
-        )
+    channel_parameter_lines = build_group_16_channel_parameter_lines(group_16_values)
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
@@ -2403,6 +2496,8 @@ def grupo_16():
         group_15_values=group_15_values,
         fields=GROUP_16_FIELDS,
         field_lookup={field["name"]: field for field in GROUP_16_FIELDS},
+        channel_strategies=GROUP_16_CHANNEL_STRATEGIES,
+        channel_strategy_messages={strategy["id"]: strategy["description"] for strategy in GROUP_16_CHANNEL_STRATEGIES},
         values=group_16_values,
         set_content=set_content,
         started=started,

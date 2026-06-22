@@ -136,7 +136,7 @@
                                         </select>
                                     </div>
                                     <div class="strategy-param-empty" data-channel-note>
-                                        O `Unificado.mq5` usa estes quatro campos para definir a logica do canal. Os parametros especificos de Keltner e Bollinger ficam na aba `Parametros`.
+                                        O `Unificado.mq5` usa estes quatro campos para definir a logica do canal. Os parametros especificos de Keltner, Bollinger, Donchian, Envelopes e Canal ATR ficam na aba `Parametros`.
                                     </div>
                                 </section>
 
@@ -219,65 +219,35 @@
                             </div>
 
                             <div class="strategy-param-grid">
+                                {% for strategy in channel_strategies %}
                                 <section class="strategy-param-card">
-                                    <h4>Keltner</h4>
-                                    <div class="increase-line" data-channel-card="es_canal_keltner">
-                                        <label for="m_period_5">Periodo</label>
+                                    <h4>{{ strategy.card_title }}</h4>
+                                    {% for field_name in strategy.field_names %}
+                                    {% set field = field_lookup[field_name] %}
+                                    <div class="increase-line" data-channel-card="{{ strategy.id }}">
+                                        <label for="{{ field.name }}">{{ field.label.replace(' Keltner', '').replace(' Bollinger', '').replace(' Donchian', '').replace(' Envelopes', '').replace(' Canal ATR', '') }}</label>
                                         <div class="inline-control">
-                                            <input id="m_period_5" name="m_period_5" type="number" value="{{ values['m_period_5'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line" data-channel-card="es_canal_keltner">
-                                        <label for="m_desvio_5">Desvio</label>
-                                        <div class="inline-control">
-                                            <input id="m_desvio_5" name="m_desvio_5" type="number" step="0.000001" value="{{ values['m_desvio_5'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line" data-channel-card="es_canal_keltner">
-                                        <label for="m_ma_5">Calculo</label>
-                                        <div class="inline-control">
-                                            <select id="m_ma_5" name="m_ma_5">
-                                                {% for option_value, option_label in field_lookup["m_ma_5"].options %}
-                                                <option value="{{ option_value }}" {% if values["m_ma_5"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% if field.kind == "select" %}
+                                            <select id="{{ field.name }}" name="{{ field.name }}">
+                                                {% for option_value, option_label in field.options %}
+                                                <option value="{{ option_value }}" {% if values[field.name] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                                 {% endfor %}
                                             </select>
+                                            {% else %}
+                                            <input
+                                                id="{{ field.name }}"
+                                                name="{{ field.name }}"
+                                                type="{{ field.input_type|default('text') }}"
+                                                {% if field.step is defined %}step="{{ field.step }}"{% endif %}
+                                                value="{{ values[field.name] }}"
+                                            >
+                                            {% endif %}
                                         </div>
                                     </div>
-                                    <div class="strategy-param-empty" data-channel-card-note="es_canal_keltner">Parametros usados quando o canal selecionado for Keltner.</div>
+                                    {% endfor %}
+                                    <div class="strategy-param-empty" data-channel-card-note="{{ strategy.id }}">{{ strategy.note }}</div>
                                 </section>
-
-                                <section class="strategy-param-card">
-                                    <h4>Bollinger</h4>
-                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
-                                        <label for="m_bands_period">Periodo</label>
-                                        <div class="inline-control">
-                                            <input id="m_bands_period" name="m_bands_period" type="number" value="{{ values['m_bands_period'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
-                                        <label for="m_bands_desvio">Desvio</label>
-                                        <div class="inline-control">
-                                            <input id="m_bands_desvio" name="m_bands_desvio" type="number" step="0.000001" value="{{ values['m_bands_desvio'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
-                                        <label for="m_bands_shift">Deslocamento</label>
-                                        <div class="inline-control">
-                                            <input id="m_bands_shift" name="m_bands_shift" type="number" value="{{ values['m_bands_shift'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="increase-line" data-channel-card="es_canal_bollinger">
-                                        <label for="m_bands_price">Modo de preco</label>
-                                        <div class="inline-control">
-                                            <select id="m_bands_price" name="m_bands_price">
-                                                {% for option_value, option_label in field_lookup["m_bands_price"].options %}
-                                                <option value="{{ option_value }}" {% if values["m_bands_price"] == option_value %}selected{% endif %}>{{ option_label }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="strategy-param-empty" data-channel-card-note="es_canal_bollinger">Parametros usados quando o canal selecionado for Bollinger.</div>
-                                </section>
+                                {% endfor %}
 
                                 <section class="strategy-param-card">
                                     <h4>Vidya</h4>
@@ -506,10 +476,7 @@
                 const note = document.querySelector("[data-channel-note]");
                 const rows = Array.from(document.querySelectorAll("[data-channel-card]"));
                 const notes = Array.from(document.querySelectorAll("[data-channel-card-note]"));
-                const messages = {
-                    es_canal_keltner: "O `Unificado.mq5` vai usar o bloco de Keltner junto com a configuracao de entrada, sentido e saida do canal.",
-                    es_canal_bollinger: "O `Unificado.mq5` vai usar o bloco de Bollinger junto com a configuracao de entrada, sentido e saida do canal.",
-                };
+                const messages = {{ channel_strategy_messages|tojson }};
 
                 function refreshChannelCards() {
                     const selected = channelSelect.value;
