@@ -52,8 +52,8 @@
                     <p>Esta etapa traduz a experiencia do construtor original para o conjunto de estruturas que o `Unificado.mq5` suporta hoje: canais, cruzamento com Vidya e media movel, e oscilador MACD.</p>
                 </div>
                 <div class="summary-meta">
-                    <span>28 parametros</span>
-                    <span>Preset + indicadores</span>
+                    <span>53 parametros</span>
+                    <span>Preset + auxiliares + visual</span>
                 </div>
             </section>
 
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="{{ url_for('grupo_16') }}" class="quick-form" id="grupo16-form">
+                    <form method="post" action="{{ url_for('grupo_17') }}" class="quick-form" id="grupo16-form">
                         {% for field_name, field_value in group_1_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_2_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
                         {% for field_name, field_value in group_3_values.items() %}<input type="hidden" name="{{ field_name }}" value="{{ field_value }}">{% endfor %}
@@ -249,6 +249,105 @@
                                     <div class="strategy-param-empty" data-channel-card-note="{{ strategy.id }}">{{ strategy.note }}</div>
                                 </section>
                                 {% endfor %}
+
+                                <section class="strategy-param-card">
+                                    <h4>Regressao</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_2">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_2" name="m_period_2" type="number" value="{{ values['m_period_2'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_ma_2">Tipo de media</label>
+                                        <div class="inline-control">
+                                            <select id="m_ma_2" name="m_ma_2">
+                                                {% for option_value, option_label in field_lookup["m_ma_2"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_ma_2"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_2">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_2" name="m_price_2">
+                                                {% for option_value, option_label in field_lookup["m_price_2"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_2"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Indicador auxiliar usado em combinacoes internas do `Unificado.mq5`.</div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>Afastamento</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_3">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_3" name="m_period_3" type="number" value="{{ values['m_period_3'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_shift_3">Deslocamento</label>
+                                        <div class="inline-control">
+                                            <input id="m_shift_3" name="m_shift_3" type="number" value="{{ values['m_shift_3'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_ma_3">Tipo de media</label>
+                                        <div class="inline-control">
+                                            <select id="m_ma_3" name="m_ma_3">
+                                                {% for option_value, option_label in field_lookup["m_ma_3"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_ma_3"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_3">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_3" name="m_price_3">
+                                                {% for option_value, option_label in field_lookup["m_price_3"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_3"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Indicador auxiliar usado em combinacoes internas do `Unificado.mq5`.</div>
+                                </section>
+
+                                <section class="strategy-param-card">
+                                    <h4>Desvio medio</h4>
+                                    <div class="increase-line">
+                                        <label for="m_period_4">Periodo</label>
+                                        <div class="inline-control">
+                                            <input id="m_period_4" name="m_period_4" type="number" value="{{ values['m_period_4'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_ma_4">Tipo de media</label>
+                                        <div class="inline-control">
+                                            <select id="m_ma_4" name="m_ma_4">
+                                                {% for option_value, option_label in field_lookup["m_ma_4"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_ma_4"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="increase-line">
+                                        <label for="m_price_4">Modo de preco</label>
+                                        <div class="inline-control">
+                                            <select id="m_price_4" name="m_price_4">
+                                                {% for option_value, option_label in field_lookup["m_price_4"].options %}
+                                                <option value="{{ option_value }}" {% if values["m_price_4"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="strategy-param-empty">Indicador auxiliar usado em combinacoes internas do `Unificado.mq5`.</div>
+                                </section>
 
                                 <section class="strategy-param-card">
                                     <h4>Vidya</h4>
@@ -431,6 +530,61 @@
                                         <select id="m_sinais_out" name="m_sinais_out">
                                             {% for option_value, option_label in field_lookup["m_sinais_out"].options %}
                                             <option value="{{ option_value }}" {% if values["m_sinais_out"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div class="panel-split-head">
+                                <div>
+                                    <span class="smartbot-kicker">Visual</span>
+                                    <h3>Visualizacao grafica</h3>
+                                    <p class="panel-subtitle">Esses campos tambem fazem parte do `.set` do `Unificado.mq5` e controlam insercao de indicadores, painel e log.</p>
+                                </div>
+                                <span class="section-tag">Grafico</span>
+                            </div>
+
+                            <div class="orders-grid">
+                                <section class="orders-card">
+                                    <h4>Exibicao</h4>
+                                    <div class="order-line">
+                                        <label for="m_inserir">Inserir indicadores</label>
+                                        <select id="m_inserir" name="m_inserir">
+                                            {% for option_value, option_label in field_lookup["m_inserir"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_inserir"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_painel">Inserir painel grafico</label>
+                                        <select id="m_painel" name="m_painel">
+                                            {% for option_value, option_label in field_lookup["m_painel"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_painel"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_log">Exibir log informativo</label>
+                                        <select id="m_log" name="m_log">
+                                            {% for option_value, option_label in field_lookup["m_log"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_log"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_tarjas">Exibir etiquetas nas ordens</label>
+                                        <select id="m_tarjas" name="m_tarjas">
+                                            {% for option_value, option_label in field_lookup["m_tarjas"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_tarjas"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="order-line">
+                                        <label for="m_layout">Alterar layout do grafico</label>
+                                        <select id="m_layout" name="m_layout">
+                                            {% for option_value, option_label in field_lookup["m_layout"].options %}
+                                            <option value="{{ option_value }}" {% if values["m_layout"] == option_value %}selected{% endif %}>{{ option_label }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

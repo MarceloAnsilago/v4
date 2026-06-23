@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeraSet - Grupo 17</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="group-page">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="brand-mark">GS</div>
+                    <div>
+                        <p class="brand-overline">Workspace</p>
+                        <h1>GeraSet</h1>
+                    </div>
+                </div>
+
+                {% set active_page = 'grupo_17' %}
+                {% include '_sidebar_nav.html' %}
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="muted">Pagina baseada no grupo `METAS DO EXPERT` do `Unificado.mq5`.</p>
+            </div>
+        </aside>
+
+        <main class="main-panel with-preview-rail">
+            <header class="topbar">
+                <div>
+                    <p class="page-overline">Arquivo base</p>
+                    <h2>Grupo 17 - Metas do expert</h2>
+                    <p class="panel-subtitle topbar-subtitle">Robo em construcao: <strong>{{ robot_name }}.mq5</strong></p>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="workspace-chip">
+                        <span class="chip-dot"></span>
+                        `Experts/Construtor/Unificado.mq5`
+                    </div>
+                    <span class="topbar-note">
+                        {% if started %}Preview atualizado{% else %}Valores padrao do EA{% endif %}
+                    </span>
+                </div>
+            </header>
+
+            <section class="panel group-summary">
+                <div class="summary-main">
+                    <strong>Metas do expert</strong>
+                    <p>Controle de ganho, perda, rebaixamento, recuperacao e limites de operacoes do proprio robô.</p>
+                </div>
+                <div class="summary-meta">
+                    <span>15 parametros</span>
+                    <span>Bloco real do Unificado</span>
+                </div>
+            </section>
+
+            <section class="form-layout compact-layout single-main-column">
+                <article class="panel">
+                    <div class="panel-header">
+                        <div class="section-card-head">
+                            <div>
+                                <span class="smartbot-kicker">Configuracao</span>
+                                <div>
+                                    <h3>Metas do expert</h3>
+                                    <p class="panel-subtitle">Campos adicionais do `Unificado.mq5` que afetam a operacao e o encerramento automatico.</p>
+                                </div>
+                            </div>
+                            <span class="section-tag">Risco e limites</span>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{{ url_for('grupo_18') }}" class="quick-form">
+                        {% for group_name, group_values in all_group_values.items() %}
+                        {% if group_name != 'group_17_values' %}
+                        {% for field_name, field_value in group_values.items() %}
+                        <input type="hidden" name="{{ field_name }}" value="{{ field_value }}">
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        <input type="hidden" name="robot" value="{{ robot_name }}">
+
+                        {% for field in fields %}
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                            </div>
+                            <div class="form-row-control">
+                                {% if field.kind == "select" %}
+                                <select id="{{ field.name }}" name="{{ field.name }}">
+                                    {% for option_value, option_label in field.options %}
+                                    <option value="{{ option_value }}" {% if values[field.name] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% else %}
+                                <input id="{{ field.name }}" name="{{ field.name }}" type="{{ field.input_type|default('text') }}" value="{{ values[field.name] }}">
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="button-row">
+                            <button type="submit" class="primary-button">Salvar</button>
+                            <a class="secondary-button" href="{{ url_for('grupo_16', robot=robot_name) }}">Voltar</a>
+                        </div>
+                    </form>
+                </article>
+            </section>
+        </main>
+
+        <aside class="preview-rail">
+            {% include '_set_preview_panel.html' %}
+        </aside>
+    </div>
+</body>
+</html>

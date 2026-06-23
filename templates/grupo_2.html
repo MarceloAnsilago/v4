@@ -23,7 +23,7 @@
             </div>
 
             <div class="sidebar-footer">
-                <p class="muted">Pagina baseada no grupo `CONFIGURACAO ADICIONAL` do `1.mq5`.</p>
+                <p class="muted">Pagina baseada no grupo `CONFIGURACAO ADICIONAL` e blocos auxiliares do `Unificado.mq5`.</p>
             </div>
         </aside>
 
@@ -38,7 +38,7 @@
                 <div class="topbar-actions">
                     <div class="workspace-chip">
                         <span class="chip-dot"></span>
-                        `Experts/Construtor/1.mq5`
+                        `Experts/Construtor/Unificado.mq5`
                     </div>
                     <span class="topbar-note">
                         {% if started %}
@@ -52,12 +52,12 @@
 
             <section class="panel group-summary">
                 <div class="summary-main">
-                    <strong>Segundo bloco de parametros do EA</strong>
-                    <p>Configuracoes adicionais que complementam a abertura das ordens e a leitura do grafico no `1.mq5`.</p>
+                    <strong>Configuracao adicional do Unificado</strong>
+                    <p>Bloco com tempo grafico, volume, spread, confirmacao de alvos, atraso de envio, complemento de saldo e cross order.</p>
                 </div>
                 <div class="summary-meta">
-                    <span>3 parametros</span>
-                    <span>Configuracao adicional</span>
+                    <span>8 parametros</span>
+                    <span>Base + complementos</span>
                 </div>
             </section>
 
@@ -66,7 +66,7 @@
                     <div class="panel-header">
                         <div>
                             <h3>Configuracao adicional</h3>
-                            <p class="panel-subtitle">Campos baseados no grupo `CONFIGURACAO ADICIONAL` do EA.</p>
+                            <p class="panel-subtitle">Campos reais do `Unificado.mq5` ligados a configuracao adicional, complementos e cross order.</p>
                         </div>
                     </div>
 
@@ -127,9 +127,60 @@
                             </div>
                         </div>
 
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_alvos_check">Tempo para confirmar alvos</label>
+                            </div>
+                            <div class="form-row-control inline-control">
+                                <input id="m_alvos_check" name="m_alvos_check" type="number" value="{{ values['m_alvos_check'] }}">
+                                <span>(Seg)</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_delay_ticks">Atraso apos envio de ordens</label>
+                            </div>
+                            <div class="form-row-control inline-control">
+                                <input id="m_delay_ticks" name="m_delay_ticks" type="number" value="{{ values['m_delay_ticks'] }}">
+                                <span>(Ms)</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_ref_saldo">Somar saldo para ajuste</label>
+                            </div>
+                            <div class="form-row-control">
+                                <input id="m_ref_saldo" name="m_ref_saldo" type="number" value="{{ values['m_ref_saldo'] }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_cross_order">Envio de ordens em outro ativo</label>
+                            </div>
+                            <div class="form-row-control">
+                                <select id="m_cross_order" name="m_cross_order">
+                                    {% for option_value, option_label in fields[6].options %}
+                                    <option value="{{ option_value }}" {% if values["m_cross_order"] == option_value %}selected{% endif %}>{{ option_label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row compact-choice-row">
+                            <div class="form-row-label">
+                                <label for="m_cross_ativo">Ativo para cross order</label>
+                            </div>
+                            <div class="form-row-control">
+                                <input id="m_cross_ativo" name="m_cross_ativo" type="text" value="{{ values['m_cross_ativo'] }}">
+                            </div>
+                        </div>
+
                         <div class="button-row">
                             <button type="submit" class="primary-button">Salvar</button>
-                            <a class="secondary-button" href="{{ url_for('grupo_1', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_timeframe=values['m_timeframe'], m_volume=values['m_volume'], m_spread=values['m_spread']) }}">Voltar</a>
+                            <a class="secondary-button" href="{{ url_for('grupo_1', robot=robot_name, m_magic=group_1_values['m_magic'], m_processo=group_1_values['m_processo'], m_mercado=group_1_values['m_mercado'], m_validade=group_1_values['m_validade'], m_set=group_1_values['m_set'], m_timeframe=values['m_timeframe'], m_volume=values['m_volume'], m_spread=values['m_spread'], m_alvos_check=values['m_alvos_check'], m_delay_ticks=values['m_delay_ticks'], m_ref_saldo=values['m_ref_saldo'], m_cross_order=values['m_cross_order'], m_cross_ativo=values['m_cross_ativo']) }}">Voltar</a>
                         </div>
                     </form>
                 </article>

@@ -178,6 +178,26 @@
         </span>
         <span>Sinais prontos</span>
     </a>
+    <a class="nav-item {% if active_page == 'grupo_17' %}active{% endif %}" href="{{ url_for('grupo_17', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18"></path>
+                <path d="M7 8h10"></path>
+                <path d="M7 16h6"></path>
+            </svg>
+        </span>
+        <span>Metas expert</span>
+    </a>
+    <a class="nav-item {% if active_page == 'grupo_18' %}active{% endif %}" href="{{ url_for('grupo_18', robot=robot_name) }}">
+        <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                <path d="M8 10h8"></path>
+                <path d="M8 14h5"></path>
+            </svg>
+        </span>
+        <span>Metas conta</span>
+    </a>
     <a class="nav-item {% if active_page == 'historico' %}active{% endif %}" href="#">
         <span class="nav-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">

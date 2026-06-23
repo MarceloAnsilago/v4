@@ -120,6 +120,46 @@ GROUP_2_FIELDS = [
         "default": "0",
         "help": "Spread maximo permitido em pontos.",
     },
+    {
+        "name": "m_alvos_check",
+        "label": "Tempo para confirmar alvos",
+        "kind": "number",
+        "input_type": "number",
+        "default": "5",
+        "help": "Corresponde ao campo m_alvos_check do Unificado.mq5 em segundos.",
+    },
+    {
+        "name": "m_delay_ticks",
+        "label": "Atraso apos envio de ordens",
+        "kind": "number",
+        "input_type": "number",
+        "default": "1000",
+        "help": "Corresponde ao campo m_delay_ticks do Unificado.mq5 em milissegundos.",
+    },
+    {
+        "name": "m_ref_saldo",
+        "label": "Somar saldo para ajuste",
+        "kind": "number",
+        "input_type": "number",
+        "default": "05",
+        "help": "Valor adicional usado no bloco COMPLEMENTOS do Unificado.mq5.",
+    },
+    {
+        "name": "m_cross_order",
+        "label": "Envio de ordens em outro ativo",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+        "help": "Ativa o bloco CROSS ORDER do Unificado.mq5.",
+    },
+    {
+        "name": "m_cross_ativo",
+        "label": "Ativo para cross order",
+        "kind": "text",
+        "input_type": "text",
+        "default": "PETR ",
+        "help": "Ticker utilizado quando m_cross_order estiver ligado.",
+    },
 ]
 
 PRICE_OPTIONS = [
@@ -1270,6 +1310,392 @@ GROUP_16_FIELDS = [
             ("PRICE_WEIGHTED", "Preco ponderado"),
         ],
     },
+    {
+        "name": "m_period_2",
+        "label": "Periodo Regressao",
+        "kind": "number",
+        "input_type": "number",
+        "default": "18",
+    },
+    {
+        "name": "m_ma_2",
+        "label": "Tipo de media Regressao",
+        "kind": "select",
+        "default": "MODE_SMA",
+        "options": [
+            ("MODE_SMA", "SMA"),
+            ("MODE_EMA", "EMA"),
+            ("MODE_SMMA", "SMMA"),
+            ("MODE_LWMA", "LWMA"),
+        ],
+    },
+    {
+        "name": "m_price_2",
+        "label": "Modo de preco Regressao",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_period_3",
+        "label": "Periodo Afastamento",
+        "kind": "number",
+        "input_type": "number",
+        "default": "14",
+    },
+    {
+        "name": "m_shift_3",
+        "label": "Deslocamento Afastamento",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_ma_3",
+        "label": "Tipo de media Afastamento",
+        "kind": "select",
+        "default": "MODE_SMA",
+        "options": [
+            ("MODE_SMA", "SMA"),
+            ("MODE_EMA", "EMA"),
+            ("MODE_SMMA", "SMMA"),
+            ("MODE_LWMA", "LWMA"),
+        ],
+    },
+    {
+        "name": "m_price_3",
+        "label": "Modo de preco Afastamento",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_period_4",
+        "label": "Periodo Desvio Medio",
+        "kind": "number",
+        "input_type": "number",
+        "default": "20",
+    },
+    {
+        "name": "m_ma_4",
+        "label": "Tipo de media Desvio Medio",
+        "kind": "select",
+        "default": "MODE_SMA",
+        "options": [
+            ("MODE_SMA", "SMA"),
+            ("MODE_EMA", "EMA"),
+            ("MODE_SMMA", "SMMA"),
+            ("MODE_LWMA", "LWMA"),
+        ],
+    },
+    {
+        "name": "m_price_4",
+        "label": "Modo de preco Desvio Medio",
+        "kind": "select",
+        "default": "PRICE_CLOSE",
+        "options": [
+            ("PRICE_CLOSE", "Fechamento"),
+            ("PRICE_OPEN", "Abertura"),
+            ("PRICE_HIGH", "Maxima"),
+            ("PRICE_LOW", "Minima"),
+            ("PRICE_MEDIAN", "Preco medio"),
+            ("PRICE_TYPICAL", "Preco tipico"),
+            ("PRICE_WEIGHTED", "Preco ponderado"),
+        ],
+    },
+    {
+        "name": "m_inserir",
+        "label": "Inserir indicadores no grafico",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_painel",
+        "label": "Inserir painel grafico",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_log",
+        "label": "Exibir log informativo",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_tarjas",
+        "label": "Exibir etiquetas nas ordens",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_layout",
+        "label": "Alterar layout do grafico",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+]
+
+META_OPTIONS = [
+    ("es_off", "Desabilitado"),
+    ("es_dia", "Diaria"),
+    ("es_sem", "Semanal"),
+    ("es_mes", "Mensal"),
+]
+
+SALDO_OPTIONS = [
+    ("0", "Saldo"),
+    ("1", "Saldo + aberto"),
+]
+
+GROUP_17_FIELDS = [
+    {
+        "name": "m_refere",
+        "label": "Referencia das metas do expert",
+        "kind": "select",
+        "default": "es_dia",
+        "options": META_OPTIONS,
+    },
+    {
+        "name": "m_ref_calc",
+        "label": "Calculo do saldo",
+        "kind": "select",
+        "default": "0",
+        "options": SALDO_OPTIONS,
+    },
+    {
+        "name": "m_gain",
+        "label": "Meta de ganho",
+        "kind": "number",
+        "input_type": "number",
+        "default": "50",
+    },
+    {
+        "name": "m_gain_out",
+        "label": "Zerar no gain durante um trade",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_loss",
+        "label": "Limite de perda",
+        "kind": "number",
+        "input_type": "number",
+        "default": "20",
+    },
+    {
+        "name": "m_loss_out",
+        "label": "Zerar no loss durante um trade",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_dd",
+        "label": "Rebaixamento maximo",
+        "kind": "number",
+        "input_type": "number",
+        "default": "52",
+    },
+    {
+        "name": "m_dd_out",
+        "label": "Zerar no rebaixamento durante um trade",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_dd_gat",
+        "label": "Gatilho para rebaixamento",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_rec",
+        "label": "Recuperacao minima",
+        "kind": "number",
+        "input_type": "number",
+        "default": "4",
+    },
+    {
+        "name": "m_rec_out",
+        "label": "Zerar na recuperacao durante um trade",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_rec_gat",
+        "label": "Gatilho para recuperacao",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_op_gain",
+        "label": "Limite de operacoes vencedoras",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_op_loss",
+        "label": "Limite de operacoes perdedoras",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_op_total",
+        "label": "Limite total de operacoes",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+]
+
+GROUP_18_FIELDS = [
+    {
+        "name": "m_refere_conta",
+        "label": "Referencia das metas da conta",
+        "kind": "select",
+        "default": "es_dia",
+        "options": META_OPTIONS,
+    },
+    {
+        "name": "m_ref_calc_conta",
+        "label": "Calculo do saldo da conta",
+        "kind": "select",
+        "default": "0",
+        "options": SALDO_OPTIONS,
+    },
+    {
+        "name": "m_ativo_conta",
+        "label": "Filtrar somente do mesmo ativo",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_manual_conta",
+        "label": "Excluir operacoes manuais",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_expert_conta",
+        "label": "Filtrar IDs de robos",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_ticket_min_conta",
+        "label": "ID minimo de robos",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_ticket_max_conta",
+        "label": "ID maximo de robos",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_gain_conta",
+        "label": "Meta de ganho da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "25",
+    },
+    {
+        "name": "m_gain_out_conta",
+        "label": "Zerar no gain durante um trade",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_loss_conta",
+        "label": "Limite de perda da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "22",
+    },
+    {
+        "name": "m_loss_out_conta",
+        "label": "Zerar no loss durante um trade",
+        "kind": "select",
+        "default": "es_sim",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_dd_conta",
+        "label": "Rebaixamento maximo da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "2",
+    },
+    {
+        "name": "m_dd_out_conta",
+        "label": "Zerar no rebaixamento durante um trade",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_dd_gat_conta",
+        "label": "Gatilho para rebaixamento da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
+    {
+        "name": "m_rec_conta",
+        "label": "Recuperacao minima da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "1",
+    },
+    {
+        "name": "m_rec_out_conta",
+        "label": "Zerar na recuperacao durante um trade",
+        "kind": "select",
+        "default": "es_nao",
+        "options": [("es_nao", "Nao"), ("es_sim", "Sim")],
+    },
+    {
+        "name": "m_rec_gat_conta",
+        "label": "Gatilho para recuperacao da conta",
+        "kind": "number",
+        "input_type": "number",
+        "default": "0",
+    },
 ]
 
 ALL_GROUP_FIELDS = (
@@ -1289,6 +1715,8 @@ ALL_GROUP_FIELDS = (
     + GROUP_14_FIELDS
     + GROUP_15_FIELDS
     + GROUP_16_FIELDS
+    + GROUP_17_FIELDS
+    + GROUP_18_FIELDS
 )
 
 KNOWN_SET_FIELDS = {field["name"] for field in ALL_GROUP_FIELDS}
@@ -1312,6 +1740,8 @@ SET_IMPORT_ENDPOINTS = {
     "grupo_14",
     "grupo_15",
     "grupo_16",
+    "grupo_17",
+    "grupo_18",
 }
 
 
@@ -1460,6 +1890,22 @@ def build_group_16_values(form_data=None):
     return values
 
 
+def build_group_17_values(form_data=None):
+    values = {}
+    for field in GROUP_17_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
+def build_group_18_values(form_data=None):
+    values = {}
+    for field in GROUP_18_FIELDS:
+        default_value = field["default"]
+        values[field["name"]] = form_data.get(field["name"], default_value) if form_data else default_value
+    return values
+
+
 def build_all_group_values(form_data=None):
     return {
         "group_1_values": build_group_1_values(form_data),
@@ -1478,6 +1924,8 @@ def build_all_group_values(form_data=None):
         "group_14_values": build_group_14_values(form_data),
         "group_15_values": build_group_15_values(form_data),
         "group_16_values": build_group_16_values(form_data),
+        "group_17_values": build_group_17_values(form_data),
+        "group_18_values": build_group_18_values(form_data),
     }
 
 
@@ -1500,6 +1948,8 @@ def build_set_content_from_groups(all_group_values, setup_name: str):
         all_group_values["group_14_values"],
         all_group_values["group_15_values"],
         all_group_values["group_16_values"],
+        all_group_values["group_17_values"],
+        all_group_values["group_18_values"],
     )
 
 
@@ -1541,7 +1991,7 @@ def sanitize_set_import_target(raw_target: str) -> str:
     return raw_target if raw_target in SET_IMPORT_ENDPOINTS else "grupo_1"
 
 
-def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None, group_16_values=None):
+def build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, setup_name: str, group_8_values=None, group_9_values=None, group_10_values=None, group_11_values=None, group_12_values=None, group_13_values=None, group_14_values=None, group_15_values=None, group_16_values=None, group_17_values=None, group_18_values=None):
     if group_8_values is None:
         group_8_values = build_group_8_values()
     if group_9_values is None:
@@ -1560,6 +2010,10 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
         group_15_values = build_group_15_values()
     if group_16_values is None:
         group_16_values = build_group_16_values()
+    if group_17_values is None:
+        group_17_values = build_group_17_values()
+    if group_18_values is None:
+        group_18_values = build_group_18_values()
     channel_parameter_lines = build_group_16_channel_parameter_lines(group_16_values)
     return "\n".join(
         [
@@ -1574,6 +2028,21 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_timeframe={group_2_values['m_timeframe']}",
             f"m_volume={group_2_values['m_volume']}",
             f"m_spread={group_2_values['m_spread']}",
+            f"m_alvos_check={group_2_values['m_alvos_check']}",
+            f"m_delay_ticks={group_2_values['m_delay_ticks']}",
+            "",
+            "; Grupo 2 - Confirmacao de Sinais e Complementos",
+            f"m_compra_in={group_16_values['m_compra_in']}",
+            f"m_venda_in={group_16_values['m_venda_in']}",
+            f"m_compra_out={group_16_values['m_compra_out']}",
+            f"m_venda_out={group_16_values['m_venda_out']}",
+            f"m_inverte_in={group_16_values['m_inverte_in']}",
+            f"m_inverte_out={group_16_values['m_inverte_out']}",
+            f"m_cross_order={group_2_values['m_cross_order']}",
+            f"m_cross_ativo={group_2_values['m_cross_ativo']}",
+            f"m_sinais_in={group_16_values['m_sinais_in']}",
+            f"m_sinais_out={group_16_values['m_sinais_out']}",
+            f"m_ref_saldo={group_2_values['m_ref_saldo']}",
             "",
             "; Grupo 3 - Tipo de Ordens",
             f"m_pendente_in={group_3_values['m_pendente_in']}",
@@ -1690,6 +2159,42 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_grad_ajuste={group_14_values['m_grad_ajuste']}",
             f"m_grad_repo={group_14_values['m_grad_repo']}",
             "",
+            "; Grupo 14 - Metas do Expert",
+            f"m_refere={group_17_values['m_refere']}",
+            f"m_ref_calc={group_17_values['m_ref_calc']}",
+            f"m_gain={group_17_values['m_gain']}",
+            f"m_gain_out={group_17_values['m_gain_out']}",
+            f"m_loss={group_17_values['m_loss']}",
+            f"m_loss_out={group_17_values['m_loss_out']}",
+            f"m_dd={group_17_values['m_dd']}",
+            f"m_dd_out={group_17_values['m_dd_out']}",
+            f"m_dd_gat={group_17_values['m_dd_gat']}",
+            f"m_rec={group_17_values['m_rec']}",
+            f"m_rec_out={group_17_values['m_rec_out']}",
+            f"m_rec_gat={group_17_values['m_rec_gat']}",
+            f"m_op_gain={group_17_values['m_op_gain']}",
+            f"m_op_loss={group_17_values['m_op_loss']}",
+            f"m_op_total={group_17_values['m_op_total']}",
+            "",
+            "; Grupo 14 - Metas da Conta",
+            f"m_refere_conta={group_18_values['m_refere_conta']}",
+            f"m_ref_calc_conta={group_18_values['m_ref_calc_conta']}",
+            f"m_ativo_conta={group_18_values['m_ativo_conta']}",
+            f"m_manual_conta={group_18_values['m_manual_conta']}",
+            f"m_expert_conta={group_18_values['m_expert_conta']}",
+            f"m_ticket_min_conta={group_18_values['m_ticket_min_conta']}",
+            f"m_ticket_max_conta={group_18_values['m_ticket_max_conta']}",
+            f"m_gain_conta={group_18_values['m_gain_conta']}",
+            f"m_gain_out_conta={group_18_values['m_gain_out_conta']}",
+            f"m_loss_conta={group_18_values['m_loss_conta']}",
+            f"m_loss_out_conta={group_18_values['m_loss_out_conta']}",
+            f"m_dd_conta={group_18_values['m_dd_conta']}",
+            f"m_dd_out_conta={group_18_values['m_dd_out_conta']}",
+            f"m_dd_gat_conta={group_18_values['m_dd_gat_conta']}",
+            f"m_rec_conta={group_18_values['m_rec_conta']}",
+            f"m_rec_out_conta={group_18_values['m_rec_out_conta']}",
+            f"m_rec_gat_conta={group_18_values['m_rec_gat_conta']}",
+            "",
             "; Grupo 15 - Filtro de Vela",
             f"m_candle_tf={group_15_values['m_candle_tf']}",
             f"m_candle_min={group_15_values['m_candle_min']}",
@@ -1698,18 +2203,26 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
             f"m_corpo_max={group_15_values['m_corpo_max']}",
             "",
             "; Grupo 16 - Sinais Prontos",
+            f"m_inserir={group_16_values['m_inserir']}",
+            f"m_painel={group_16_values['m_painel']}",
+            f"m_log={group_16_values['m_log']}",
+            f"m_tarjas={group_16_values['m_tarjas']}",
+            f"m_layout={group_16_values['m_layout']}",
+            f"m_period_1={group_16_values['m_period_1']}",
+            f"m_period_2={group_16_values['m_period_2']}",
+            f"m_ma_2={group_16_values['m_ma_2']}",
+            f"m_price_2={group_16_values['m_price_2']}",
+            f"m_period_3={group_16_values['m_period_3']}",
+            f"m_shift_3={group_16_values['m_shift_3']}",
+            f"m_ma_3={group_16_values['m_ma_3']}",
+            f"m_price_3={group_16_values['m_price_3']}",
+            f"m_period_4={group_16_values['m_period_4']}",
+            f"m_ma_4={group_16_values['m_ma_4']}",
+            f"m_price_4={group_16_values['m_price_4']}",
             f"m_canal_indicador={group_16_values['m_canal_indicador']}",
             f"m_canal_entrada={group_16_values['m_canal_entrada']}",
             f"m_canal_sentido={group_16_values['m_canal_sentido']}",
             f"m_canal_saida={group_16_values['m_canal_saida']}",
-            f"m_compra_in={group_16_values['m_compra_in']}",
-            f"m_venda_in={group_16_values['m_venda_in']}",
-            f"m_compra_out={group_16_values['m_compra_out']}",
-            f"m_venda_out={group_16_values['m_venda_out']}",
-            f"m_inverte_in={group_16_values['m_inverte_in']}",
-            f"m_inverte_out={group_16_values['m_inverte_out']}",
-            f"m_sinais_in={group_16_values['m_sinais_in']}",
-            f"m_sinais_out={group_16_values['m_sinais_out']}",
             "",
             "; Grupo 16 - Estrategias Suportadas no Unificado.mq5",
             *channel_parameter_lines,
@@ -2405,6 +2918,8 @@ def grupo_15():
     group_14_values = build_group_14_values(source_data)
     group_15_values = build_group_15_values(source_data)
     group_16_values = build_group_16_values(source_data)
+    group_17_values = build_group_17_values(source_data)
+    group_18_values = build_group_18_values(source_data)
     set_content = build_set_content(
         group_1_values,
         group_2_values,
@@ -2423,6 +2938,8 @@ def grupo_15():
         group_14_values,
         group_15_values,
         group_16_values,
+        group_17_values,
+        group_18_values,
     )
     started = request.method == "POST"
     return render_template(
@@ -2470,6 +2987,8 @@ def grupo_16():
     group_14_values = build_group_14_values(source_data)
     group_15_values = build_group_15_values(source_data)
     group_16_values = build_group_16_values(source_data)
+    group_17_values = build_group_17_values(source_data)
+    group_18_values = build_group_18_values(source_data)
     set_content = build_set_content(
         group_1_values,
         group_2_values,
@@ -2488,6 +3007,8 @@ def grupo_16():
         group_14_values,
         group_15_values,
         group_16_values,
+        group_17_values,
+        group_18_values,
     )
     started = request.method == "POST"
     return render_template(
@@ -2507,6 +3028,8 @@ def grupo_16():
         group_13_values=group_13_values,
         group_14_values=group_14_values,
         group_15_values=group_15_values,
+        group_17_values=group_17_values,
+        group_18_values=group_18_values,
         fields=GROUP_16_FIELDS,
         field_lookup={field["name"]: field for field in GROUP_16_FIELDS},
         channel_strategies=GROUP_16_CHANNEL_STRATEGIES,
@@ -2515,6 +3038,42 @@ def grupo_16():
         set_content=set_content,
         started=started,
         robot_name=robot_name,
+    )
+
+
+@app.route("/grupo-17", methods=["GET", "POST"])
+def grupo_17():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    all_group_values = build_all_group_values(source_data)
+    set_content = build_set_content_from_groups(all_group_values, robot_name)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_17.html",
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+        values=all_group_values["group_17_values"],
+        all_group_values=all_group_values,
+        fields=GROUP_17_FIELDS,
+    )
+
+
+@app.route("/grupo-18", methods=["GET", "POST"])
+def grupo_18():
+    robot_name = sanitize_robot_name(request.values.get("robot"))
+    source_data = request.form if request.method == "POST" else request.args
+    all_group_values = build_all_group_values(source_data)
+    set_content = build_set_content_from_groups(all_group_values, robot_name)
+    started = request.method == "POST"
+    return render_template(
+        "grupo_18.html",
+        set_content=set_content,
+        started=started,
+        robot_name=robot_name,
+        values=all_group_values["group_18_values"],
+        all_group_values=all_group_values,
+        fields=GROUP_18_FIELDS,
     )
 
 
@@ -2536,8 +3095,10 @@ def grupo_1_download():
     group_14_values = build_group_14_values(request.form)
     group_15_values = build_group_15_values(request.form)
     group_16_values = build_group_16_values(request.form)
+    group_17_values = build_group_17_values(request.form)
+    group_18_values = build_group_18_values(request.form)
     robot_name = sanitize_robot_name(request.form.get("robot"))
-    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values, group_15_values, group_16_values)
+    set_content = build_set_content(group_1_values, group_2_values, group_3_values, group_4_values, group_5_values, group_6_values, group_7_values, robot_name, group_8_values, group_9_values, group_10_values, group_11_values, group_12_values, group_13_values, group_14_values, group_15_values, group_16_values, group_17_values, group_18_values)
     return Response(
         set_content,
         mimetype="text/plain; charset=utf-8",
