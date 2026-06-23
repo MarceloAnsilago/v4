@@ -46,6 +46,14 @@ GROUP_1_FIELDS = [
         ],
         "help": "Corresponde ao enum e_validade do EA.",
     },
+    {
+        "name": "m_set",
+        "label": "Nome do setup",
+        "kind": "text",
+        "input_type": "text",
+        "default": "Setup Padrao",
+        "help": "Nome exibido no painel e gravado no campo m_set do arquivo .set.",
+    },
 ]
 
 GROUP_1_FLOW_FIELDS = [
@@ -959,10 +967,11 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Canal"),
-            ("1", "Cruzamento Vidya/Media movel"),
-            ("2", "Oscilador MACD"),
+            ("0", "Sinal 1"),
+            ("1", "Sinal 2"),
+            ("2", "Sinal 3"),
         ],
+        "help": "Mapeamento real do Unificado.mq5: 0=Sinal 1, 1=Sinal 2, 2=Sinal 3. Nao significa canal puro.",
     },
     {
         "name": "m_venda_in",
@@ -970,10 +979,11 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Canal"),
-            ("1", "Cruzamento Vidya/Media movel"),
-            ("2", "Oscilador MACD"),
+            ("0", "Sinal 1"),
+            ("1", "Sinal 2"),
+            ("2", "Sinal 3"),
         ],
+        "help": "Mapeamento real do Unificado.mq5: 0=Sinal 1, 1=Sinal 2, 2=Sinal 3. Nao significa canal puro.",
     },
     {
         "name": "m_compra_out",
@@ -981,10 +991,11 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Canal"),
-            ("1", "Cruzamento Vidya/Media movel"),
-            ("2", "Oscilador MACD"),
+            ("0", "Sinal 1"),
+            ("1", "Sinal 2"),
+            ("2", "Sinal 3"),
         ],
+        "help": "Mapeamento real do Unificado.mq5: 0=Sinal 1, 1=Sinal 2, 2=Sinal 3. Nao significa canal puro.",
     },
     {
         "name": "m_venda_out",
@@ -992,10 +1003,11 @@ GROUP_16_FIELDS = [
         "kind": "select",
         "default": "0",
         "options": [
-            ("0", "Canal"),
-            ("1", "Cruzamento Vidya/Media movel"),
-            ("2", "Oscilador MACD"),
+            ("0", "Sinal 1"),
+            ("1", "Sinal 2"),
+            ("2", "Sinal 3"),
         ],
+        "help": "Mapeamento real do Unificado.mq5: 0=Sinal 1, 1=Sinal 2, 2=Sinal 3. Nao significa canal puro.",
     },
     {
         "name": "m_inverte_in",
@@ -1552,7 +1564,7 @@ def build_set_content(group_1_values, group_2_values, group_3_values, group_4_va
     return "\n".join(
         [
             "; Grupo 1 - Parametrizacao Inicial",
-            f"m_set={setup_name}",
+            f"m_set={group_1_values['m_set']}",
             f"m_magic={group_1_values['m_magic']}",
             f"m_processo={group_1_values['m_processo']}",
             f"m_mercado={group_1_values['m_mercado']}",
@@ -1764,6 +1776,7 @@ def iniciar():
         url_for(
             "grupo_1",
             robot=robot_name,
+            m_set=group_1_values["m_set"],
             m_magic=group_1_values["m_magic"],
             m_processo=group_1_values["m_processo"],
             m_mercado=group_1_values["m_mercado"],

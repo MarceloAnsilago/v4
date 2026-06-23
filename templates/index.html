@@ -59,7 +59,7 @@
                     <div class="panel-header">
                         <div>
                             <h3>Identificacao do robo</h3>
-                            <p class="panel-subtitle">O `.set` sera definido depois no campo `m_set` do grupo `CONFIRMACAO DE SINAIS`.</p>
+                            <p class="panel-subtitle">Defina aqui o nome do robo `.mq5` e o nome interno `m_set` que sera salvo no arquivo `.set`.</p>
                         </div>
                     </div>
 
@@ -84,6 +84,16 @@
                             </div>
                             <div class="form-row-control">
                                 <input id="m_magic" name="m_magic" type="number" value="{{ values['m_magic'] }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-row-label">
+                                <label for="m_set">Nome do setup</label>
+                                <span class="field-help">Valor salvo em `m_set` e exibido no painel do `Unificado.mq5`.</span>
+                            </div>
+                            <div class="form-row-control">
+                                <input id="m_set" name="m_set" type="text" value="{{ values['m_set'] }}" autocomplete="off">
                             </div>
                         </div>
 
